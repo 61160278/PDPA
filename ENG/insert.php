@@ -32,6 +32,7 @@
         emp_pub_reason, emp_pub_bor_date) 
         VALUES ('$Type_com','$Department','$Name','$Emp_id','$Reason','$Bor_date')");
 
+
         $sql = "SELECT emp_trv_id
 		FROM employee_travel ";
 	$query = $condbmc->query($sql);
