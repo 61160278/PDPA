@@ -78,4 +78,10 @@ function Select_Define_Type($condbmc){
 	}
 }
 
+function Select_Get_Emp($condbmc){
+	$sql_Get_Emp = "SELECT * From traininggroup where t_id != 0"; 
+	$result_Get_Emp = mysqli_query($condbmc, $sql_Get_Emp); //ค่าข้อมูลที่ดึงจาก database
+	echo json_encode($result_Get_Emp);
+}
+
 ?>

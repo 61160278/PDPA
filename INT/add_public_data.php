@@ -42,7 +42,8 @@
                 <?php include "top-bar.php";?>
             </div>
             <div class="row wrapper border-bottom white-bg page-heading">
-                <form id="ow" name="ow" method="POST" action="../ENG/insert_public_data.php">
+                <form id="ow" name="ow" method="POST" onsubmit="return checkform()"
+                    action="../ENG/insert_public_data.php">
                     <input type="hidden" id="button" name="button">
                     <div class="col-lg-12">
                         <br>
@@ -83,7 +84,7 @@
                                             </div>
                                             &nbsp;&nbsp;
                                             <div class="col-sm-1">แผนก</div>
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-6">
                                                 <select class="form-control" name="department">
                                                     <? echo Select_Type_Sectioncode($condbmc);?>
                                                 </select>
@@ -111,22 +112,21 @@
                                             </tr>
                                         </thead>
                                         <tbody id="tableBody">
-                                            <?php
-                                            $sql_borrow = "SELECT * From borrow_detail WHERE borrow_detail_emp_id = ".$_SESSION["tms_id"]."";
-                                            $result_borrow = mysqli_query($condbmc, $sql_borrow);
-                                            $row_borrow = mysqli_fetch_array($result_borrow);
+                                            <!-- <?php
+                                            // $sql_borrow = "SELECT * From borrow_detail WHERE borrow_detail_emp_id = ".$_SESSION["tms_id"]."";
+                                            // $result_borrow = mysqli_query($condbmc, $sql_borrow);
+                                            // $row_borrow = mysqli_fetch_array($result_borrow);
 
                                             // $sql_name = "SELECT * From employee WHERE Emp_ID = ".$row_borrow["borrow_detail_emp_id"]."";
                                             // $result_name = mysqli_query($condbmc, $sql_name);
                                             // $row_name = mysqli_fetch_array($result_name);
-                                        ?>
+                                        ?> -->
                                         </tbody>
+                                        <input type="text" id="count_check" value="" hidden>
                                     </table>
                                 </div>
 
-                                <button class="btn btn-w-m btn-success">
-                                    <i class="fa fa-plus"></i> &nbsp; ADD
-                                </button>
+                                <button class="btn btn-w-m btn-success" onclick="change_group()"><i class="fa fa-plus"></i> &nbsp; ADD </button>
                                 <!-- add -->
                             </div>
                         </div>
@@ -135,7 +135,7 @@
 
                         <div class=" col-md-6">
                             <div class="table-responsive">
-                                <table id="myTbl" class="table table-bordered">
+                                <table class="table table-bordered" id="informationEmployee">
                                     <div class="panel-heading">
                                         <h2 align="center">
                                             <label class="col-sm-12 control-label"></label>
@@ -146,9 +146,6 @@
                                         <tr>
                                             <th style="width:40px">
                                                 <center>ลำดับ
-                                                    <br>
-                                                    <input type="checkbox" id="toggle" value="select"
-                                                        onclick="select_all()">
                                             </th>
                                             <th>
                                                 <center>รหัสพนักงาน
@@ -159,8 +156,14 @@
                                             <th>
                                                 <center>เหตุผล
                                             </th>
+                                            <th>
+                                                <center>ลบ
+                                            </th>
                                         </tr>
                                     </thead>
+                                    <tbody id="myTbl_r">
+
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -171,8 +174,8 @@
                     <div class="text-center">
                         <input type="submit" name="submit" class="btn btn-primary btn-rounded" value="Submit">
                     </div>
+                </form>
             </div>
-            </form>
         </div>
         <br>
         <!-- <?php include "footer.php";?> -->
@@ -238,30 +241,129 @@
             console.log(result);
             document.getElementById("tableBody").innerHTML = result; // result แทรกไปอยู่ในแท็ก tbody
         }).error(function() {
-
+            // document.getElementById("myTbl_r").innerHTML = result;
         })
     });
 
-    $(document).ready(function() {
-        $("#approve").change(function() {
-            var ID = $(this).val();
-            document.getElementById("Approve_id").value = ID;
-        });
+    $("#myTbl_r").on('click', '.delete-row', function() { //delete row
+        $(this).closest('.row-information').remove();
     });
 
-    $(document).ready(function() {
-        $("#acknow").change(function() {
-            var ID = $(this).val();
-            document.getElementById("Acknow_id").value = ID;
-        });
-    });
+    // $(document).ready(function() {
+    //     $("#approve").change(function() {
+    //         var ID = $(this).val();
+    //         document.getElementById("Approve_id").value = ID;
+    //     });
+    // });
 
-    $(document).ready(function() {
-        $("#mgr").change(function() {
-            var ID = $(this).val();
-            document.getElementById("A_id").value = ID;
+    // $(document).ready(function() {
+    //     $("#acknow").change(function() {
+    //         var ID = $(this).val();
+    //         document.getElementById("Acknow_id").value = ID;
+    //     });
+    // });
+
+    // $(document).ready(function() {
+    //     $("#mgr").change(function() {
+    //         var ID = $(this).val();
+    //         document.getElementById("A_id").value = ID;
+    //     });
+    // });
+    </script>
+
+    <script>
+    function select_all() {
+
+        var checkboxes = document.getElementsByName('checkbox');
+        var button = document.getElementById('toggle');
+
+        if (button.value == 'select') {
+            for (var i in checkboxes) {
+                checkboxes[i].checked = 'FALSE';
+            }
+            button.value = 'deselect'
+        } else {
+            for (var i in checkboxes) {
+                checkboxes[i].checked = '';
+            }
+            button.value = 'select';
+        }
+    }
+
+    function checkform() {
+
+        return false;
+    }
+
+    function change_group() {
+        
+
+        let get_emp = [];
+        let get_res = [];
+        let get_name = [];
+        var count_check = document.getElementById("count").value;
+
+        for (i = 0; i < count_check; i++) {
+            if (document.getElementById("checkbox_l" + i).checked) {
+                get_emp.push(document.getElementById("emp_" + i).innerHTML)
+                // console.log(get_emp)
+                get_res.push(document.getElementById("res_" + i).value)
+                // console.log(get_res)
+                get_name.push(document.getElementById("name_" + i).innerHTML)
+            }
+            // if
+        }
+        // for
+
+        
+        let check_empid=[];
+        $('#myTbl_r .row-information').each(function(index){
+            check_empid.push($(this).find('.emp-id').text());
         });
-    });
+        console.log(check_empid); //ตารางขวา
+
+        for(i=0; i<get_emp.length; i++){
+            if(get_emp[i].includes(check_empid)) {
+                //ถ้าเหมือนกันเก็บไว้ แจ้งเตือนให้หยุดตาราง
+            }
+        }
+
+        console.log({get_emp});
+        console.log({get_res});
+        console.log({get_name});
+
+        var tr = '';
+        for(i=0; i<get_emp.length; i++){
+          tr += '<tr class="row-information">';  
+          tr += '<td align="center">' + i+1 + '</td>';
+          tr += '<td align="center" class="emp-id">' + get_emp[i] + '</td>';
+          tr += '<td align="center">' + get_name[i] + '</td>';
+          tr += '<td align="center">' + get_res[i] + '</td>';
+          tr += '<td align="center"><button class="delete-row" type="button"><i class="fa fa-trash"></i></button></td>';
+          tr += '</tr>';
+        }
+        $('#myTbl_r').append(tr);
+
+        
+        
+        // $("#myTbl_r").html(data);
+        // $.ajax({
+        //     type: "POST",
+        //     url: "../Ajex/Ajex_SelectPublic.php",
+        //     data: {
+        //         "get_emp": get_emp,
+        //         "get_res": get_res
+        //     },
+        //     success: function(data) {
+        //         $("#myTbl_r").html(data);
+        //         console.log(data);
+        //     },
+        //     //success 
+        //     error: function(data) {}
+        //     //error
+        // });
+        // //ajax
+    }
     </script>
 
     <script>

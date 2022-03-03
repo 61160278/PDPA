@@ -58,9 +58,6 @@
                                         <center>วันที่ยืม
                                     </th>
                                     <th>
-                                        <center>สถานะ
-                                    </th>
-                                    <th>
                                         <center>เครื่องมือ
                                     </th>
                                 </tr>
