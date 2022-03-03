@@ -3,23 +3,23 @@
 <?php
         session_start();     
         $emp_id=$_SESSION["tms_id"];
-        $Borrow_emp_id=$_POST['borrow_emp_id'];
-        $Type_data=$_POST['type_data'];
-        $Department=$_POST['department'];
-        $data1=$_POST['data1'];
-        $data2=$_POST['data2'];
-        $status=$_POST['borrow_detail_status'];
-        $status=1;
+        $Emp_id=$_POST['emp_id'];
+        $Reason=$_POST['reason'];
+        // $Department=$_POST['department'];
+        // $data1=$_POST['data1'];
+        // $data2=$_POST['data2'];
+        // $status=$_POST['borrow_detail_status'];
+        // $status=1;
         // $data4=$_POST['data4'];
         // $data5=$_POST['data5'];
         // $data6=$_POST['data6'];
-        echo $emp_id;
-        print_r($data1);
-        for($i=1; $i<sizeof($data1); $i++) {
-                echo $data1[$i];
-                echo $data2[$i];
-                echo "<br>";
-        }
+        // echo $emp_id;
+        // print_r($data1);
+        // for($i=1; $i<sizeof($data1); $i++) {
+        //         echo $data1[$i];
+        //         echo $data2[$i];
+        //         echo "<br>";
+        // }
         // $Data_item3=$_POST['data_item3'];
         // $status=$_POST['emp_trv_status'];
         // $status=1;
@@ -34,8 +34,8 @@
         // borrow_detail_head_section_emp_id) 
         // VALUES ('$Type_data','$Department')");
 
-        $insert  = mysqli_query($condbmc,"INSERT INTO borrow_detail (borrow_detail_emp_id, borrow_detail_reason, borrow_detail_status, borrow_detail_type_data, borrow_detail_department) 
-        VALUES ('$emp_id','$data1','$status','$Type_data','$Department')");
+        $insert  = mysqli_query($condbmc,"INSERT INTO data_employee_pdpa (data_employee_emp_id, data_employee_reason) 
+        VALUES ('$Emp_id','$Reason')");
 
 
         // $sql = "SELECT borrow_detail_id
@@ -45,11 +45,11 @@
         //         $borrow_detail_emp_id = $row["borrow_detail_id"];
         // }
         
-        for($i=0; $i<sizeof($data1); $i++) {
-                echo $i;
-                $insert  = mysqli_query($condbmc,"INSERT INTO borrow_detail (borrow_detail_reason, borrow_detail_emp_id) 
-                VALUES ('$data1[$i]','$Borrow_emp_id')");
-        }
+        // for($i=0; $i<sizeof($data1); $i++) {
+        //         echo $i;
+        //         $insert  = mysqli_query($condbmc,"INSERT INTO borrow_detail (borrow_detail_reason, borrow_detail_emp_id) 
+        //         VALUES ('$data1[$i]','$Borrow_emp_id')");
+        // }
         
         if (mysqli_affected_rows($condbmc)>0){
                 echo '<meta http-equiv=refresh content=0;URL=../INT/public_data.php>';
