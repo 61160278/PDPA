@@ -7,6 +7,19 @@ function Select_Type_Company($condbmc){
 	}
 }
 
+
+function get_name_emp_by_IDemp_sdm(){	
+	include "../ENG/dbconnect.php";
+	$sql = "SELECT *
+			FROM employee
+			WHERE employee.Emp_ID = ".$_POST["Emp_id"]."";
+			$result_emp_id = $condbmc->query($sql);
+			print_r($result_emp_id);
+echo json_encode($result_emp_id);
+}
+
+
+
 function Select_Type_Borrow($condbmc){
 	$sql_Type_Borrow = "SELECT * From type_borrow where typ_id != 0";
 	$result_Type_Borrow = mysqli_query($condbmc, $sql_Type_Borrow);

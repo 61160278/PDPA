@@ -70,7 +70,7 @@
                             </thead>
                             <tbody>
                                 <?php
-                                    $sql_name = "SELECT * From employee_travel WHERE emp_trv_emp_id = ".$_SESSION["tms_id"]."";
+                                    $sql_name = "SELECT * From employee_travel ";
                                     $result_name = mysqli_query($condbmc, $sql_name);
                                     while($row_name = mysqli_fetch_array($result_name)){
                                         if($row_name["emp_trv_status"] == 1){
@@ -110,23 +110,21 @@
                                         <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal"
                                             data-target="#modal_simple<?php echo $row_name["emp_trv_id"]?>"><i
                                                 class="fa fa-times"></i></button>
-                                        <button class="btn btn-success"><i class="fa fa-upload"> PDF</i></button>
-                                        <?php } else if($row_name["emp_trv_status"] == 3){ ?>
+                                       
                                         <a href="edit_inter_preview.php?id=<?php echo $row_name["emp_trv_id"] ?>">
                                             <button class="btn btn-warning btn-rounded"><i
                                                     class="fa fa-pencil-square-o"></i></button></a>
                                         <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal"
                                             data-target="#modal_simple<?php echo $row_name["emp_trv_id"]?>"><i
                                                 class="fa fa-times"></i></button>
-                                        <button class="btn btn-success"><i class="fa fa-upload"> PDF</i></button>
-                                        <?php } else if($row_name["emp_trv_status"] == 5){ ?>
+                                        
                                         <a href="edit_inter_preview.php?id=<?php echo $row_name["emp_trv_id"] ?>">
                                             <button class="btn btn-warning btn-rounded"><i
                                                     class="fa fa-pencil-square-o"></i></button></a>
                                         <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal"
                                             data-target="#modal_simple<?php echo $row_name["emp_trv_id"]?>"><i
                                                 class="fa fa-times"></i></button>
-                                        <button class="btn btn-success"><i class="fa fa-upload"> PDF</i></button>
+                                        
                                         <?php } ?>
 
                                         <?php if($row_name["emp_trv_status"] == 1){ ?>
@@ -136,7 +134,7 @@
                                         <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal"
                                             data-target="#modal_simple<?php echo $row_name["emp_trv_id"]?>"><i
                                                 class="fa fa-times"></i></button>
-                                        <button class="btn btn-success"><i class="fa fa-upload"> PDF</i></button>
+                                        
 
                                         <form id="ow" name="ow" method="POST"
                                             action="../ENG/update.php?id=<?php echo $row_name["emp_trv_id"]?>">

@@ -95,6 +95,14 @@ include "../Function/function_select.php";
 					</span>
 				</a>
             </li>
+            
+            <li>
+                <a href="admin.php"><i class="fa fa-edit"></i> 
+					<span class="nav-label">Admin
+					    <h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Approve</h6>
+					</span>
+				</a>
+            </li>
             <?php
 				if($_SESSION['role_tms'] == 9){
 					echo '<li>';
