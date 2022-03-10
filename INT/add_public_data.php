@@ -79,6 +79,7 @@
                                             <div class="col-sm-1 ">บริษัท</div>
                                             <div class="col-sm-3">
                                                 <select class="form-control" name="type_data">
+                                                    <option value="0">==select==</option>
                                                     <? echo Select_Type_Company($condbmc);?>
                                                 </select>
                                             </div>
@@ -335,7 +336,7 @@
         var tr = '';
         for(i=0; i<get_emp.length; i++){
           tr += '<tr class="row-information">';  
-          tr += '<td align="center">' + i+1 + '</td>';
+          tr += '<td align="center">' + (i+1) + '</td>';
           tr += '<td align="center" class="emp-id">' + get_emp[i] + '</td>';
           tr += '<td align="center">' + get_name[i] + '</td>';
           tr += '<td align="center">' + get_res[i] + '</td>';

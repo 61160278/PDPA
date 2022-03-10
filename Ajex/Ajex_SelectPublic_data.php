@@ -1,8 +1,14 @@
 <?
 include "../ENG/dbconnect.php";
 // $sql_employee = "SELECT * FROM employee WHERE Province_ID = '".$_POST["ID"]."'";
-$sql_employee = "SELECT * FROM employee WHERE Company_ID = '".$_GET["Company_ID"]."' AND Sectioncode_ID = '".$_GET["Sectioncode_ID"]."'";
-$query_employee = $condbmc->query($sql_employee);
+if($_GET["Company_ID"] != '' && $_GET["Sectioncode_ID"] != '1111'){
+    $sql_employee = "SELECT * FROM employee WHERE Company_ID = '".$_GET["Company_ID"]."' AND Sectioncode_ID = '".$_GET["Sectioncode_ID"]."'";
+    $query_employee = $condbmc->query($sql_employee);
+} else{
+    $sql_employee = "SELECT * FROM employee WHERE Company_ID = '".$_GET["Company_ID"]."'";
+    $query_employee = $condbmc->query($sql_employee);
+}
+
 // while(){}
 // var_dump($query_employee->fetch_assoc()); //แสดงค่าแล้วหยุดการทำงานบรรทัดนั้น ดีบัก
 // print_r($query_employee->fetch_assoc()); //แสดงค่าที่ต้องการเลย
