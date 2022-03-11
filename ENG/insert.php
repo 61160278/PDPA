@@ -14,6 +14,7 @@
         $data4=$_POST['data_re'];
         $data5=$_POST['data1'];
         $data6=$_POST['data'];
+        $status=1;
         
         echo $emp_id;
         print_r($data2);
@@ -23,11 +24,11 @@
                 echo $data4[$i];
                 echo $data5[$i];
                 echo $data6[$i];
-               
+                echo $datastatus[$i];
                 echo "<br>";
         }
         $Data_item3=$_POST['data_item3'];
-        $status=$_POST['emp_trv_status'];
+        $status=$_POST['status'];
         $status=1;
         $Check=$_POST['A_id'];
         $Acknowledge=$_POST['Acknow_id'];
@@ -55,9 +56,8 @@
         
         for($i=0; $i<sizeof($data2); $i++) {
                 echo $i;
-                $insert  = mysqli_query($condbmc,"INSERT INTO borrow (emp_no,reason,date_borrow,date_return
-                ) 
-                VALUES ('$data2[$i]','$data4[$i]','$data5[$i]','$data6[$i]')");
+                $insert  = mysqli_query($condbmc,"INSERT INTO borrow (emp_no,reason,date_borrow,date_return,status) 
+                VALUES ('$data2[$i]','$data4[$i]','$data5[$i]','$data6[$i]','$status')");
         }
         
         if (mysqli_affected_rows($condbmc)>0){

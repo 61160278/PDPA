@@ -123,7 +123,7 @@
                                                 <!-- <textarea type="text" placeholder="" class="form-control"
                                                     name="data_no[]" rows="2" required></textarea> -->
                                             </td>
-                                            <td> <input  type="text" class="form-control" id="Showname_modol"
+                                            <td> <input  type="text" class="form-control" id="Showname_modol"  
                                                     placeholder="Name Surname">
 
                                             
