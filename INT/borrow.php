@@ -70,76 +70,58 @@
                             </thead>
                             <tbody>
                                 <?php
-                                    $sql_name = "SELECT * From employee_travel ";
+                                    $sql_name = "SELECT * From borrow
+                                    Order by date_borrow DESC ";
                                     $result_name = mysqli_query($condbmc, $sql_name);
                                     while($row_name = mysqli_fetch_array($result_name)){
-                                        if($row_name["emp_trv_status"] == 1){
+                                        if($row_name["status"] == 1){
                                             $status = "Waiting Approver 1";
-                                        }else if($row_name["emp_trv_status"] == 2){
+                                        }else if($row_name["status"] == 2){
                                             $status = "Waiting Approver 2";
-                                        }else if($row_name["emp_trv_status"] == 3){
+                                        }else if($row_name["status"] == 3){
                                             $status = "Waiting Final Approver";
-                                        }else if($row_name["emp_trv_status"] == 4){
+                                        }else if($row_name["status"] == 4){
                                             $status = "Approved";
-                                        }else if($row_name["emp_trv_status"] == 5){
+                                        }else if($row_name["status"] == 5){
                                             $status = "Reject";
-                                        }else if($row_name["emp_trv_status"] == 6){
+                                        }else if($row_name["status"] == 6){
                                             $status = "Cancel";
                                         }
                                 ?>
                                 <?php
-									$sql_emp = "SELECT * From employee";
+
+
+									$sql_emp = "SELECT * FROM borrow
+                                    INNER JOIN employee ON borrow.emp_no = employee.Emp_ID
+                                    where borrow.emp_no = '".$row_name["emp_no"]."'";
 									$result_emp = mysqli_query($condbmc, $sql_emp);
-									while($row_emp = mysqli_fetch_array($result_emp)){
-								?>
+									$row_emp = mysqli_fetch_array($result_emp)
+                                        ?>
+								
 
                                 <tr align="center">
                                     <td align="left"><?php echo $row_emp["Empname_eng"]." ".$row_emp["Empsurname_eng"]?></td>
-                                    <td><?php echo date("d-M-y", strtotime($row_name["emp_trv_date_go_flight"]));?></td>
-                                    <td><?php echo date("d-M-y", strtotime($row_name["emp_trv_date_return_flight"]));?>
+                                    <td><?php echo date("d-M-y", strtotime($row_name["date_borrow"]));?></td>
+                                    <td><?php echo date("d-M-y", strtotime($row_name["date_return"]));?>
                                     </td>
                                     <td><?php echo $status?></td>
                                     <td>
-                                        <a href="add_inter_preview.php?id=<?php echo $row_name["emp_trv_id"] ?>">
+                                        <a href="add_borrow_preview.php?id=<?php echo $row_name["emp_no"] ?>">
                                             <button class="btn btn-primary btn-rounded" type="button">
                                                 <i class="fa fa-search"></i></button></a>
-                                        <?php if($row_name["emp_trv_status"] == 2){ ?>
-                                        <a href="edit_inter_preview.php?id=<?php echo $row_name["emp_trv_id"] ?>">
-                                            <button class="btn btn-warning btn-rounded"><i
-                                                    class="fa fa-pencil-square-o"></i></button></a>
-                                        <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal"
-                                            data-target="#modal_simple<?php echo $row_name["emp_trv_id"]?>"><i
-                                                class="fa fa-times"></i></button>
                                        
-                                        <a href="edit_inter_preview.php?id=<?php echo $row_name["emp_trv_id"] ?>">
-                                            <button class="btn btn-warning btn-rounded"><i
-                                                    class="fa fa-pencil-square-o"></i></button></a>
-                                        <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal"
-                                            data-target="#modal_simple<?php echo $row_name["emp_trv_id"]?>"><i
-                                                class="fa fa-times"></i></button>
-                                        
-                                        <a href="edit_inter_preview.php?id=<?php echo $row_name["emp_trv_id"] ?>">
-                                            <button class="btn btn-warning btn-rounded"><i
-                                                    class="fa fa-pencil-square-o"></i></button></a>
-                                        <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal"
-                                            data-target="#modal_simple<?php echo $row_name["emp_trv_id"]?>"><i
-                                                class="fa fa-times"></i></button>
-                                        
-                                        <?php } ?>
 
-                                        <?php if($row_name["emp_trv_status"] == 1){ ?>
-                                        <a href="edit_inter_preview.php?id=<?php echo $row_name["emp_trv_id"] ?>">
-                                            <button class="btn btn-warning btn-rounded"><i
-                                                    class="fa fa-pencil-square-o"></i></button></a>
+                                        <?php if($row_name["status"] == 1){ ?>
+                                        
                                         <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal"
-                                            data-target="#modal_simple<?php echo $row_name["emp_trv_id"]?>"><i
+                                            data-target="#modal_simple<?php echo $row_name["emp_no"]?>"><i
                                                 class="fa fa-times"></i></button>
                                         
 
                                         <form id="ow" name="ow" method="POST"
-                                            action="../ENG/update.php?id=<?php echo $row_name["emp_trv_id"]?>">
+                                            action="../ENG/update.php?id=<?php echo $row_name["emp_no"]?>">
                                             <input type="hidden" id="button" name="button">
-                                            <div id="modal_simple<?php echo $row_name["emp_trv_id"]?>"
+                                            <div id="modal_simple<?php echo $row_name["emp_no"]?>"
                                                 class="modal fade" tabindex="-1" role="dialog">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content">
@@ -168,7 +150,7 @@
                                     </td>
                                 </tr>
                                 <?php } ?>
-                            <?php } ?>
+                           
                             </tbody>
                         </table>
                     </div>
