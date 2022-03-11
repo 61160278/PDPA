@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="icon" href="../IMG/ico.ico" type="image/x-icon" />
 
-    <title>TRAVELLING | DENSO</title>
+    <title>PDPA | DENSO</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -34,25 +34,8 @@
 <body>
     <div id="wrapper">
         <?php include "menu.php";?>
-        <?php 
-            $sql_home = "SELECT * From employee_travel WHERE emp_trv_id = ".$_GET["id"]."";
-            $result_home = mysqli_query($condbmc, $sql_home);
-			$row_home = mysqli_fetch_array($result_home);
-        ?>
-        <?php 
-            $row=0;
-            $sql_homeTable = "SELECT * From schedule_table WHERE scd_trv_id = ".$_GET["id"]."";
-            $result_homeTable = mysqli_query($condbmc, $sql_homeTable);
-			while($row_homeTable = mysqli_fetch_array($result_homeTable)){
-                $array[$row]=$row_homeTable['scd_date'];
-                $array2[$row]=$row_homeTable['scd_calender'];
-                $array3[$row]=$row_homeTable['scd_place'];
-                $array4[$row]=$row_homeTable['scd_description'];
-                $array5[$row]=$row_homeTable['scd_define'];
-                $array6[$row]=$row_homeTable['scd_remarks'];
-                $row++;
-            }
-        ?>
+       
+        
          <?php 
             $row=0;
             $sql_Table = "SELECT * From borrow";
@@ -120,14 +103,20 @@
                                     </thead>
 
                                     <tbody>
+                                    <?php
+                                    $sql_name = "SELECT * From borrow ";
+                                    $result_name = mysqli_query($condbmc, $sql_name);
+                                    while($row_name = mysqli_fetch_array($result_name)){
+                                        
+                                ?>
+                                            <?php
+                                            $sql_emp = "SELECT * FROM borrow
+                                            INNER JOIN employee ON borrow.emp_no = employee.Emp_ID
+                                            where borrow.emp_no = '".$row_name["emp_no"]."'";
+                                            $result_emp = mysqli_query($condbmc, $sql_emp);
+                                            $row_emp = mysqli_fetch_array($result_emp)
+                                            ?>
 
-
-                                        <?php
-                                        $sql_emp = "SELECT * FROM borrow
-                                        INNER JOIN employee ON borrow.emp_no = employee.Emp_ID" ;
-                                        $result_emp = mysqli_query($condbmc, $sql_emp);
-                                        $row_emp = mysqli_fetch_array($result_emp)
-                                        ?>
                                             <?php
                                             $sql_reason = "SELECT reason FROM borrow" ;
                                             $result_reason = mysqli_query($condbmc, $sql_reason);
@@ -136,20 +125,12 @@
 
 
                                         <tr id="firstTr">
-                                            <td align="left">
-                                                <?php echo $row_emp["Empname_eng"]." ".$row_emp["Empsurname_eng"]?></td>
+                                            <td align="left"><?php echo $row_emp["Empname_eng"]." ".$row_emp["Empsurname_eng"]?></td>
                                             <td><?php echo date("d-M-y", strtotime("date_borrow"));?></td>
                                             <td><?php echo date("d-M-y", strtotime("date_return"));?>
-                                            <td>
-                                                <div class="input-group">
-                                                
-                                                <input type="text" class="form-control" style="width:150px"
-                                                        name="data_re[]" value="<?php echo $row_reason ?>" readonly>
-                                            
-                                            </div>
-                                            </td>
+                                            <td><?php echo $row_reason ?></td>
                                         </tr>
-
+<?php } ?>
                                     </tbody>
                                 </table>
                             </div>
