@@ -95,7 +95,6 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                            </div>
                                         </div>
                                         <br>
 
@@ -332,25 +331,6 @@
         }
         $('#tableBody').append(tr);
 
-
-
-        // $("#myTbl_r").html(data);
-        // $.ajax({
-        //     type: "POST",
-        //     url: "../Ajex/Ajex_SelectPublic.php",
-        //     data: {
-        //         "get_emp": get_emp,
-        //         "get_res": get_res
-        //     },
-        //     success: function(data) {
-        //         $("#myTbl_r").html(data);
-        //         console.log(data);
-        //     },
-        //     //success 
-        //     error: function(data) {}
-        //     //error
-        // });
-        // //ajax
     }
     </script>
 
