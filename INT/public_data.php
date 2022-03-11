@@ -58,42 +58,45 @@
                                         <center>วันที่ยืม
                                     </th>
                                     <th>
+                                        <center>สถานะ
+                                    </th>
+                                    <th>
                                         <center>เครื่องมือ
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                    $sql_name = "SELECT * From borrow_detail WHERE borrow_detail_emp_id = ".$_SESSION["tms_id"]."";
+                                    $sql_name = "SELECT * From data_public_pdpa WHERE data_public_requester_emp_id = ".$_SESSION["tms_id"]."";
                                     $result_name = mysqli_query($condbmc, $sql_name);
                                     while($row_name = mysqli_fetch_array($result_name)){
-                                        if($row_name["borrow_detail_status"] == 1){
+                                        if($row_name["data_public_status"] == 1){
                                             $status = "Waiting Approver 1";
-                                        }else if($row_name["borrow_detail_status"] == 2){
+                                        }else if($row_name["data_public_status"] == 2){
                                             $status = "Waiting Approver 2";
-                                        }else if($row_name["borrow_detail_status"] == 3){
+                                        }else if($row_name["data_public_status"] == 3){
                                             $status = "Waiting Final Approver";
-                                        }else if($row_name["borrow_detail_status"] == 4){
+                                        }else if($row_name["data_public_status"] == 4){
                                             $status = "Approved";
-                                        }else if($row_name["borrow_detail_status"] == 5){
+                                        }else if($row_name["data_public_status"] == 5){
                                             $status = "Reject";
-                                        }else if($row_name["borrow_detail_status"] == 6){
+                                        }else if($row_name["data_public_status"] == 6){
                                             $status = "Cancel";
                                         }
                                 ?>
                                 <?php
-									$sql_emp = "SELECT * From employee";
-									$result_emp = mysqli_query($condbmc, $sql_emp);
-									while($row_emp = mysqli_fetch_array($result_emp)){
-								?>
+                                        $sql_public = "SELECT * From employee WHERE Emp_ID = ".$row_name["data_public_requester_emp_id"]."";
+                                        $result_public = mysqli_query($condbmc, $sql_public);
+                                        $row_public = mysqli_fetch_array($result_public);
+                                ?>
 
                                 <tr align="center">
-                                    <td align="left"><?php echo $row_name["borrow_detail_emp_id"]?></td>
-                                    <td><?php echo date("d-M-y", strtotime($row_name["borrow_detail_borrow"]));?></td>
+                                    <td align="left"><?php echo $row_public["Empname_eng"]." ".$row_public["Empsurname_eng"]?></td>
+                                    <td><?php echo date("d-M-y", strtotime($row_name["data_public_date"]));?></td>
                                     </td>
                                     <td><?php echo $status?></td>
                                     <td>
-                                        <a href="add_inter_preview.php?id=<?php echo $row_name["emp_trv_id"] ?>">
+                                        <a href="add_public_data_preview.php?id=<?php echo $row_name["data_public_id"] ?>">
                                             <button class="btn btn-primary btn-rounded" type="button">
                                                 <i class="fa fa-search"></i></button></a>
                                         <?php if($row_name["emp_trv_status"] == 2){ ?>
@@ -163,7 +166,6 @@
                                     </td>
                                 </tr>
                                 <?php } ?>
-                            <?php } ?>
                             </tbody>
                         </table>
                     </div>

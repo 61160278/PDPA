@@ -36,6 +36,18 @@ function Select_Type_Sectioncode($condbmc){
 	}
 }
 
+function Select_Get_Department($condbmc, $temp){
+	$sql_Get_Department = "SELECT * 
+							FROM dbmc.master_mapping AS map
+							WHERE Department != '' AND Company_id = '".$temp."'
+							GROUP BY Department_id
+							ORDER BY Department_id";
+	$result_Get_Department = mysqli_query($condbmc, $sql_Get_Department);
+	while($row_Get_Department = mysqli_fetch_array($result_Get_Department)){
+		echo '<option value="'.$row_Get_Department["Department_id"].'">'.$row_Get_Department["Department"].'</option>';
+	}
+}
+
 function Select_Approve($condbmc){
 		$sql_Approve = "SELECT * From employee";
 		$result_Approve = mysqli_query($condbmc, $sql_Approve);

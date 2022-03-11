@@ -36,13 +36,28 @@
 
     <div id="wrapper">
         <?php include "menu.php";?>
+        <?php 
+            $sql_home = "SELECT * From data_public_pdpa WHERE data_public_id = ".$_GET["id"]."";
+            $result_home = mysqli_query($condbmc, $sql_home);
+			$row_home = mysqli_fetch_array($result_home);
+        ?>
+        <?php 
+            $row=0;
+            $sql_homeTable = "SELECT * From data_employee_pdpa WHERE data_employee_data_id = ".$_GET["id"]."";
+            $result_homeTable = mysqli_query($condbmc, $sql_homeTable);
+			while($row_homeTable = mysqli_fetch_array($result_homeTable)){
+                $array[$row]=$row_homeTable['data_employee_emp_id'];
+                $array2[$row]=$row_homeTable['data_employee_reason'];
+                $row++;
+            }
+        ?>
 
         <div id="page-wrapper" class="gray-bg">
             <div class="row border-bottom">
                 <?php include "top-bar.php";?>
             </div>
             <div class="row wrapper border-bottom white-bg page-heading">
-                <form id="ow" name="ow" method="POST" onsubmit="return checkform()" action="../ENG/insert_public_data.php">
+                <form id="ow" name="ow" method="POST" onsubmit="return checkform()" action="../ENG/insert_public_data.php?id=<?php echo $_GET["id"]?>">
                     <input type="hidden" id="button" name="button">
                     <div class="col-lg-12">
                         <br>
@@ -80,7 +95,7 @@
                                                     <div class="col-sm-1">บริษัท</div>
                                                     <div class="col-sm-8">
                                                         <select class="form-control" name="type_data"
-                                                            onchange="select_all()" id="type_data">
+                                                            onchange="select_all()" id="type_data" >
                                                             <option value="0">== SELECT ==</option>
                                                             <option value="person">รายบุคคล </option>
                                                             <? echo Select_Type_Company($condbmc);?>
@@ -91,7 +106,14 @@
                                                     <div class="col-sm-1">แผนก</div>
                                                     <div class="col-sm-8">
                                                         <select class="form-control" name="department">
-                                                            <? echo Select_Get_Department($condbmc, "SDM");?>
+                                                            <!-- <? //echo Select_Type_Sectioncode($condbmc);?> -->
+                                                            <?php
+										                        $sql_Travel_Type = "SELECT * From sectioncode";
+                                                                $result_Travel_Type = mysqli_query($condbmc, $sql_Travel_Type);
+                                                                while($row_Travel_Type = mysqli_fetch_array($result_Travel_Type)){
+									                        ?>
+                                                            <option value ="<?echo $row_Travel_Type["Sectioncode"];?>"<?php if($row_Travel_Type["Sectioncode"]==$row_home["data_public_requester_emp_id"]){echo "selected=selected";}?>><? echo $row_Travel_Type["Department"]; ?></option>
+                                                            <?php } ?>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -197,24 +219,26 @@
     <!-- TouchSpin -->
     <script src="js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
 
-    <!-- <?php //$temp = "<script>document.writeln(company);</script>";?> -->
-
     <script>
-    var company = 0;
-
     $('select').on('change', function() {
         let Company_ID = $('select[name=type_data] option').filter(':selected').val();
         let Sectioncode_ID = $('select[name=department] option').filter(':selected').val();
         console.log(Company_ID, Sectioncode_ID);
-        // if(Company_ID == 1){
-        //     company = "SDM";
-        // } else if (Company_ID == 2){
-        //     company = "SKD";
-        // }
         let data = {
             Company_ID: Company_ID, //หน้าชื่อ หลังค่า
             Sectioncode_ID: Sectioncode_ID
         };
+
+        // $.ajax({
+        //     url: "../Ajex/Ajex_SelectPublic_data.php",
+        //     type: 'GET',
+        //     data: data
+        // }).success(function(result) {
+        //     console.log(result);
+        //     document.getElementById("tableBody").innerHTML = result; // result แทรกไปอยู่ในแท็ก tbody
+        // }).error(function() {
+        //     // document.getElementById("myTbl_r").innerHTML = result;
+        // })
     });
 
     $("#myTbl_r").on('click', '.delete-row', function() { //delete row
@@ -236,13 +260,13 @@
             tr += '<td>'
             tr += '<div class="input-group">'
             tr +=
-                '<input type="text" class="form-control" style="width:160px" id="Emp_id_modol' + (row +1) + '" name="data_no[]" placeholder="JS000xxx" onkeyup="get_Emp(' + (row +1) + ')" required>'
+                '<input type="text" class="form-control" style="width:160px" id="Emp_id_modol" name="data_no[]" placeholder="JS000xxx" onkeyup="get_Emp()" required>'
             tr += '</div>'
             tr += '</td>'
             tr += '<td>'
             tr += '<div class="input-group">'
             tr +=
-                '<input type="text" class="form-control" style="width:160px" id="Showname_modol' + (row +1) + '" name="emp_ID[]" disabled>'
+                '<input type="text" class="form-control" style="width:160px" id="Showname_modol" name="emp_ID[]" disabled>'
             tr += '</div>'
             tr += '</td>'
             tr +=
@@ -355,8 +379,8 @@
     </script>
 
     <script>
-    function get_Emp(index) {
-        Emp_id = document.getElementById("Emp_id_modol"+index).value;
+    function get_Emp() {
+        Emp_id = document.getElementById("Emp_id_modol").value;
         var empname = "";
         //console.log (Emp_id)
 
@@ -373,12 +397,12 @@
 
                 if (data == "null") {
 
-                    document.getElementById("Showname_modol"+index).value = "ไม่มีข้อมูล";
+                    document.getElementById("Showname_modol").value = "ไม่มีข้อมูล";
 
                 } else {
 
                     empname = data.substring(1, data.length - 1);
-                    document.getElementById("Showname_modol"+index).value = empname;
+                    document.getElementById("Showname_modol").value = empname;
 
                     //console.log(999)
                     //console.log(empname)
@@ -401,13 +425,13 @@
             tr += '<td>'
             tr += '<div class="input-group">'
             tr +=
-                '<input type="text" class="form-control" style="width:160px" id="Emp_id_modol' + (row +1) + '" name="data_no[]" placeholder="JS000xxx" onkeyup="get_Emp(' + (row +1) + ')" required>'
+                '<input type="text" class="form-control" style="width:160px" id="Emp_id_modol" name="data_no[]" placeholder="JS000xxx" onkeyup="get_Emp()" required>'
             tr += '</div>'
             tr += '</td>'
             tr += '<td>'
             tr += '<div class="input-group">'
             tr +=
-                '<input type="text" class="form-control" style="width:160px" id="Showname_modol' + (row +1) + '" name="emp_ID[]" disabled>'
+                '<input type="text" class="form-control" style="width:160px" id="Showname_modol" name="emp_ID[]" disabled>'
             tr += '</div>'
             tr += '</td>'
             tr +=
