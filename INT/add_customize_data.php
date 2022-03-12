@@ -33,115 +33,99 @@
 </head>
 
 <body>
+    <?php
+        $arr_language = array(
+            "ไทย","อังกฤษ","จีน","ญี่ปุ่น","เกาหลี"
+        );
 
-    <div id="wrapper">
-        <?php include "menu.php";?>
+        $default_value = '';
+        $initial_value = NULL;
+    ?>
+        <div id="wrapper">
+            <?php include "menu.php";?>
 
-        <div id="page-wrapper" class="gray-bg">
-            <div class="row border-bottom">
-                <?php include "top-bar.php";?>
-            </div>
-            <div class="row wrapper border-bottom white-bg page-heading">
-                <form id="ow" name="ow" method="POST" action="../ENG/insert.php">
-                    <input type="hidden" id="button" name="button">
-                    <div class="col-lg-12">
-                        <br>
-                        <ol class="breadcrumb">
-                            <li>
-                                <a href="home.php">Home</a>
-                            </li>
-                            <li class="active">
-                                <strong>PDPA</strong>
-                            </li>
-                        </ol>
-                        <h2>
-                            <b><u>
-                                    <center>Customize Data</center>
-                                </u></b>
-                        </h2>
-                    </div>
-
-                    <div class="col-lg-12">
-                        <h2>&nbsp;&nbsp;&nbsp;</h2>
-                    </div>
-                    <br>
-
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th style="width:300px">
-                                                <center>ชื่อ-นามสกุล
-                                            </th>
-                                            <th style="width:300px">
-                                                <center>รหัสพนักงาน
-                                            </th>
-                                            <th>
-                                                <center>เหตุผล
-                                            </th>
-                                            <th style="width:80px">
-                                                <center>วันที่ยืม
-                                            </th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        <tr align="center">
-                                            <td align="left"><?php echo $row_emp["Empname_eng"]." ".$row_emp["Empsurname_eng"]?></td>
-                                            <td><?php echo $row_emp["Emp_ID"]?></td>
-                                            <td><textarea type="text" placeholder="" class="form-control" name="data4[]" rows="4" required></textarea></td>
-                                            <td><input type="date" class="form-control" style="width:160px" name="data2[]" required></td>
-                                            <!-- <td>
-                                                <select class="select2_demo_1 form-control" name="acknow" id="acknow"
-                                                    style="width:100%;" tabindex="2" checked required>
-                                                    <?
-                                                        $sql_Approve = "SELECT * From employee";
-                                                        $result_Approve = mysqli_query($condbmc, $sql_Approve);
-                                                        while($row_Approve = mysqli_fetch_array($result_Approve)){
-                                                            echo '<option value="'.$row_Approve["Emp_ID"].'">'.$row_Approve["Empname_eng"]." ".$row_Approve["Empsurname_eng"].'</option>';
-                                                        }
-                                                    ?>
-                                                </select>
-                                            </td> -->
-
-                                            <!-- <td>
-                                                <select class="select2_demo_1 form-control" name="approve" id="approve"
-                                                    style="width:100%;" tabindex="2" checked required>
-                                                    <?
-                                                        $sql_Approve = "SELECT * From employee";
-                                                        $result_Approve = mysqli_query($condbmc, $sql_Approve);
-                                                        while($row_Approve = mysqli_fetch_array($result_Approve)){
-                                                            echo '<option value="'.$row_Approve["Emp_ID"].'">'.$row_Approve["Empname_eng"]." ".$row_Approve["Empsurname_eng"].'</option>';
-                                                        }
-                                                    ?>
-                                                </select>
-                                            </td> -->
-                                    </tbody>
-                                </table>
-                            </div>
+            <div id="page-wrapper" class="gray-bg">
+                <div class="row border-bottom">
+                    <?php include "top-bar.php";?>
+                </div>
+                <div class="row wrapper border-bottom white-bg page-heading">
+                    <form id="ow" name="ow" method="POST" action="../ENG/insert.php">
+                        <input type="hidden" id="button" name="button">
+                        <div class="col-lg-12">
+                            <br>
+                            <ol class="breadcrumb">
+                                <li>
+                                    <a href="home.php">Home</a>
+                                </li>
+                                <li class="active">
+                                    <strong>PDPA</strong>
+                                </li>
+                            </ol>
+                            <h2>
+                                <b><u>
+                                        <center>Customize Data</center>
+                                    </u></b>
+                            </h2>
                         </div>
-                    </div>
-                    <!-- Table  -->
+                       
+                        <div class="col-lg-12">
+                            <h2>&nbsp;&nbsp;&nbsp;</h2>
+                        </div>
+                        
+                        <div class="ibox-content"></div>
+                        <div class="form-group row">
+                        <h3>  
+                                        <left>&nbsp; เลือกภาษา</left>
+                            </h3>
+                            
+                            <div class="col">
+                                <div class="btn-group-toggle" data-toggle="buttons">
+                                    <?php 
+                                        if(isset($arr_language)){ // BEGIN CHECK
+                                            foreach($arr_language as $key_language=>$value_language){ // BEGIN LOOP
+                                                    $active_state = (isset($default_value) && $default_value==$value_language)?" btn-info active":"btn-light";
+                                                    $check_state = (isset($default_value) && $default_value==$value_language)?" checked":"";
+                                                    if(isset($default_value) && $default_value==$value_language && is_null($initial_value)){
+                                                        $initial_value = true;  
+                                                    }
+                                    ?>
+                                    <div class="col-sm-3">
+                                    <label
+                                        class="btn-language <?=$active_state?>">
+                                        <input type="checkbox" name="language[]" id="language_<?=$key_language?>"
+                                            autocomplete="off" value="<?=$value_language?>" <?=$check_state?>>
+                                        <?=$value_language?>
+                                    </label>
+                                    </div>
+                                                                <?php
+                                            } // END LOOP
+                                        } // END CHECK
+                                        ?>
+                                </div>
+                            </div>
+                            <!-- Table  -->
 
-                    <br>
-                    <div class="col-lg-1">
-                        <input type="hidden" id="A_id" name="A_id">
-                        <input type="hidden" id="Acknow_id" name="Acknow_id">
-                        <input type="hidden" id="Approve_id" name="Approve_id">
-                    </div>
-                    <!-- Table Apover -->
-                    <div class="text-center">
-                        <input type="submit" name="submit" class="btn btn-primary btn-rounded" value="Submit">
-                    </div>
+                            <br>
+                            <div class="col-lg-1">
+                                <input type="hidden" id="A_id" name="A_id">
+                                <input type="hidden" id="Acknow_id" name="Acknow_id">
+                                <input type="hidden" id="Approve_id" name="Approve_id">
+                            </div>
+                            <!-- Table Apover -->
+                            <br> <br> <br>
+                            <div class="text-center">
+                                <input type="submit" name="submit" class="btn btn-primary btn-rounded" value="Submit">
+                            </div>
+                        
+                        
+                        </div>
+                        
+                    </form>
+                </div>
+                <br>
+                <?php include "footer.php";?>
             </div>
-            </form>
         </div>
-        <br>
-        <?php include "footer.php";?>
-    </div>
-    </div>
 
 
     <!-- Mainly scripts -->

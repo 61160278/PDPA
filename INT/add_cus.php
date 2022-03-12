@@ -56,74 +56,84 @@
                         </ol>
                         <h2>
                             <b><u>
-                                    <center>Customize Data</center>
-                                </u></b>
+                                    <center>ยืมแฟ้มประวัติพนักงาน</center>
+                                </u></b><br>
+                            <center>Borrow Employee Profiles<center>
                         </h2>
                     </div>
 
                     <div class="col-lg-12">
                         <h2>&nbsp;&nbsp;&nbsp;</h2>
                     </div>
+
+                    <div class="ibox-content"></div>
                     <br>
 
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="table-responsive">
-                                <table class="table table-bordered">
+                                <table id="myTbl" class="table table-bordered">
                                     <thead>
-                                        <tr>
-                                            <th style="width:300px">
-                                                <center>ชื่อ-นามสกุล
-                                            </th>
-                                            <th style="width:300px">
-                                                <center>รหัสพนักงาน
-                                            </th>
-                                            <th>
-                                                <center>เหตุผล
-                                            </th>
-                                            <th style="width:80px">
-                                                <center>วันที่ยืม
-                                            </th>
-                                        </tr>
-                                    </thead>
-
                                     <tbody>
-                                        <tr align="center">
-                                            <td align="left"><?php echo $row_emp["Empname_eng"]." ".$row_emp["Empsurname_eng"]?></td>
-                                            <td><?php echo $row_emp["Emp_ID"]?></td>
-                                            <td><textarea type="text" placeholder="" class="form-control" name="data4[]" rows="4" required></textarea></td>
-                                            <td><input type="date" class="form-control" style="width:160px" name="data2[]" required></td>
-                                            <!-- <td>
-                                                <select class="select2_demo_1 form-control" name="acknow" id="acknow"
-                                                    style="width:100%;" tabindex="2" checked required>
-                                                    <?
-                                                        $sql_Approve = "SELECT * From employee";
-                                                        $result_Approve = mysqli_query($condbmc, $sql_Approve);
-                                                        while($row_Approve = mysqli_fetch_array($result_Approve)){
-                                                            echo '<option value="'.$row_Approve["Emp_ID"].'">'.$row_Approve["Empname_eng"]." ".$row_Approve["Empsurname_eng"].'</option>';
-                                                        }
-                                                    ?>
-                                                </select>
-                                            </td> -->
+                                       <tr id="firstTr">
+                                            
+                                            <td><input type = "checkbox" name = "checkbox[]" value = "checkbox1" /> checkbox1</td>
+                                            <td><input type = "checkbox" name = "checkbox[]" value = "checkbox1" /> checkbox1</td>
+                                            <td><input type = "checkbox" name = "checkbox[]" value = "checkbox1" /> checkbox1</td>
+                                            <td><input type = "checkbox" name = "checkbox[]" value = "checkbox1" /> checkbox1</td>
 
-                                            <!-- <td>
-                                                <select class="select2_demo_1 form-control" name="approve" id="approve"
-                                                    style="width:100%;" tabindex="2" checked required>
-                                                    <?
+                                            <div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="checkbox icheck-default">
+                <input type="checkbox" checked id="icheck-default" />
+                <label for="icheck-default">icheck-default</label>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="checkbox icheck-primary">
+                <input type="checkbox" checked id="icheck-primary" />
+                <label for="icheck-primary">icheck-primary</label>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="checkbox icheck-success">
+                <input type="checkbox" checked id="icheck-success" />
+                <label for="icheck-success">icheck-success</label>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="checkbox icheck-info">
+                <input type="checkbox" checked id="icheck-info" />
+                <label for="icheck-info">icheck-info</label>
+            </div>
+        </div>
+    </div>
+</div>
+                                            
+                                                <?
+                                                        $sql_Approve = "SELECT * From employee WHERE Emp_ID = ?";
+                                                        $result_Approve = mysqli_query($condbmc, $sql_Approve);
+                                                        //while($row_Approve = mysqli_fetch_array($result_Approve)){
+                                                           // echo '<option value="'.$row_Approve["Emp_ID"].'">'.$row_Approve["Empname_eng"]." ".$row_Approve["Empsurname_eng"].'</option>';
+                                                       // }
+                                                    ?>
+
+		
+                                                <?
                                                         $sql_Approve = "SELECT * From employee";
                                                         $result_Approve = mysqli_query($condbmc, $sql_Approve);
                                                         while($row_Approve = mysqli_fetch_array($result_Approve)){
-                                                            echo '<option value="'.$row_Approve["Emp_ID"].'">'.$row_Approve["Empname_eng"]." ".$row_Approve["Empsurname_eng"].'</option>';
+                                                         //   echo '<option value="'.$row_Approve["Emp_ID"].'">'.$row_Approve["Empname_eng"]." ".$row_Approve["Empsurname_eng"].'</option>';
                                                         }
-                                                    ?>
-                                                </select>
-                                            </td> -->
-                                    </tbody>
+                                                ?>
+                                        </tr>    
+                                    </tbody>                                    
                                 </table>
                             </div>
                         </div>
                     </div>
-                    <!-- Table  -->
+                    <!-- Table Expense Approve -->
 
                     <br>
                     <div class="col-lg-1">
@@ -131,7 +141,6 @@
                         <input type="hidden" id="Acknow_id" name="Acknow_id">
                         <input type="hidden" id="Approve_id" name="Approve_id">
                     </div>
-                    <!-- Table Apover -->
                     <div class="text-center">
                         <input type="submit" name="submit" class="btn btn-primary btn-rounded" value="Submit">
                     </div>
@@ -139,7 +148,7 @@
             </form>
         </div>
         <br>
-        <?php include "footer.php";?>
+
     </div>
     </div>
 
@@ -205,37 +214,74 @@
             document.getElementById("A_id").value = ID;
         });
     });
+
+    function get_Emp() {
+    Emp_id = document.getElementById("Emp_id_modol").value;
+    var empname = "";
+    //console.log (Emp_id)
+    
+    $.ajax({
+        type: "POST",
+        url: "../Ajex/Ajex_Select_emp_id.php",
+        data: {
+            "Emp_id": Emp_id
+        },
+       // dataType: "JSON",
+        success: function(data, status) {
+           // console.log(status)
+             //console.log(data)
+
+            if (data == "null") {
+
+                document.getElementById("Showname_modol").value = "ไม่มีข้อมูล";
+
+            } else {
+                
+                empname = data.substring(1,data.length - 1);
+                document.getElementById("Showname_modol").value = empname;
+
+                //console.log(999)
+                //console.log(empname)
+            }
+
+            // if-else
+        }
+
+    });
+    // ajax
+}
+// function get_Emp  
+
+
     </script>
 
     <script>
     $(function() {
-        var row = 6;
+        var row = 2;
         $("#addRow").click(function() {
             var tr = '';
             tr += '<tr id="firstTr">'
-            tr += '<td align="center" name="data1">' + row + '</td>'
-            tr += '<td>'
-            tr += '<div class="input-group">'
-            tr += '<input type="date" class="form-control" style="width:160px" name="data2[]" required>'
-            tr += '</div>'
-            tr += '</td>'
-            tr += '<td>'
-            tr += '<select class="form-control" style="width:80px" name="data3[]" required>'
-            tr += '<? echo Select_Calendar_Type($condbmc); ?>'
-            tr += '</select>'
-            tr += '</td>'
+
             tr +=
                 '<td><textarea type="text" placeholder="" class="form-control" name="data4[]" rows="2" required></textarea>'
             tr += '</td>'
             tr +=
                 '<td><textarea type="text" placeholder="" class="form-control"name="data5[]" rows="4" required></textarea>'
             tr += '</td>'
-            tr += '<td><select class="form-control" style="width:155px" name="data6[]" required>'
-            tr += '<? echo Select_Define_Type($condbmc); ?>'
-            tr += '</select></td>'
             tr +=
-                '<td><textarea type="text" placeholder="" class="form-control" name="data8[]" rows="2" required></textarea>'
+                '<td><textarea type="text" placeholder="" class="form-control" name="data4[]" rows="2" required></textarea>'
             tr += '</td>'
+            tr += '<td>'
+            tr += '<div class="input-group">'
+            tr += '<input type="date" class="form-control" style="width:160px" name="data2[]" required>'
+            tr += '</div>'
+            tr += '</td>'
+            tr += '<td>'
+            tr += '<div class="input-group">'
+            tr += '<input type="date" class="form-control" style="width:160px" name="data2[]" required>'
+            tr += '</div>'
+            tr += '</td>'
+
             tr += '</tr>'
 
             $('#myTbl > tbody:last').append(tr);
@@ -243,15 +289,18 @@
             row = row + 1;
         });
         $("#removeRow").click(function() {
-            if ($("#myTbl tr").size() > 6) {
+            if ($("#myTbl tr").size() > 2) {
                 $("#myTbl tr:last").remove();
                 row -= 1;
             } else {
-                alert("ต้องใส่ข้อมูลอย่างน้อย 5 รายการ");
+                alert("ต้องใส่ข้อมูลอย่างน้อย 1 รายการ");
             }
         });
     });
     </script>
+
+
+
 </body>
 
 </html>
