@@ -80,6 +80,7 @@
                             
                             <div class="col">
                                 <div class="btn-group-toggle" data-toggle="buttons">
+                                
                                     <?php 
                                         if(isset($arr_language)){ // BEGIN CHECK
                                             foreach($arr_language as $key_language=>$value_language){ // BEGIN LOOP

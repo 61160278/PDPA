@@ -34,17 +34,6 @@
         $Acknowledge=$_POST['Acknow_id'];
         $Approve=$_POST['Approve_id'];
         $Comment=$_POST['emp_trv_comment'];
-        
-        /*$insert  = mysqli_query($condbmc,"INSERT INTO employee_public_data (emp_pub_typ_com, emp_pub_department, emp_pub_name, emp_pub_emp_id,
-        emp_pub_reason, emp_pub_bor_date) 
-        VALUES ('$Type_com','$Department','$Name','$Emp_id','$Reason','$Bor_date')");
-*/
-
-        /*$sql = "SELECT *
-			FROM employee
-			WHERE employee.Emp_ID = ? ";
-	$query = $this->db->query($sql, array($this->Emp_ID));
-	return $query->result();*/
 
 
         $sql = "SELECT emp_trv_id

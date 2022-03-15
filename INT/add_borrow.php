@@ -120,16 +120,11 @@
                                             
                                             <td><input type="text" class="form-control" id="Emp_id_modol"  name="data_no[]"
                                                     placeholder="JS000xxx" onkeyup="get_Emp()">
-                                                <!-- <textarea type="text" placeholder="" class="form-control"
-                                                    name="data_no[]" rows="2" required></textarea> -->
+
                                             </td>
                                             <td> <input  type="text" class="form-control" id="Showname_modol"  
                                                     placeholder="Name Surname">
 
-                                            
-                                                    
-                                                <!-- <textarea type="text" placeholder="" class="form-control"
-                                                    name="data_name[]" rows="2" required></textarea> -->
                                             </td>
                                             <td><textarea type="text" placeholder="" class="form-control"
                                                     name="data_re[]" rows="2" required></textarea>
@@ -142,9 +137,7 @@
                                                 <?
                                                         $sql_Approve = "SELECT * From employee WHERE Emp_ID = ?";
                                                         $result_Approve = mysqli_query($condbmc, $sql_Approve);
-                                                        //while($row_Approve = mysqli_fetch_array($result_Approve)){
-                                                           // echo '<option value="'.$row_Approve["Emp_ID"].'">'.$row_Approve["Empname_eng"]." ".$row_Approve["Empsurname_eng"].'</option>';
-                                                       // }
+                                                        
                                                     ?>
 
 		
