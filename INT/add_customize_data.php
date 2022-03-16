@@ -29,18 +29,15 @@
     <link href="css/plugins/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet" > -->
+  
+  
+  
 
 </head>
 
 <body>
-    <?php
-        $arr_language = array(
-            "ไทย","อังกฤษ","จีน","ญี่ปุ่น","เกาหลี"
-        );
-
-        $default_value = '';
-        $initial_value = NULL;
-    ?>
+   
         <div id="wrapper">
             <?php include "menu.php";?>
 
@@ -72,39 +69,61 @@
                             <h2>&nbsp;&nbsp;&nbsp;</h2>
                         </div>
                         
-                        <div class="ibox-content"></div>
-                        <div class="form-group row">
-                        <h3>  
-                                        <left>&nbsp; เลือกภาษา</left>
+                        
+                        <div class="col-sm-12">
+                            <h3>  
+                                <left>ประเภทข้อมูล Personal Data</left>
                             </h3>
+                        </div>
                             
-                            <div class="col">
-                                <div class="btn-group-toggle" data-toggle="buttons">
+                        <div class="col-sm-12">
+                            
+                               
+                                <?php
+                                        $sql_customize = "SELECT * FROM customize_data_type";
+                                        $result_customize = mysqli_query($condbmc, $sql_customize);
+                                        while($row_customize = mysqli_fetch_array($result_customize)){
+                                ?>
+                                 <form>
+                                     <div class = row>
+                                         <div class="col-md-3">
                                 
-                                    <?php 
-                                        if(isset($arr_language)){ // BEGIN CHECK
-                                            foreach($arr_language as $key_language=>$value_language){ // BEGIN LOOP
-                                                    $active_state = (isset($default_value) && $default_value==$value_language)?" btn-info active":"btn-light";
-                                                    $check_state = (isset($default_value) && $default_value==$value_language)?" checked":"";
-                                                    if(isset($default_value) && $default_value==$value_language && is_null($initial_value)){
-                                                        $initial_value = true;  
-                                                    }
-                                    ?>
-                                    <div class="col-sm-3">
-                                    <label
-                                        class="btn-language <?=$active_state?>">
-                                        <input type="checkbox" name="language[]" id="language_<?=$key_language?>"
-                                            autocomplete="off" value="<?=$value_language?>" <?=$check_state?>>
-                                        <?=$value_language?>
+                                    <label class="form-check-label ">
+                                        <input type = "checkbox" name = "checkbox[]" value = "checkbox1" >&nbsp;<?php echo $row_customize["customize_data_name"]?>
                                     </label>
-                                    </div>
-                                                                <?php
-                                            } // END LOOP
-                                        } // END CHECK
-                                        ?>
                                 </div>
+                                        
+                                    </div>
+                                <?php } ?>
+                                </form>
+                        </div>
+                     <!-- Table ประเภทข้อมูล Personal Data -->
+
+                        <div class="col-sm-12">
+                            <h3>  
+                                <left>ประเภทข้อมูล Genaral Data</left>
+                            </h3>
+                        </div>
+                            
+                        <div class="col-sm-12">
+                            <div class="table-responsive">
+                               
+                                <?php
+                                        $sql_general = "SELECT * FROM general_data_type";
+                                        $result_general = mysqli_query($condbmc, $sql_general);
+                                        while($row_general = mysqli_fetch_array($result_general)){
+                                ?>
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input type = "checkbox" name = "checkbox[]" value = "checkbox1" >&nbsp;<?php echo $row_general["General_data_name"]?>
+                                    </label>
+                                </div>
+
+                                <?php } ?>
                             </div>
-                            <!-- Table  -->
+                        </div>
+ <!-- Table ประเภทข้อมูล Genaral Data -->
+
 
                             <br>
                             <div class="col-lg-1">
@@ -124,7 +143,7 @@
                     </form>
                 </div>
                 <br>
-                <?php include "footer.php";?>
+               
             </div>
         </div>
 
