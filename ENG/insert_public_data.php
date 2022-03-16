@@ -8,6 +8,8 @@
         $emp_ID=$_POST['emp_ID'];
         $reason=$_POST['reason'];
         $delect=$_POST['delect'];
+        $type_data=$_POST['type_data'];
+        $department=$_POST['department'];
         echo $emp_id;
         print_r($data_no);
         for($i=0; $i<sizeof($data_no); $i++) {
@@ -22,16 +24,24 @@
         $status=1;
         $date = date("Y-m-d");
 
-        $insert  = mysqli_query($condbmc,"INSERT INTO data_public_pdpa (data_public_requester_emp_id, data_public_date, data_public_status, data_department_data_id) 
-        VALUES ('$emp_id','$date','$status')");
-
-
-        $sql = "SELECT data_public_id
-		FROM data_public_pdpa ";
-	$query = $condbmc->query($sql);
-        while($row = $query->fetch_assoc()) {
-                $data_public_requester_emp_id = $row["data_public_id"];
+        $type = 0;
+        if(sizeof($data_no) != 0){
+                $type = 1;
+        }else{
+                $type = 2;
         }
+        $insert  = mysqli_query($condbmc,"INSERT INTO data_public_pdpa (data_public_requester_emp_id, data_public_date, data_public_status, data_public_type) 
+        VALUES ('$emp_id','$date','$status','$type')");
+
+
+        $sql = "SELECT *
+		FROM data_public_pdpa 
+                ORDER BY data_public_id DESC
+                LIMIT ";
+	$query = $condbmc->query($sql);
+        // while($row = $query->fetch_assoc()) {
+        //         $data_public_requester_emp_id = $row["data_public_id"];
+        // }
         
         if(sizeof($data_no) != 0){
                 for($i=0; $i<sizeof($data_no); $i++) {
@@ -41,8 +51,8 @@
                 }
         }else{
                 // สร้างอีกตาราง ที่ไม่มีเหตุผล
-                $insert  = mysqli_query($condbmc,"INSERT INTO data_department_pdpa (data_department_sectioncode_id, data_department_sectioncode_id, data_department_status, data_department_data_id) 
-                VALUES ('$data_no[$i]','$reason[$i]','$date','$status','$data_public_requester_emp_id')");
+                $insert  = mysqli_query($condbmc,"INSERT INTO data_department_pdpa (data_company, data_department, data_department_date, data_department_status, data_department_data_id) 
+                VALUES ('$type_data[$i]','$department[$i]','$date','$status','$data_public_requester_emp_id')");
         }
         
         if (mysqli_affected_rows($condbmc)>0){
