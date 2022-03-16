@@ -103,34 +103,36 @@
                                     </thead>
 
                                     <tbody>
-                                    <?php
-                                    $sql_name = "SELECT * From borrow ";
-                                    $result_name = mysqli_query($condbmc, $sql_name);
-                                    while($row_name = mysqli_fetch_array($result_name)){
-                                        
-                                ?>
+                                    
                                             <?php
                                             $sql_emp = "SELECT * FROM borrow
                                             INNER JOIN employee ON borrow.emp_no = employee.Emp_ID
-                                            where borrow.emp_no = '".$row_name["emp_no"]."'";
+                                            where borrow.emp_no = '".$_GET["id"]."'";
                                             $result_emp = mysqli_query($condbmc, $sql_emp);
                                             $row_emp = mysqli_fetch_array($result_emp)
                                             ?>
 
                                             <?php
-                                            $sql_reason = "SELECT reason FROM borrow" ;
+                                            $sql_reason = "SELECT reason FROM borrow
+                                            where borrow.emp_no = '".$_GET["id"]."'";
                                             $result_reason = mysqli_query($condbmc, $sql_reason);
                                             $row_reason = mysqli_fetch_array($result_reason)
+                                            ?>
+                                            <?php
+                                            $sql_date_borrow = "SELECT date_borrow ,date_return FROM borrow
+                                            where borrow.emp_no = '".$_GET["id"]."'";
+                                            $result_date_borrow = mysqli_query($condbmc, $sql_date_borrow);
+                                            $row_date_borrow = mysqli_fetch_array($result_date_borrow)
                                             ?>
 
 
                                         <tr id="firstTr">
                                             <td align="left"><?php echo $row_emp["Empname_eng"]." ".$row_emp["Empsurname_eng"]?></td>
-                                            <td><?php echo date("d-M-y", strtotime("date_borrow"));?></td>
-                                            <td><?php echo date("d-M-y", strtotime("date_return"));?>
-                                            <td><?php echo $row_reason ?></td>
+                                            <td><?php echo date("d-M-y", strtotime($row_date_borrow["date_borrow"]));?></td>
+                                            <td><?php echo date("d-M-y", strtotime($row_date_borrow["date_return"]));?></td>
+                                            <td><?php echo $row_reason ["reason"]?></td>
                                         </tr>
-<?php } ?>
+
                                     </tbody>
                                 </table>
                             </div>

@@ -89,8 +89,6 @@
                                         }
                                 ?>
                                 <?php
-
-
 									$sql_emp = "SELECT * FROM borrow
                                     INNER JOIN employee ON borrow.emp_no = employee.Emp_ID
                                     where borrow.emp_no = '".$row_name["emp_no"]."'";

@@ -67,20 +67,6 @@
                     </div>
 
                     <div class="ibox-content"></div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <tr>
-                                <td class="form-group">
-                                    <div class="col-sm-2">ประเภทการยืมเอกสาร</div>
-                                    <div class="col-sm-4">
-                                        <select class="form-control" name="data_item3">
-                                            <? echo Select_Type_Borrow($condbmc);?>
-                                        </select>
-                                    </div>
-                                </td>
-                            </tr>
-                        </div>
-                    </div>
                     <br>
 
                     <div class="row">
@@ -88,56 +74,49 @@
                             <div class="table-responsive">
                                 <table id="myTbl" class="table table-bordered">
                                     <thead>
-
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    <center>รหัสพนักงาน
-                                                </th>
-                                                <th>
-                                                    <center>ชื่อ-นามสกุล
-                                                </th>
-                                                <th>
-                                                    <center>เหตุผลการร้องขอ
-                                                </th>
-                                                <th style="width:80px">
-                                                    <center>วันที่ยืม
-                                                </th>
-                                                <th style="width:80px">
-                                                    <center>วันที่คืน
-                                                </th>
-                                            </tr>
-                                        </thead>
-
                                     <tbody>
-                                    
-                                    
-                               
-
-
-
-                                        <tr id="firstTr">
+                                       <tr id="firstTr">
                                             
-                                            <td><input type="text" class="form-control" id="Emp_id_modol"  name="data_no[]"
-                                                    placeholder="JS000xxx" onkeyup="get_Emp()">
+                                            <td><input type = "checkbox" name = "checkbox[]" value = "checkbox1" /> checkbox1</td>
+                                            <td><input type = "checkbox" name = "checkbox[]" value = "checkbox1" /> checkbox1</td>
+                                            <td><input type = "checkbox" name = "checkbox[]" value = "checkbox1" /> checkbox1</td>
+                                            <td><input type = "checkbox" name = "checkbox[]" value = "checkbox1" /> checkbox1</td>
 
-                                            </td>
-                                            <td> <input  type="text" class="form-control" id="Showname_modol"  
-                                                    placeholder="Name Surname">
-
-                                            </td>
-                                            <td><textarea type="text" placeholder="" class="form-control"
-                                                    name="data_re[]" rows="2" required></textarea>
-                                            </td>
-                                            <td><input type="date" class="form-control" style="width:160px"
-                                                    name="data1[]" required></td>
-                                            <td><input type="date" class="form-control" style="width:160px"
-                                                    name="data[]" required></td>
+                                            <div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="checkbox icheck-default">
+                <input type="checkbox" checked id="icheck-default" />
+                <label for="icheck-default">icheck-default</label>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="checkbox icheck-primary">
+                <input type="checkbox" checked id="icheck-primary" />
+                <label for="icheck-primary">icheck-primary</label>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="checkbox icheck-success">
+                <input type="checkbox" checked id="icheck-success" />
+                <label for="icheck-success">icheck-success</label>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="checkbox icheck-info">
+                <input type="checkbox" checked id="icheck-info" />
+                <label for="icheck-info">icheck-info</label>
+            </div>
+        </div>
+    </div>
+</div>
                                             
                                                 <?
                                                         $sql_Approve = "SELECT * From employee WHERE Emp_ID = ?";
                                                         $result_Approve = mysqli_query($condbmc, $sql_Approve);
-                                                        
+                                                        //while($row_Approve = mysqli_fetch_array($result_Approve)){
+                                                           // echo '<option value="'.$row_Approve["Emp_ID"].'">'.$row_Approve["Empname_eng"]." ".$row_Approve["Empsurname_eng"].'</option>';
+                                                       // }
                                                     ?>
 
 		
