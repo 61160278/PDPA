@@ -97,47 +97,30 @@
                                     <td><?php echo $status?></td>
                                     <td>
                                         <a href="add_public_data_preview.php?id=<?php echo $row_name["data_public_id"] ?>">
-                                            <button class="btn btn-primary btn-rounded" type="button">
-                                                <i class="fa fa-search"></i></button></a>
-                                        <?php if($row_name["emp_trv_status"] == 2){ ?>
-                                        <a href="edit_inter_preview.php?id=<?php echo $row_name["emp_trv_id"] ?>">
-                                            <button class="btn btn-warning btn-rounded"><i
-                                                    class="fa fa-pencil-square-o"></i></button></a>
-                                        <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal"
-                                            data-target="#modal_simple<?php echo $row_name["emp_trv_id"]?>"><i
-                                                class="fa fa-times"></i></button>
-                                        <button class="btn btn-success"><i class="fa fa-upload"> PDF</i></button>
-                                        <?php } else if($row_name["emp_trv_status"] == 3){ ?>
-                                        <a href="edit_inter_preview.php?id=<?php echo $row_name["emp_trv_id"] ?>">
-                                            <button class="btn btn-warning btn-rounded"><i
-                                                    class="fa fa-pencil-square-o"></i></button></a>
-                                        <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal"
-                                            data-target="#modal_simple<?php echo $row_name["emp_trv_id"]?>"><i
-                                                class="fa fa-times"></i></button>
-                                        <button class="btn btn-success"><i class="fa fa-upload"> PDF</i></button>
-                                        <?php } else if($row_name["emp_trv_status"] == 5){ ?>
-                                        <a href="edit_inter_preview.php?id=<?php echo $row_name["emp_trv_id"] ?>">
-                                            <button class="btn btn-warning btn-rounded"><i
-                                                    class="fa fa-pencil-square-o"></i></button></a>
-                                        <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal"
-                                            data-target="#modal_simple<?php echo $row_name["emp_trv_id"]?>"><i
-                                                class="fa fa-times"></i></button>
-                                        <button class="btn btn-success"><i class="fa fa-upload"> PDF</i></button>
+                                            <button class="btn btn-primary btn-rounded" type="button"><i class="fa fa-search"></i></button></a>
+                                            
+
+                                        <?php if($row_name["data_public_status"] == 2){ ?>
+                                            <a href="add_public_data_preview.php?id=<?php echo $row_name["data_public_id"] ?>">
+                                            <button class="btn btn-primary btn-rounded" type="button"><i class="fa fa-search"></i></button></a>
+                                            <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal" data-target="#modal_simple<?php echo $row_name["data_public_id"]?>"><i class="fa fa-times"></i></button>
+                                        <?php } else if($row_name["data_public_status"] == 3){ ?>
+                                            <a href="add_public_data_preview.php?id=<?php echo $row_name["data_public_id"] ?>">
+                                            <button class="btn btn-primary btn-rounded" type="button"><i class="fa fa-search"></i></button></a>
+                                            <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal" data-target="#modal_simple<?php echo $row_name["data_public_id"]?>"><i class="fa fa-times"></i></button>
+                                        <?php } else if($row_name["data_public_status"] == 5){ ?>
+                                            <a href="add_public_data_preview.php?id=<?php echo $row_name["data_public_id"] ?>">
+                                            <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal" data-target="#modal_simple<?php echo $row_name["data_public_id"]?>"><i class="fa fa-times"></i></button></a>
                                         <?php } ?>
 
-                                        <?php if($row_name["emp_trv_status"] == 1){ ?>
-                                        <a href="edit_inter_preview.php?id=<?php echo $row_name["emp_trv_id"] ?>">
-                                            <button class="btn btn-warning btn-rounded"><i
-                                                    class="fa fa-pencil-square-o"></i></button></a>
-                                        <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal"
-                                            data-target="#modal_simple<?php echo $row_name["emp_trv_id"]?>"><i
-                                                class="fa fa-times"></i></button>
-                                        <button class="btn btn-success"><i class="fa fa-upload"> PDF</i></button>
+                                        <?php if($row_name["data_public_status"] == 1){ ?>
+                                        <a href="edit_inter_preview.php?id=<?php echo $row_name["data_public_id"] ?>">
+                                        <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal" data-target="#modal_simple<?php echo $row_name["data_public_id"]?>"><i class="fa fa-times"></i></button></a>
 
                                         <form id="ow" name="ow" method="POST"
-                                            action="../ENG/update.php?id=<?php echo $row_name["emp_trv_id"]?>">
+                                            action="../ENG/update.php?id=<?php echo $row_name["data_public_id"]?>">
                                             <input type="hidden" id="button" name="button">
-                                            <div id="modal_simple<?php echo $row_name["emp_trv_id"]?>"
+                                            <div id="modal_simple<?php echo $row_name["data_public_id"]?>"
                                                 class="modal fade" tabindex="-1" role="dialog">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content">
