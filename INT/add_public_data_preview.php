@@ -41,14 +41,21 @@
             $result_home = mysqli_query($condbmc, $sql_home);
 			$row_home = mysqli_fetch_array($result_home);
         ?>
-        <?php 
-            $row=0;
-            $sql_homeTable = "SELECT * From data_employee_pdpa WHERE data_employee_data_id = ".$_GET["id"]."";
-            $result_homeTable = mysqli_query($condbmc, $sql_homeTable);
-			while($row_homeTable = mysqli_fetch_array($result_homeTable)){
-                $array[$row]=$row_homeTable['data_employee_emp_id'];
-                $array2[$row]=$row_homeTable['data_employee_reason'];
-                $row++;
+        <?php
+            if($row_home["data_public_type"] == 1){
+                $sql_homeTable = "SELECT * From data_employee_pdpa AS demp
+                                    INNER JOIN employee AS emp
+                                    ON emp.Emp_ID = demp.data_employee_emp_id
+                                    WHERE demp.data_employee_data_id = ".$_GET["id"]."";
+                $result_homeTable = mysqli_query($condbmc, $sql_homeTable);
+                
+            }else if($row_home["data_public_type"] == 2){
+                $sql_publicTable = "SELECT * From data_department_pdpa AS depar
+                                    INNER JOIN master_mapping AS map
+                                    ON map.Department_id = depar.data_department
+                                    WHERE depar.data_department_data_id = ".$_GET["id"]."";
+                $result_publicTable = mysqli_query($condbmc, $sql_publicTable);
+                $row_publicTable = mysqli_fetch_array($result_publicTable);
             }
         ?>
 
@@ -57,8 +64,7 @@
                 <?php include "top-bar.php";?>
             </div>
             <div class="row wrapper border-bottom white-bg page-heading">
-                <form id="ow" name="ow" method="POST" onsubmit="return checkform()" action="../ENG/insert_public_data.php?id=<?php echo $_GET["id"]?>">
-                    <input type="hidden" id="button" name="button">
+                
                     <div class="col-lg-12">
                         <br>
                         <ol class="breadcrumb">
@@ -83,6 +89,17 @@
 
 
                     <div class="ibox-content"></div>
+                    <?php if(sizeof($row_publicTable) != 0){ 
+                        echo $row_publicTable["Company"]." (".$row_publicTable["Company_id"].") ".$row_publicTable["Department"]; //ขาด Department_id
+                    ?>
+
+                    <? } ?>
+                    <!-- company -->
+
+                    <?php if(sizeof($result_homeTable) != 0){ ?>
+
+                    
+                    <!-- Department -->
 
                     <div class="row">
                         <div class="col-md-12">
@@ -91,32 +108,7 @@
                                     <table id="myTbl" class="table table-bordered">
                                         <div class="panel-heading">
                                             <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="col-sm-1">บริษัท</div>
-                                                    <div class="col-sm-8">
-                                                        <select class="form-control" name="type_data"
-                                                            onchange="select_all()" id="type_data" >
-                                                            <option value="0">== SELECT ==</option>
-                                                            <option value="person">รายบุคคล </option>
-                                                            <? echo Select_Type_Company($condbmc);?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6" id="col_department">
-                                                    <div class="col-sm-1">แผนก</div>
-                                                    <div class="col-sm-8">
-                                                        <select class="form-control" name="department">
-                                                            <!-- <? //echo Select_Type_Sectioncode($condbmc);?> -->
-                                                            <?php
-										                        $sql_Travel_Type = "SELECT * From sectioncode";
-                                                                $result_Travel_Type = mysqli_query($condbmc, $sql_Travel_Type);
-                                                                while($row_Travel_Type = mysqli_fetch_array($result_Travel_Type)){
-									                        ?>
-                                                            <option value ="<?echo $row_Travel_Type["Sectioncode"];?>"<?php if($row_Travel_Type["Sectioncode"]==$row_home["data_public_requester_emp_id"]){echo "selected=selected";}?>><? echo $row_Travel_Type["Department"]; ?></option>
-                                                            <?php } ?>
-                                                        </select>
-                                                    </div>
-                                                </div>
+
                                             </div>
                                         </div>
                                         <br>
@@ -135,42 +127,36 @@
                                                 <th>
                                                     <center>เหตุผล
                                                 </th>
-                                                <th>
-                                                    <center>ลบ
-                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody id="tableBody">
-                                            <!-- <?php
-                                            // $sql_borrow = "SELECT * From borrow_detail WHERE borrow_detail_emp_id = ".$_SESSION["tms_id"]."";
-                                            // $result_borrow = mysqli_query($condbmc, $sql_borrow);
-                                            // $row_borrow = mysqli_fetch_array($result_borrow);
-
-                                            // $sql_name = "SELECT * From employee WHERE Emp_ID = ".$row_borrow["borrow_detail_emp_id"]."";
-                                            // $result_name = mysqli_query($condbmc, $sql_name);
-                                            // $row_name = mysqli_fetch_array($result_name);
-                                        ?> -->
+                                            <?php $index_emp = 1; 
+                                                while($row_homeTable = mysqli_fetch_array($result_homeTable)){ ?>
+                                                <tr>
+                                                    <td><?php echo $index_emp ?></td>
+                                                    <td><?php echo $row_homeTable["Emp_ID"] ?></td>
+                                                    <td><?php echo $row_homeTable["Empname_engTitle"]. $row_homeTable["Empname_eng"]." ".$row_homeTable["Empsurname_eng"]?></td>
+                                                    <td><?php echo $row_homeTable["data_employee_reason"]?></td>
+                                                </tr>
+                                                
+                                                <?php $index_emp++; 
+                                                } ?>
                                         </tbody>
-                                        <input type="text" id="count_check" value="" hidden>
                                     </table>
                                 </div>
-
-                                <div align="right">
-                                    <button class="btn btn-info" type="button" id="addRow" align="right"><i
-                                            class="fa fa-plus"></i>&nbsp;ADD</button>
-                                </div>
-                                <!-- add -->
                             </div>
                         </div>
                         <!-- table left -->
                     </div>
                     <!-- table right -->
+                    <? } ?>
 
                     <br>
                     <div class="text-center">
-                        <input type="submit" name="submit" class="btn btn-primary btn-rounded" value="Submit">
+                        <a href="public_data.php">
+                            <button class="btn btn-secondary">Back</button>
+                        </a>
                     </div>
-                </form>
             </div>
         </div>
         <br>
@@ -219,275 +205,6 @@
     <!-- TouchSpin -->
     <script src="js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
 
-    <script>
-    $('select').on('change', function() {
-        let Company_ID = $('select[name=type_data] option').filter(':selected').val();
-        let Sectioncode_ID = $('select[name=department] option').filter(':selected').val();
-        console.log(Company_ID, Sectioncode_ID);
-        let data = {
-            Company_ID: Company_ID, //หน้าชื่อ หลังค่า
-            Sectioncode_ID: Sectioncode_ID
-        };
-
-        // $.ajax({
-        //     url: "../Ajex/Ajex_SelectPublic_data.php",
-        //     type: 'GET',
-        //     data: data
-        // }).success(function(result) {
-        //     console.log(result);
-        //     document.getElementById("tableBody").innerHTML = result; // result แทรกไปอยู่ในแท็ก tbody
-        // }).error(function() {
-        //     // document.getElementById("myTbl_r").innerHTML = result;
-        // })
-    });
-
-    $("#myTbl_r").on('click', '.delete-row', function() { //delete row
-        $(this).closest('.row-information').remove();
-    });
-    </script>
-
-    <script>
-    function select_all() {
-        var check = $("#type_data").val();
-        if (check == 'person') {
-            $("#col_department").hide();
-            $("#addRow").show();
-            $('#myTbl').show();
-
-            var tr = '';
-            tr += '<tr align="center">'
-            tr += '<td align="center" name="data1">' + (row + 1) + '</td>'
-            tr += '<td>'
-            tr += '<div class="input-group">'
-            tr +=
-                '<input type="text" class="form-control" style="width:160px" id="Emp_id_modol" name="data_no[]" placeholder="JS000xxx" onkeyup="get_Emp()" required>'
-            tr += '</div>'
-            tr += '</td>'
-            tr += '<td>'
-            tr += '<div class="input-group">'
-            tr +=
-                '<input type="text" class="form-control" style="width:160px" id="Showname_modol" name="emp_ID[]" disabled>'
-            tr += '</div>'
-            tr += '</td>'
-            tr +=
-                '<td><textarea type="text" placeholder="" class="form-control" name="reason[]" rows="4" required></textarea>'
-            tr += '</td>'
-            tr += '<td>'
-            tr +=
-                '<button class="delete-row" type="button" name="delect[]"><i class="fa fa-trash"></i></button>'
-            tr += '</td>'
-            tr += '</tr>'
-            $('#myTbl > tbody:last').append(tr);
-
-            row = ++row;
-        } else {
-            $("#col_department").show();
-            $('#myTbl').hide();
-            $("#addRow").hide();
-        }
-    }
-    //function select_all() ตารางการโชว์ ซ่อน เมื่อเลือก รายบุคคล
-
-    $(document).ready(function() {
-        $("#col_department").hide();
-        $('#myTbl').hide();
-        $("#addRow").hide();
-    });
-    // $(document).ready(function()
-
-    function checkform() {
-
-        // return false;
-    }
-
-    function change_group() {
-
-
-        let get_emp = [];
-        let get_res = [];
-        let get_name = [];
-        var count_check = document.getElementById("count").value;
-
-        for (i = 0; i < count_check; i++) {
-            if (document.getElementById("checkbox_l" + i).checked) {
-                get_emp.push(document.getElementById("emp_" + i).innerHTML)
-                // console.log(get_emp)
-                get_res.push(document.getElementById("res_" + i).value)
-                // console.log(get_res)
-                get_name.push(document.getElementById("name_" + i).innerHTML)
-            }
-            // if
-        }
-        // for
-
-
-        let check_empid = [];
-        $('#myTbl_r .row-information').each(function(index) {
-            check_empid.push($(this).find('.emp-id').text());
-        });
-        console.log(check_empid); //ตารางขวา
-
-        for (i = 0; i < get_emp.length; i++) {
-            if (get_emp[i].includes(check_empid)) {
-                //ถ้าเหมือนกันเก็บไว้ แจ้งเตือนให้หยุดตาราง
-            }
-        }
-
-        console.log({
-            get_emp
-        });
-        console.log({
-            get_res
-        });
-        console.log({
-            get_name
-        });
-
-        var tr = '';
-        for (i = 0; i < get_emp.length; i++) {
-            tr += '<tr class="row-information">';
-            tr += '<td align="center">' + (i + 1) + '</td>';
-            tr += '<td align="center" class="emp-id">' + get_emp[i] + '</td>';
-            tr += '<td align="center">' + get_name[i] + '</td>';
-            tr += '<td align="center">' + get_res[i] + '</td>';
-            tr +=
-                '<td align="center"><button class="delete-row" type="button"><i class="fa fa-trash"></i></button></td>';
-            tr += '</tr>';
-        }
-        $('#tableBody').append(tr);
-
-
-
-        // $("#myTbl_r").html(data);
-        // $.ajax({
-        //     type: "POST",
-        //     url: "../Ajex/Ajex_SelectPublic.php",
-        //     data: {
-        //         "get_emp": get_emp,
-        //         "get_res": get_res
-        //     },
-        //     success: function(data) {
-        //         $("#myTbl_r").html(data);
-        //         console.log(data);
-        //     },
-        //     //success 
-        //     error: function(data) {}
-        //     //error
-        // });
-        // //ajax
-    }
-    </script>
-
-    <script>
-    function get_Emp() {
-        Emp_id = document.getElementById("Emp_id_modol").value;
-        var empname = "";
-        //console.log (Emp_id)
-
-        $.ajax({
-            type: "POST",
-            url: "../Ajex/Ajex_Select_emp_id.php",
-            data: {
-                "Emp_id": Emp_id
-            },
-            // dataType: "JSON",
-            success: function(data, status) {
-                // console.log(status)
-                //console.log(data)
-
-                if (data == "null") {
-
-                    document.getElementById("Showname_modol").value = "ไม่มีข้อมูล";
-
-                } else {
-
-                    empname = data.substring(1, data.length - 1);
-                    document.getElementById("Showname_modol").value = empname;
-
-                    //console.log(999)
-                    //console.log(empname)
-                }
-
-                // if-else
-            }
-
-        });
-        // ajax
-    }
-    // function get_Emp 
-
-    var row = 0;
-    $(function() {
-        $("#addRow").click(function() {
-            var tr = '';
-            tr += '<tr align="center">'
-            tr += '<td align="center" name="data1">' + (row + 1) + '</td>'
-            tr += '<td>'
-            tr += '<div class="input-group">'
-            tr +=
-                '<input type="text" class="form-control" style="width:160px" id="Emp_id_modol" name="data_no[]" placeholder="JS000xxx" onkeyup="get_Emp()" required>'
-            tr += '</div>'
-            tr += '</td>'
-            tr += '<td>'
-            tr += '<div class="input-group">'
-            tr +=
-                '<input type="text" class="form-control" style="width:160px" id="Showname_modol" name="emp_ID[]" disabled>'
-            tr += '</div>'
-            tr += '</td>'
-            tr +=
-                '<td><textarea type="text" placeholder="" class="form-control" name="reason[]" rows="4" required></textarea>'
-            tr += '</td>'
-            tr += '<td>'
-            tr +=
-                '<button class="delete-row" type="button" name="delect[]"><i class="fa fa-trash"></i></button>'
-            tr += '</td>'
-            tr += '</tr>'
-            $('#myTbl > tbody:last').append(tr);
-
-            row = ++row;
-        });
-
-    });
-    </script>
-
-    <script>
-    $('#tableBody').on('click', '.delete-row', function() {
-        $(this).closest("tr").remove();
-        // reset_number();
-    })
-
-    // function reset_number() {
-    //     var index = $(this).closest('tr').index();
-    //         if (index > 0) {
-    //         $(this).closest('tr').remove();
-    //         } else {
-    //             var $tr = $(this).closest('tr').clone(true);
-    //             var $input = $tr.find('input.delete-row');
-    //             $('#addRow').val('.delete-row');
-    //             index++;
-    //             $input.attr('id', id).data('index', index);
-    //             console.log(index);
-    //             $tr.prependTo($(this).closest('table'));
-    //         }
-    // }
-
-    // function reset_number(){
-    //     var child = $('#tableBody').children();
-    //     console.log(child[0]);
-
-    // var child = $('#tableBody').closest('tr').nextAll();
-    // child.each(function () {
-    //     var id = $(this).attr('id');
-    //     var idx = $(this).children('.row-index').children('p');
-    //     var dig = parseInt(id.substring(1));
-    //     idx.html('Row ${dig - 1}');
-    //     $(this).attr('id', 'R${dig - 1}');
-    //     console.log();
-    // });
-    // $(this).closest('tr').remove();
-    // rowIdx--;
-    // }
-    </script>
 </body>
 
 </html>

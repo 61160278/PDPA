@@ -91,7 +91,7 @@
                                                     <div class="col-sm-1">แผนก</div>
                                                     <div class="col-sm-8">
                                                         <select class="form-control" name="department">
-                                                            <? echo Select_Get_Department($condbmc, "SDM");?>
+                                                            <? echo Select_Get_Department($condbmc, "SDM");?> <!-- ติดตรงแผนก -->
                                                         </select>
                                                     </div>
                                                 </div>
