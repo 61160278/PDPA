@@ -91,7 +91,7 @@
                                                     <div class="col-sm-1">แผนก</div>
                                                     <div class="col-sm-8">
                                                         <select class="form-control" name="department">
-                                                            <? echo Select_Get_Department($condbmc, "SDM");?> <!-- ติดตรงแผนก -->
+                                                            <? echo Select_Get_Department($condbmc, "SKD");?> <!-- ติดตรงแผนก -->
                                                         </select>
                                                     </div>
                                                 </div>
@@ -100,19 +100,19 @@
 
                                         <thead>
                                             <tr>
-                                                <th style="width:40px">
+                                                <th style="width:20px">
                                                     <center>ลำดับ
                                                 </th>
-                                                <th>
+                                                <th style="width:80px">
                                                     <center>รหัสพนักงาน
                                                 </th>
-                                                <th>
+                                                <th style="width:150px">
                                                     <center>ชื่อ-นามสกุล
                                                 </th>
-                                                <th>
+                                                <th style="width:200px">
                                                     <center>เหตุผล
                                                 </th>
-                                                <th>
+                                                <th style="width:20px">
                                                     <center>ลบ
                                                 </th>
                                             </tr>
@@ -235,13 +235,13 @@
             tr += '<td>'
             tr += '<div class="input-group">'
             tr +=
-                '<input type="text" class="form-control" style="width:160px" id="Emp_id_modol' + (row +1) + '" name="data_no[]" placeholder="JS000xxx" onkeyup="get_Emp(' + (row +1) + ')" required>'
+                '<input type="text" class="form-control" id="Emp_id_modol' + (row +1) + '" name="data_no[]" placeholder="JS000xxx" onkeyup="get_Emp(' + (row +1) + ')" required>'
             tr += '</div>'
             tr += '</td>'
             tr += '<td>'
             tr += '<div class="input-group">'
             tr +=
-                '<input type="text" class="form-control" style="width:160px" id="Showname_modol' + (row +1) + '" name="emp_ID[]" disabled>'
+                '<input type="text" class="form-control" id="Showname_modol' + (row +1) + '" name="emp_ID[]" disabled>'
             tr += '</div>'
             tr += '</td>'
             tr +=
@@ -381,13 +381,13 @@
             tr += '<td>'
             tr += '<div class="input-group">'
             tr +=
-                '<input type="text" class="form-control" style="width:160px" id="Emp_id_modol' + (row +1) + '" name="data_no[]" placeholder="JS000xxx" onkeyup="get_Emp(' + (row +1) + ')" required>'
+                '<input type="text" class="form-control" id="Emp_id_modol' + (row +1) + '" name="data_no[]" placeholder="JS000xxx" onkeyup="get_Emp(' + (row +1) + ')" required>'
             tr += '</div>'
             tr += '</td>'
             tr += '<td>'
             tr += '<div class="input-group">'
             tr +=
-                '<input type="text" class="form-control" style="width:160px" id="Showname_modol' + (row +1) + '" name="emp_ID[]" disabled>'
+                '<input type="text" class="form-control" id="Showname_modol' + (row +1) + '" name="emp_ID[]" disabled>'
             tr += '</div>'
             tr += '</td>'
             tr +=

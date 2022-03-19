@@ -90,7 +90,14 @@
 
                     <div class="ibox-content"></div>
                     <?php if(sizeof($row_publicTable) != 0){ 
-                        echo $row_publicTable["Company"]." (".$row_publicTable["Company_id"].") ".$row_publicTable["Department"]; //ขาด Department_id
+                        echo '<table class="table table-bordered">';
+                        echo "<tr>";
+                        echo "<td>"."บริษัท"."</td>";
+                        echo "<td>".$row_publicTable["Company"]." (".$row_publicTable["Company_id"].")"."</td>";
+                        echo "<td>"."แผนก"."</td>";
+                        echo "<td>".$row_publicTable["Department"]." (".$row_publicTable["Department_id"].")"."</td>";
+                        echo "</tr>";
+                        echo "</table>";
                     ?>
 
                     <? } ?>
@@ -131,11 +138,11 @@
                                         </thead>
                                         <tbody id="tableBody">
                                             <?php $index_emp = 1; 
-                                                while($row_homeTable = mysqli_fetch_array($result_homeTable)){ ?>
+                                                while($row_homeTable = mysqli_fetch_array($result_homeTable)){?>
                                                 <tr>
-                                                    <td><?php echo $index_emp ?></td>
-                                                    <td><?php echo $row_homeTable["Emp_ID"] ?></td>
-                                                    <td><?php echo $row_homeTable["Empname_engTitle"]. $row_homeTable["Empname_eng"]." ".$row_homeTable["Empsurname_eng"]?></td>
+                                                    <td align="center"><?php echo $index_emp ?></td>
+                                                    <td align="center"><?php echo $row_homeTable["Emp_ID"] ?></td>
+                                                    <td><?php echo $row_homeTable["Empname_engTitle"].". ". $row_homeTable["Empname_eng"]." ".$row_homeTable["Empsurname_eng"]?></td>
                                                     <td><?php echo $row_homeTable["data_employee_reason"]?></td>
                                                 </tr>
                                                 

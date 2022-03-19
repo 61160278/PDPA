@@ -67,7 +67,7 @@
                             </thead>
                             <tbody>
                                 <?php
-                                    $sql_name = "SELECT * From data_public_pdpa WHERE data_public_requester_emp_id = ".$_SESSION["tms_id"]."";
+                                    $sql_name = "SELECT * From data_public_pdpa WHERE data_public_requester_emp_id = ".$_SESSION["tms_id"]." ORDER BY data_public_id DESC";
                                     $result_name = mysqli_query($condbmc, $sql_name);
                                     while($row_name = mysqli_fetch_array($result_name)){
                                         if($row_name["data_public_status"] == 1){
