@@ -34,15 +34,26 @@
         VALUES ('$emp_id','$date','$status','$type')");
 
 
-        $sql = "SELECT *
-		FROM data_public_pdpa 
-                ORDER BY data_public_id DESC
-                LIMIT ";
-	$query = $condbmc->query($sql);
+        // $sql = "SELECT *
+	// 	FROM data_public_pdpa 
+        //         ORDER BY data_public_id
+        //         LIMIT ";
+	// $query = $condbmc->query($sql);
+
         // while($row = $query->fetch_assoc()) {
         //         $data_public_requester_emp_id = $row["data_public_id"];
         // }
         
+
+        $sql = "SELECT data_public_id
+		FROM data_public_pdpa 
+                ORDER BY data_public_id ASC";
+	$query = $condbmc->query($sql);
+        while($row = $query->fetch_assoc()) {
+                $data_public_requester_emp_id = $row["data_public_id"];
+        }
+
+
         if(sizeof($data_no) != 0){
                 for($i=0; $i<sizeof($data_no); $i++) {
                         echo $i;
@@ -52,7 +63,7 @@
         }else{
                 // สร้างอีกตาราง ที่ไม่มีเหตุผล
                 $insert  = mysqli_query($condbmc,"INSERT INTO data_department_pdpa (data_company, data_department, data_department_date, data_department_status, data_department_data_id) 
-                VALUES ('$type_data[$i]','$department[$i]','$date','$status','$data_public_requester_emp_id')");
+                VALUES ('$type_data','$department','$date','$status','$data_public_requester_emp_id')");
         }
         
         if (mysqli_affected_rows($condbmc)>0){

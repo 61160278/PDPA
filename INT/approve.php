@@ -31,18 +31,16 @@
     <div id="wrapper">
         <?php 
             include "menu.php";
-            $sql_emp = "SELECT * From authorize_international_module WHERE aut_int_emp_id = ".$_SESSION["tms_id"]." ";
+            $sql_emp = "SELECT * From authorize_international_module WHERE aut_int_emp_id = ".$_SESSION["tms_id"]."";
             $result_emp = mysqli_query($condbmc, $sql_emp);
             $row_emp = mysqli_fetch_array($result_emp);
 
             if($row_emp['aut_int_role_id'] == 1){
-                $sql_command = "SELECT * From employee_travel WHERE emp_trv_status = 1 AND emp_trv_check = ".$_SESSION["tms_id"]." ";			
+                $sql_command = "SELECT * From data_public_pdpa WHERE data_public_status = 1";			
             }else if($row_emp['aut_int_role_id'] == 2){
-                $sql_command = "SELECT * From employee_travel WHERE emp_trv_status = 2 AND emp_trv_acknowledge = ".$_SESSION["tms_id"]." ";
+                $sql_command = "SELECT * From data_public_pdpa WHERE data_public_status = 2";
             }else if($row_emp['aut_int_role_id'] == 3){
-                $sql_command = "SELECT * From employee_travel WHERE emp_trv_status = 3 AND emp_trv_approve = ".$_SESSION["tms_id"]." ";
-            }else if($row_emp['aut_int_role_id'] == 4){
-                $sql_command = "SELECT * From employee_travel WHERE emp_trv_status = 4 AND emp_trv_approve = ".$_SESSION["tms_id"]." ";
+                $sql_command = "SELECT * From data_public_pdpa WHERE data_public_status = 3";
             }
         ?>
 
@@ -59,9 +57,10 @@
                             <table class="table table-striped table-bordered table-hover dataTables-example" >
                                 <thead>
                                 <tr>
-                                    <th>รหัสพนักงาน | Emploype ID</th>
-                                    <th>ชื่อ-สกุล | Name-Surname</th>
-                                    <th>เครื่องมือ</th>
+                                    <th><center>รหัสพนักงาน | Emploype ID</th>
+                                    <th><center>ชื่อ-สกุล | Name-Surname</th>
+                                    <th><center>ประเภท</th>
+                                    <th><center>เครื่องมือ</th>
                                 </tr>
                                 </thead>
         
@@ -71,14 +70,15 @@
                                         $result_approve = mysqli_query($condbmc, $sql_approve);
                                         while($row_approve = mysqli_fetch_array($result_approve)){
 
-                                        $sql_name = "SELECT * From employee WHERE Emp_ID = ".$row_approve["emp_trv_emp_id"]."";
+                                        $sql_name = "SELECT * From employee WHERE Emp_ID = ".$row_approve["data_public_requester_emp_id"]."";
                                         $result_name = mysqli_query($condbmc, $sql_name);
                                         $row_name = mysqli_fetch_array($result_name);
                                     ?>
                                     <tr class="gradeX">
-                                        <td><?php echo $row_approve["emp_trv_emp_id"]?></td>
-                                        <td><?php echo $row_name["Empname_eng"]." ".$row_name["Empsurname_eng"]?></td>
-                                        <td class="center"><a href ="head_approve.php?id=<?php echo $row_approve["emp_trv_id"] ?>"><button class="btn btn-outline btn-info " type="button"><i class="fa fa-search"></i></button></a></td>
+                                        <td><?php echo $row_approve["data_public_requester_emp_id"]?></td>
+                                        <td><?php echo $row_name["Empname_engTitle"].". ". $row_name["Empname_eng"]." ".$row_name["Empsurname_eng"]?></td>
+                                        <td></td>
+                                        <td class="center"><a href ="head_approve.php?id=<?php echo $row_approve["data_public_id"] ?>"><button class="btn btn-outline btn-info " type="button"><i class="fa fa-search"></i></button></a></td>
                                     </tr>
                                     <?php } ?>
                                 </tbody>
