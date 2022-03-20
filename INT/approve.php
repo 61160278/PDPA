@@ -57,9 +57,10 @@
                             <table class="table table-striped table-bordered table-hover dataTables-example" >
                                 <thead>
                                 <tr>
-                                    <th>รหัสพนักงาน | Emploype ID</th>
-                                    <th>ชื่อ-สกุล | Name-Surname</th>
-                                    <th>เครื่องมือ</th>
+                                    <th><center>รหัสพนักงาน | Emploype ID</th>
+                                    <th><center>ชื่อ-สกุล | Name-Surname</th>
+                                    <th><center>ประเภท</th>
+                                    <th><center>เครื่องมือ</th>
                                 </tr>
                                 </thead>
         
@@ -76,6 +77,7 @@
                                     <tr class="gradeX">
                                         <td><?php echo $row_approve["data_public_requester_emp_id"]?></td>
                                         <td><?php echo $row_name["Empname_engTitle"].". ". $row_name["Empname_eng"]." ".$row_name["Empsurname_eng"]?></td>
+                                        <td></td>
                                         <td class="center"><a href ="head_approve.php?id=<?php echo $row_approve["data_public_id"] ?>"><button class="btn btn-outline btn-info " type="button"><i class="fa fa-search"></i></button></a></td>
                                     </tr>
                                     <?php } ?>
