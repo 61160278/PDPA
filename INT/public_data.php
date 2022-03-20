@@ -101,21 +101,20 @@
                                             
 
                                         <?php if($row_name["data_public_status"] == 2){ ?>
-                                            <a href="add_public_data_preview.php?id=<?php echo $row_name["data_public_id"] ?>">
-                                            <button class="btn btn-primary btn-rounded" type="button"><i class="fa fa-search"></i></button></a>
-                                            <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal" data-target="#modal_simple<?php echo $row_name["data_public_id"]?>"><i class="fa fa-times"></i></button>
+                                            <a href="add_public_data_preview.php?id=<?php echo $row_name["data_public_id"] ?>"></a>
+                                            <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal" data-target="#modal_simple<?php echo $row_name["data_public_id"]?>" ><i class="fa fa-times"></i></button>
                                         <?php } else if($row_name["data_public_status"] == 3){ ?>
-                                            <a href="add_public_data_preview.php?id=<?php echo $row_name["data_public_id"] ?>">
-                                            <button class="btn btn-primary btn-rounded" type="button"><i class="fa fa-search"></i></button></a>
-                                            <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal" data-target="#modal_simple<?php echo $row_name["data_public_id"]?>"><i class="fa fa-times"></i></button>
+                                            <a href="add_public_data_preview.php?id=<?php echo $row_name["data_public_id"] ?>"></a>
+                                            <!-- <button class="btn btn-primary btn-rounded" type="button"><i class="fa fa-search"></i></button></a>
+                                            <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal" data-target="#modal_simple<?php echo $row_name["data_public_id"]?>"><i class="fa fa-times"></i></button> -->
                                         <?php } else if($row_name["data_public_status"] == 5){ ?>
-                                            <a href="add_public_data_preview.php?id=<?php echo $row_name["data_public_id"] ?>">
-                                            <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal" data-target="#modal_simple<?php echo $row_name["data_public_id"]?>"><i class="fa fa-times"></i></button></a>
+                                            <a href="add_public_data_preview.php?id=<?php echo $row_name["data_public_id"] ?>"></a>
                                         <?php } ?>
 
                                         <?php if($row_name["data_public_status"] == 1){ ?>
-                                        <a href="edit_inter_preview.php?id=<?php echo $row_name["data_public_id"] ?>">
-                                        <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal" data-target="#modal_simple<?php echo $row_name["data_public_id"]?>"><i class="fa fa-times"></i></button></a>
+                                        <!-- <a href="edit_inter_preview.php?id=<?php echo $row_name["data_public_id"] ?>">
+                                        <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal" data-target="#modal_simple<?php echo $row_name["data_public_id"]?>"><i class="fa fa-times"></i></button></a> -->
+                                        <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal" data-target="#modal_simple<?php echo $row_name["data_public_id"]?>" ><i class="fa fa-times"></i></button>
 
                                         <form id="ow" name="ow" method="POST"
                                             action="../ENG/update.php?id=<?php echo $row_name["data_public_id"]?>">
