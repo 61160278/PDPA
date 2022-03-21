@@ -42,7 +42,7 @@
                 <?php include "top-bar.php";?>
             </div>
             <div class="row wrapper border-bottom white-bg page-heading">
-                <form id="ow" name="ow" method="POST" action="../ENG/insert.php">
+                <form id="ow" name="ow" method="POST" action="../ENG/insert_report.php">
                     <input type="hidden" id="button" name="button">
                     <div class="col-lg-12">
                         <br>
@@ -67,63 +67,135 @@
                     <br>
 
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-md-12">
                             <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th style="width:300px">
-                                                <center>ชื่อ-นามสกุล
-                                            </th>
-                                            <th style="width:300px">
-                                                <center>รหัสพนักงาน
-                                            </th>
-                                            <th>
-                                                <center>เหตุผล
-                                            </th>
-                                            <th style="width:80px">
-                                                <center>วันที่ยืม
-                                            </th>
-                                        </tr>
-                                    </thead>
+                                <div class="table-responsive">
+                                    <table id="myTbl" class="table table-bordered">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="col-sm-1">บริษัท</div>
+                                                    <div class="col-sm-8">
+                                                        <select class="form-control" name="type_data"
+                                                            onchange="select_all()" id="type_data">
+                                                            <option value="0">Select company</option>
+                                                            <option value="person">รายบุคคล </option>
+                                                            <? echo Select_Type_Company($condbmc);?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6" id="col_department">
+                                                    <div class="col-sm-1">แผนก</div>
+                                                    <div class="col-sm-8">
+                                                        <select class="form-control" name="department">
+                                                            <? echo Select_Get_Department($condbmc, "SDM");?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                        <br>
 
-                                    <tbody>
-                                        <tr align="center">
-                                            <td align="left"><?php echo $row_emp["Empname_eng"]." ".$row_emp["Empsurname_eng"]?></td>
-                                            <td><?php echo $row_emp["Emp_ID"]?></td>
-                                            <td><textarea type="text" placeholder="" class="form-control" name="data4[]" rows="4" required></textarea></td>
-                                            <td><input type="date" class="form-control" style="width:160px" name="data2[]" required></td>
-                                            <!-- <td>
-                                                <select class="select2_demo_1 form-control" name="acknow" id="acknow"
-                                                    style="width:100%;" tabindex="2" checked required>
-                                                    <?
-                                                        $sql_Approve = "SELECT * From employee";
-                                                        $result_Approve = mysqli_query($condbmc, $sql_Approve);
-                                                        while($row_Approve = mysqli_fetch_array($result_Approve)){
-                                                            echo '<option value="'.$row_Approve["Emp_ID"].'">'.$row_Approve["Empname_eng"]." ".$row_Approve["Empsurname_eng"].'</option>';
-                                                        }
-                                                    ?>
-                                                </select>
-                                            </td> -->
+                                        <thead>
+                                            <tr>
+                                                <th style="width:40px">
+                                                    <center>ลำดับ
+                                                </th>
+                                                <th>
+                                                    <center>รหัสพนักงาน
+                                                </th>
+                                                <th>
+                                                    <center>ชื่อ-นามสกุล
+                                                </th>
+                                                <th>
+                                                    <center>เหตุผล
+                                                </th>
+                                                <th>
+                                                    <center>ลบ
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tableBody">
+                                            <!-- <?php
+                                            // $sql_borrow = "SELECT * From borrow_detail WHERE borrow_detail_emp_id = ".$_SESSION["tms_id"]."";
+                                            // $result_borrow = mysqli_query($condbmc, $sql_borrow);
+                                            // $row_borrow = mysqli_fetch_array($result_borrow);
 
-                                            <!-- <td>
-                                                <select class="select2_demo_1 form-control" name="approve" id="approve"
-                                                    style="width:100%;" tabindex="2" checked required>
-                                                    <?
-                                                        $sql_Approve = "SELECT * From employee";
-                                                        $result_Approve = mysqli_query($condbmc, $sql_Approve);
-                                                        while($row_Approve = mysqli_fetch_array($result_Approve)){
-                                                            echo '<option value="'.$row_Approve["Emp_ID"].'">'.$row_Approve["Empname_eng"]." ".$row_Approve["Empsurname_eng"].'</option>';
-                                                        }
-                                                    ?>
-                                                </select>
-                                            </td> -->
-                                    </tbody>
-                                </table>
+                                            // $sql_name = "SELECT * From employee WHERE Emp_ID = ".$row_borrow["borrow_detail_emp_id"]."";
+                                            // $result_name = mysqli_query($condbmc, $sql_name);
+                                            // $row_name = mysqli_fetch_array($result_name);
+                                        ?> -->
+                                        </tbody>
+                                        <input type="text" id="count_check" value="" hidden>
+                                    </table>
+                                </div>
+
+                                <div align="right">
+                                    <button class="btn btn-info" type="button" id="addRow" align="right"><i
+                                            class="fa fa-plus"></i>&nbsp;ADD</button>
+                                </div>
+                                <!-- add -->
                             </div>
                         </div>
+                        <!-- table left -->
                     </div>
                     <!-- Table  -->
+
+                    <div class="col-sm-12">
+                            <h3>  
+                                <left>ประเภทข้อมูล Personal Data</left>
+                            </h3>
+                        </div>
+                            
+                        <div class="col-sm-12">
+                            
+                               
+                                <?php
+                                        $sql_customize = "SELECT * FROM customize_data_type";
+                                        $result_customize = mysqli_query($condbmc, $sql_customize);
+                                        while($row_customize = mysqli_fetch_array($result_customize)){
+                                ?>
+                                 <form>
+                                     <div class = row>
+                                         <div class="col-md-3">
+                                
+                                    <label class="form-check-label ">
+                                        <input type = "checkbox" name = "checkbox[]" value = "checkbox1" >&nbsp;<?php echo $row_customize["customize_data_name"]?>
+                                    </label>
+                                </div>
+                                        
+                                    </div>
+                                <?php } ?>
+                                </form>
+                        </div>
+                     <!-- Table ประเภทข้อมูล Personal Data -->
+
+                     <div class="col-sm-12">
+                            <h3>  
+                                <left>ประเภทข้อมูล Genaral Data</left>
+                            </h3>
+                        </div>
+                            
+                        <div class="col-sm-12">
+                            <div class="table-responsive">
+                               
+                                <?php
+                                        $sql_general = "SELECT * FROM general_data_type";
+                                        $result_general = mysqli_query($condbmc, $sql_general);
+                                        while($row_general = mysqli_fetch_array($result_general)){
+                                ?>
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input type = "checkbox" name = "checkbox[]" value = "checkbox1" >&nbsp;<?php echo $row_general["General_data_name"]?>
+                                    </label>
+                                </div>
+
+                                <?php } ?>
+                            </div>
+                        </div>
+
+
+                        
+                    <!-- Table ประเภทข้อมูล Genaral Data -->
 
                     <br>
                     <div class="col-lg-1">
@@ -185,72 +257,218 @@
     <script src="js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
 
     <script>
-    $(document).ready(function() {
-        $("#approve").change(function() {
-            var ID = $(this).val();
-            document.getElementById("Approve_id").value = ID;
-        });
+    var company = 0;
+
+    $('select').on('change', function() {
+        let Company_ID = $('select[name=type_data] option').filter(':selected').val();
+        let Sectioncode_ID = $('select[name=department] option').filter(':selected').val();
+        console.log(Company_ID, Sectioncode_ID);
+        // if(Company_ID == 1){
+        //     company = "SDM";
+        // } else if (Company_ID == 2){
+        //     company = "SKD";
+        // }
+        let data = {
+            Company_ID: Company_ID, //หน้าชื่อ หลังค่า
+            Sectioncode_ID: Sectioncode_ID
+        };
     });
 
-    $(document).ready(function() {
-        $("#acknow").change(function() {
-            var ID = $(this).val();
-            document.getElementById("Acknow_id").value = ID;
-        });
-    });
-
-    $(document).ready(function() {
-        $("#mgr").change(function() {
-            var ID = $(this).val();
-            document.getElementById("A_id").value = ID;
-        });
+    $("#myTbl_r").on('click', '.delete-row', function() { //delete row
+        $(this).closest('.row-information').remove();
     });
     </script>
 
     <script>
-    $(function() {
-        var row = 6;
-        $("#addRow").click(function() {
+    function select_all() {
+        var check = $("#type_data").val();
+        if (check == 'person') {
+            $("#col_department").hide();
+            $("#addRow").show();
+            $('#myTbl').show();
+
             var tr = '';
-            tr += '<tr id="firstTr">'
-            tr += '<td align="center" name="data1">' + row + '</td>'
+            tr += '<tr align="center">'
+            tr += '<td align="center" name="data1">' + (row + 1) + '</td>'
             tr += '<td>'
             tr += '<div class="input-group">'
-            tr += '<input type="date" class="form-control" style="width:160px" name="data2[]" required>'
+            tr +=
+                '<input type="text" class="form-control" style="width:160px" id="Emp_id_modol' + (row +1) + '" name="data_no[]" placeholder="JS000xxx" onkeyup="get_Emp(' + (row +1) + ')" required>'
             tr += '</div>'
             tr += '</td>'
             tr += '<td>'
-            tr += '<select class="form-control" style="width:80px" name="data3[]" required>'
-            tr += '<? echo Select_Calendar_Type($condbmc); ?>'
-            tr += '</select>'
+            tr += '<div class="input-group">'
+            tr +=
+                '<input type="text" class="form-control" style="width:160px" id="Showname_modol' + (row +1) + '" name="emp_ID[]" disabled>'
+            tr += '</div>'
             tr += '</td>'
             tr +=
-                '<td><textarea type="text" placeholder="" class="form-control" name="data4[]" rows="2" required></textarea>'
+                '<td><textarea type="text" placeholder="" class="form-control" name="reason[]" rows="4" required></textarea>'
             tr += '</td>'
+            tr += '<td>'
             tr +=
-                '<td><textarea type="text" placeholder="" class="form-control"name="data5[]" rows="4" required></textarea>'
-            tr += '</td>'
-            tr += '<td><select class="form-control" style="width:155px" name="data6[]" required>'
-            tr += '<? echo Select_Define_Type($condbmc); ?>'
-            tr += '</select></td>'
-            tr +=
-                '<td><textarea type="text" placeholder="" class="form-control" name="data8[]" rows="2" required></textarea>'
+                '<button class="delete-row" type="button" name="delect[]"><i class="fa fa-trash"></i></button>'
             tr += '</td>'
             tr += '</tr>'
-
             $('#myTbl > tbody:last').append(tr);
 
-            row = row + 1;
-        });
-        $("#removeRow").click(function() {
-            if ($("#myTbl tr").size() > 6) {
-                $("#myTbl tr:last").remove();
-                row -= 1;
-            } else {
-                alert("ต้องใส่ข้อมูลอย่างน้อย 5 รายการ");
-            }
-        });
+            row = ++row;
+        } else {
+            $("#col_department").show();
+            $('#myTbl').hide();
+            $("#addRow").hide();
+        }
+    }
+    //function select_all() ตารางการโชว์ ซ่อน เมื่อเลือก รายบุคคล
+
+    $(document).ready(function() {
+        $("#col_department").hide();
+        $('#myTbl').hide();
+        $("#addRow").hide();
     });
+    // $(document).ready(function()
+
+    function checkform() {
+
+        // return false;
+    }
+
+    function change_group() {
+
+
+        let get_emp = [];
+        let get_res = [];
+        let get_name = [];
+        var count_check = document.getElementById("count").value;
+
+        for (i = 0; i < count_check; i++) {
+            if (document.getElementById("checkbox_l" + i).checked) {
+                get_emp.push(document.getElementById("emp_" + i).innerHTML)
+                // console.log(get_emp)
+                get_res.push(document.getElementById("res_" + i).value)
+                // console.log(get_res)
+                get_name.push(document.getElementById("name_" + i).innerHTML)
+            }
+            // if
+        }
+        // for
+
+
+        let check_empid = [];
+        $('#myTbl_r .row-information').each(function(index) {
+            check_empid.push($(this).find('.emp-id').text());
+        });
+        console.log(check_empid); //ตารางขวา
+
+        for (i = 0; i < get_emp.length; i++) {
+            if (get_emp[i].includes(check_empid)) {
+                //ถ้าเหมือนกันเก็บไว้ แจ้งเตือนให้หยุดตาราง
+            }
+        }
+
+        console.log({
+            get_emp
+        });
+        console.log({
+            get_res
+        });
+        console.log({
+            get_name
+        });
+
+        var tr = '';
+        for (i = 0; i < get_emp.length; i++) {
+            tr += '<tr class="row-information">';
+            tr += '<td align="center">' + (i + 1) + '</td>';
+            tr += '<td align="center" class="emp-id">' + get_emp[i] + '</td>';
+            tr += '<td align="center">' + get_name[i] + '</td>';
+            tr += '<td align="center">' + get_res[i] + '</td>';
+            tr +=
+                '<td align="center"><button class="delete-row" type="button"><i class="fa fa-trash"></i></button></td>';
+            tr += '</tr>';
+        }
+        $('#tableBody').append(tr);
+
+    }
+    </script>
+
+    <script>
+    function get_Emp(index) {
+        Emp_id = document.getElementById("Emp_id_modol"+index).value;
+        var empname = "";
+        //console.log (Emp_id)
+
+        $.ajax({
+            type: "POST",
+            url: "../Ajex/Ajex_Select_emp_id.php",
+            data: {
+                "Emp_id": Emp_id
+            },
+            // dataType: "JSON",
+            success: function(data, status) {
+                // console.log(status)
+                //console.log(data)
+
+                if (data == "null") {
+
+                    document.getElementById("Showname_modol"+index).value = "ไม่มีข้อมูล";
+
+                } else {
+
+                    empname = data.substring(1, data.length - 1);
+                    document.getElementById("Showname_modol"+index).value = empname;
+
+                    //console.log(999)
+                    //console.log(empname)
+                }
+
+                // if-else
+            }
+
+        });
+        // ajax
+    }
+    // function get_Emp 
+
+    var row = 0;
+    $(function() {
+        $("#addRow").click(function() {
+            var tr = '';
+            tr += '<tr align="center">'
+            tr += '<td align="center" name="data1">' + (row + 1) + '</td>'
+            tr += '<td>'
+            tr += '<div class="input-group">'
+            tr +=
+                '<input type="text" class="form-control" style="width:160px" id="Emp_id_modol' + (row +1) + '" name="data_no[]" placeholder="JS000xxx" onkeyup="get_Emp(' + (row +1) + ')" required>'
+            tr += '</div>'
+            tr += '</td>'
+            tr += '<td>'
+            tr += '<div class="input-group">'
+            tr +=
+                '<input type="text" class="form-control" style="width:160px" id="Showname_modol' + (row +1) + '" name="emp_ID[]" disabled>'
+            tr += '</div>'
+            tr += '</td>'
+            tr +=
+                '<td><textarea type="text" placeholder="" class="form-control" name="reason[]" rows="4" required></textarea>'
+            tr += '</td>'
+            tr += '<td>'
+            tr +=
+                '<button class="delete-row" type="button" name="delect[]"><i class="fa fa-trash"></i></button>'
+            tr += '</td>'
+            tr += '</tr>'
+            $('#myTbl > tbody:last').append(tr);
+
+            row = ++row;
+        });
+
+    });
+    </script>
+
+    <script>
+    $('#tableBody').on('click', '.delete-row', function() {
+        $(this).closest("tr").remove();
+        // reset_number();
+    })
     </script>
 </body>
 

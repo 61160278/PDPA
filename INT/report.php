@@ -66,21 +66,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php
-                                    $sql_name = "SELECT * From employee_travel WHERE emp_trv_emp_id = ".$_SESSION["tms_id"]."";
+                            <?php
+                                    $sql_name = "SELECT * From borrow
+                                    Order by date_borrow DESC ";
                                     $result_name = mysqli_query($condbmc, $sql_name);
                                     while($row_name = mysqli_fetch_array($result_name)){
-                                        if($row_name["emp_trv_status"] == 1){
+                                        if($row_name["status"] == 1){
                                             $status = "Waiting Approver 1";
-                                        }else if($row_name["emp_trv_status"] == 2){
+                                        }else if($row_name["status"] == 2){
                                             $status = "Waiting Approver 2";
-                                        }else if($row_name["emp_trv_status"] == 3){
+                                        }else if($row_name["status"] == 3){
                                             $status = "Waiting Final Approver";
-                                        }else if($row_name["emp_trv_status"] == 4){
+                                        }else if($row_name["status"] == 4){
                                             $status = "Approved";
-                                        }else if($row_name["emp_trv_status"] == 5){
+                                        }else if($row_name["status"] == 5){
                                             $status = "Reject";
-                                        }else if($row_name["emp_trv_status"] == 6){
+                                        }else if($row_name["status"] == 6){
                                             $status = "Cancel";
                                         }
                                 ?>
