@@ -77,10 +77,33 @@
                                     <tr class="gradeX">
                                         <td><?php echo $row_approve["data_public_requester_emp_id"]?></td>
                                         <td><?php echo $row_name["Empname_engTitle"].". ". $row_name["Empname_eng"]." ".$row_name["Empsurname_eng"]?></td>
-                                        <td></td>
+                                        <?php if($row_approve["data_public_type"] == 1){ ?>
+                                        <td>Public Data (รายบุคคล)</td>
+                                        <?php }else{ ?>
+                                        <td>Public Data (บริษัท)</td>
+                                        <?php } ?>
                                         <td class="center"><a href ="head_approve.php?id=<?php echo $row_approve["data_public_id"] ?>"><button class="btn btn-outline btn-info " type="button"><i class="fa fa-search"></i></button></a></td>
                                     </tr>
                                     <?php } ?>
+                                    <!-- Public Data -->
+
+                                    <?php
+                                        $sql_approve = $sql_command;
+                                        $result_approve = mysqli_query($condbmc, $sql_approve);
+                                        while($row_approve = mysqli_fetch_array($result_approve)){
+
+                                        $sql_name = "SELECT * From employee WHERE Emp_ID = ".$row_approve["data_public_requester_emp_id"]."";
+                                        $result_name = mysqli_query($condbmc, $sql_name);
+                                        $row_name = mysqli_fetch_array($result_name);
+                                    ?>
+                                    <tr class="gradeX">
+                                        <td><?php echo $row_approve["data_public_requester_emp_id"]?></td>
+                                        <td><?php echo $row_name["Empname_engTitle"].". ". $row_name["Empname_eng"]." ".$row_name["Empsurname_eng"]?></td>
+                                        <td>borrow</td>
+                                        <td class="center"><a href ="head_approve.php?id=<?php echo $row_approve["data_public_id"] ?>"><button class="btn btn-outline btn-info " type="button"><i class="fa fa-search"></i></button></a></td>
+                                    </tr>
+                                    <?php } ?>
+                                    <!-- borrow -->
                                 </tbody>
                             </table>
                         </div>
