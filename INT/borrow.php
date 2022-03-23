@@ -117,7 +117,7 @@
                                         
 
                                         <form id="ow" name="ow" method="POST"
-                                            action="../ENG/update.php?id=<?php echo $row_name["emp_no"]?>">
+                                            action="../ENG/update_borrow.php?id=<?php echo $row_name["emp_no"]?>">
                                             <input type="hidden" id="button" name="button">
                                             <div id="modal_simple<?php echo $row_name["emp_no"]?>"
                                                 class="modal fade" tabindex="-1" role="dialog">

@@ -24,6 +24,7 @@
                 echo $data4[$i];
                 echo $data5[$i];
                 echo $data6[$i];
+                echo $emp_id[$i];
                 echo $datastatus[$i];
                 echo "<br>";
         }
@@ -36,19 +37,27 @@
         $Comment=$_POST['emp_trv_comment'];
 
 
-        $sql = "SELECT emp_trv_id
-		FROM employee_travel ";
-	$query = $condbmc->query($sql);
-        while($row = $query->fetch_assoc()) {
-                $emp_trv_emp_id = $row["emp_trv_id"];
-        }
+       
+       
+       
         
-        for($i=0; $i<sizeof($data2); $i++) {
+        for($i=0; $i<sizeof($data4); $i++) {
                 echo $i;
                 $insert  = mysqli_query($condbmc,"INSERT INTO borrow (emp_no,reason,date_borrow,date_return,status) 
-                VALUES ('$data2[$i]','$data4[$i]','$data5[$i]','$data6[$i]','$status')");
+                VALUES ('$emp_id','$data4[$i]','$data5[$i]','$data6[$i]','$status')");
+        }
+
+        $sql = "SELECT borrow_id
+        FROM borrow";
+        $query = $condbmc->query($sql);
+        while($row = $query->fetch_assoc()) {
+        $emp_no = $row["borrow_id"];
         }
         
+        
+
+
+
         if (mysqli_affected_rows($condbmc)>0){
                 echo '<meta http-equiv=refresh content=0;URL=../INT/borrow.php>';
         } else{

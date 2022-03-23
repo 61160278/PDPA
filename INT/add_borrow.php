@@ -117,15 +117,23 @@
 
 
                                         <tr id="firstTr">
-                                            
-                                            <td><input type="text" class="form-control" id="Emp_id_modol"  name="data_no[]"
-                                                    placeholder="JS000xxx" onkeyup="get_Emp()">
+                                        <?php
+                                        $sql_public = "SELECT * From employee WHERE Emp_ID = ".$_SESSION["tms_id"]."";
+                                        $result_public = mysqli_query($condbmc, $sql_public);
+                                        $row_public = mysqli_fetch_array($result_public);
+                                        ?>
+                                        
 
-                                            </td>
-                                            <td> <input  type="text" class="form-control" id="Showname_modol"  
-                                                    placeholder="Name Surname">
+                                            <tr align="center">
+                                            <td><?php echo $row_public["Emp_ID"]?></td>
+                                            <!-- <td><input type="text" class="form-control" id="Emp_id_modol"  name="data_no[]" -->
+                                                    <!-- placeholder="JS000xxx" onkeyup="get_Emp()"> -->
 
-                                            </td>
+                                            <!-- </td> -->
+                                            <td><?php echo $row_public["Empname_eng"]." ".$row_public["Empsurname_eng"]?></td>
+                                            <!-- <td> <input  type="text" class="form-control" id="Showname_modol"   -->
+                                                    <!-- placeholder="Name Surname"> -->
+                                            <!-- </td> -->
                                             <td><textarea type="text" placeholder="" class="form-control"
                                                     name="data_re[]" rows="2" required></textarea>
                                             </td>
