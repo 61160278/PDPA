@@ -42,6 +42,15 @@
             }else if($row_emp['aut_int_role_id'] == 3){
                 $sql_command = "SELECT * From data_public_pdpa WHERE data_public_status = 3";
             }
+            //Public Data 
+
+            if($row_emp['aut_int_role_id'] == 1){
+                $sql_command2 = "SELECT * From borrow WHERE `status` = 1";			
+            }else if($row_emp['aut_int_role_id'] == 2){
+                $sql_command2 = "SELECT * From borrow WHERE `status` = 2";
+            }else if($row_emp['aut_int_role_id'] == 3){
+                $sql_command2 = "SELECT * From borrow WHERE `status` = 3";
+            }
         ?>
 
         <div id="page-wrapper" class="gray-bg dashbard-1">
@@ -88,22 +97,22 @@
                                     <!-- Public Data -->
 
                                     <?php
-                                        $sql_approve = $sql_command;
-                                        $result_approve = mysqli_query($condbmc, $sql_approve);
-                                        while($row_approve = mysqli_fetch_array($result_approve)){
+                                        $sql_approve2 = $sql_command2;
+                                        $result_approve2 = mysqli_query($condbmc, $sql_approve2);
+                                        while($row_approve2 = mysqli_fetch_array($result_approve2)){
 
-                                        $sql_name = "SELECT * From employee WHERE Emp_ID = ".$row_approve["data_public_requester_emp_id"]."";
-                                        $result_name = mysqli_query($condbmc, $sql_name);
-                                        $row_name = mysqli_fetch_array($result_name);
+                                        $sql_name2 = "SELECT * FROM employee WHERE Emp_ID = ".$row_approve2["emp_no"]."";
+                                        $result_name2 = mysqli_query($condbmc, $sql_name2);
+                                        $row_name2 = mysqli_fetch_array($result_name2);
                                     ?>
-                                    <tr class="gradeX">
-                                        <td><?php echo $row_approve["data_public_requester_emp_id"]?></td>
-                                        <td><?php echo $row_name["Empname_engTitle"].". ". $row_name["Empname_eng"]." ".$row_name["Empsurname_eng"]?></td>
-                                        <td>borrow</td>
-                                        <td class="center"><a href ="head_approve.php?id=<?php echo $row_approve["data_public_id"] ?>"><button class="btn btn-outline btn-info " type="button"><i class="fa fa-search"></i></button></a></td>
+                                    <tr class="gradeZ">
+                                        <td><?php echo $row_approve2["emp_no"]?></td>
+                                        <td><?php echo $row_name2["Empname_engTitle"].". ". $row_name2["Empname_eng"]." ".$row_name2["Empsurname_eng"]?></td>
+                                        <td>Borrow</td>
+                                        <td class="center"><a href ="head_approve_borrow.php?id=<?php echo $row_approve2["emp_no"] ?>"><button class="btn btn-outline btn-info " type="button"><i class="fa fa-search"></i></button></a></td>
                                     </tr>
                                     <?php } ?>
-                                    <!-- borrow -->
+                                    <!-- Borrow -->
                                 </tbody>
                             </table>
                         </div>

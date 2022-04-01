@@ -29,36 +29,28 @@
     <link href="css/plugins/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-
 </head>
 
 <body>
-
     <div id="wrapper">
+        <?php include "menu.php";?>
+
+
         <?php 
-		
-			include "menu.php";
-			
-            $sql_home = "SELECT * From data_public_pdpa WHERE data_public_id = ".$_GET["id"]."";
+            $sql_home = "SELECT * From borrow WHERE emp_no = ".$_GET["id"]."";
             $result_home = mysqli_query($condbmc, $sql_home);
 			$row_home = mysqli_fetch_array($result_home);
             ?>
 
             <?php
-            if($row_home["data_public_type"] == 1){
-                $sql_homeTable = "SELECT * From data_employee_pdpa AS demp
-                                    INNER JOIN employee AS emp
-                                    ON emp.Emp_ID = demp.data_employee_emp_id
-                                    WHERE demp.data_employee_data_id = ".$_GET["id"]."";
-                $result_homeTable = mysqli_query($condbmc, $sql_homeTable);
-                
-            }else if($row_home["data_public_type"] == 2){
-                $sql_publicTable = "SELECT * From data_department_pdpa AS depar
-                                    INNER JOIN master_mapping AS map
-                                    ON map.Department_id = depar.data_department
-                                    WHERE depar.data_department_data_id = ".$_GET["id"]."";
-                $result_publicTable = mysqli_query($condbmc, $sql_publicTable);
-                $row_publicTable = mysqli_fetch_array($result_publicTable);
+            $row=0;
+            $sql_Table = "SELECT * From borrow";
+            $result_Table = mysqli_query($condbmc, $sql_Table);
+			while($row_Table = mysqli_fetch_array($result_Table)){
+                $array7[$row]=$row_Table['date_borrow'];
+                $array1[$row]=$row_Table['date_return'];
+               
+                $row++;
             }
         ?>
 
@@ -81,127 +73,107 @@
                         </ol>
                         <h2>
                             <b><u>
-                                    <center>อนุมัติ</center>
+                                    <center>ยืมแฟ้มประวัติพนักงาน</center>
                                 </u></b><br>
-                            <center>APPROVE<center>
+                            <center>Borrow Employee Profiles<center>
                         </h2>
                     </div>
 
-                    <div class="col-lg-12">
-                        <h2>&nbsp;&nbsp;&nbsp;</h2>
-                    </div>
+                    <!-- Table Flight -->
 
-                    <div class="ibox-content"></div>
-                    <?php if(sizeof($row_publicTable) != 0){ 
-                        echo '<table class="table table-bordered">';
-                        echo "<tr>";
-                        echo "<td>"."บริษัท"."</td>";
-                        echo "<td>".$row_publicTable["Company"]." (".$row_publicTable["Company_id"].")"."</td>";
-                        echo "<td>"."แผนก"."</td>";
-                        echo "<td>".$row_publicTable["Department"]." (".$row_publicTable["Department_id"].")"."</td>";
-                        echo "</tr>";
-                        echo "</table>";
-                    ?>
-
-                    <? } ?>
-                    <!-- company -->
-
-                    <?php if(sizeof($result_homeTable) != 0){ ?>
-
-                    
-                    <!-- Department -->
 
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-sm-12">
                             <div class="table-responsive">
-                                <div class="table-responsive">
-                                    <table id="myTbl" class="table table-bordered">
-                                        <div class="panel-heading">
-                                            <div class="row">
+                                <table id="myTbl" class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <center>ชื่อ-นามสกุล
+                                            </th>
+                                            <th>
+                                                <center>วันที่ยืม
+                                            </th>
+                                            <th>
+                                                <center>วันที่คืน
+                                            </th>
+                                            <th>
+                                                <center>เหตุผลการร้องขอ
+                                            </th>
 
-                                            </div>
-                                        </div>
-                                        <br>
+                                        </tr>
+                                    </thead>
 
-                                        <thead>
-                                            <tr>
-                                                <th style="width:40px">
-                                                    <center>ลำดับ
-                                                </th>
-                                                <th>
-                                                    <center>รหัสพนักงาน
-                                                </th>
-                                                <th>
-                                                    <center>ชื่อ-นามสกุล
-                                                </th>
-                                                <th>
-                                                    <center>เหตุผล
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="tableBody">
-                                            <?php $index_emp = 1; 
-                                                while($row_homeTable = mysqli_fetch_array($result_homeTable)){?>
-                                                <tr>
-                                                    <td align="center"><?php echo $index_emp ?></td>
-                                                    <td align="center"><?php echo $row_homeTable["Emp_ID"] ?></td>
-                                                    <td><?php echo $row_homeTable["Empname_engTitle"].". ". $row_homeTable["Empname_eng"]." ".$row_homeTable["Empsurname_eng"]?></td>
-                                                    <td><?php echo $row_homeTable["data_employee_reason"]?></td>
-                                                </tr>
-                                                
-                                                <?php $index_emp++; 
-                                                } ?>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    <tbody>
+
+                                        <?php
+                                            $sql_emp = "SELECT * FROM borrow
+                                            INNER JOIN employee ON borrow.emp_no = employee.Emp_ID
+                                            where borrow.emp_no = '".$_GET["id"]."'";
+                                            $result_emp = mysqli_query($condbmc, $sql_emp);
+                                            $row_emp = mysqli_fetch_array($result_emp)
+                                            ?>
+
+                                        <?php
+                                            $sql_reason = "SELECT reason FROM borrow
+                                            where borrow.emp_no = '".$_GET["id"]."'";
+                                            $result_reason = mysqli_query($condbmc, $sql_reason);
+                                            $row_reason = mysqli_fetch_array($result_reason)
+                                            ?>
+                                        <?php
+                                            $sql_date_borrow = "SELECT date_borrow ,date_return FROM borrow
+                                            where borrow.emp_no = '".$_GET["id"]."'";
+                                            $result_date_borrow = mysqli_query($condbmc, $sql_date_borrow);
+                                            $row_date_borrow = mysqli_fetch_array($result_date_borrow)
+                                            ?>
+
+
+                                        <tr id="firstTr">
+                                            <td align="left">
+                                                <?php echo $row_emp["Empname_eng"]." ".$row_emp["Empsurname_eng"]?></td>
+                                            <td><?php echo date("d-M-y", strtotime($row_date_borrow["date_borrow"]));?>
+                                            </td>
+                                            <td><?php echo date("d-M-y", strtotime($row_date_borrow["date_return"]));?>
+                                            </td>
+                                            <td><?php echo $row_reason ["reason"]?></td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <!-- table left -->
                     </div>
-                    <!-- table right -->
-                    <? } ?>
+                    <!-- Table Schedule of International Travel  -->
 
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="col-lg-5"></div>
-                                <div class="col-lg-5">
-                                    <button type="button" data-toggle="modal" data-target="#modal_simple"
-                                        class="btn btn-outline btn-primary">
-                                        <i class="fa fa-check"></i>&nbsp;APPROVE
-                                    </button>
-                                    <button type="button" data-toggle="modal" data-target="#modal"
-                                        class="btn btn-outline btn-danger">
-                                        <i class="fa fa-check"></i>&nbsp;REJECT
-                                    </button>
-                                </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-5"></div>
+                            <div class="col-lg-5">
+                                <button type="button" data-toggle="modal" data-target="#modal_simple"
+                                    class="btn btn-outline btn-primary">
+                                    <i class="fa fa-check"></i>&nbsp;APPROVE
+                                </button>
+                                <button type="button" data-toggle="modal" data-target="#modal"
+                                    class="btn btn-outline btn-danger">
+                                    <i class="fa fa-check"></i>&nbsp;REJECT
+                                </button>
                             </div>
                         </div>
-
-                        <!-- <div class="DTTT btn-group pull-right mt-sm">
-							<input type="submit" name="submit" class="btn btn-primary" value="Save">
-						</div>
-						<div class="DTTT btn-group pull-left mt-sm">
-							<button type="button" class="btn btn-danger" data-dismiss="modal">Back</button>
-						</div> -->
-
                     </div>
                 </form>
 
                 <?php
-					if($row_home["data_public_status"] == 1){
+					if($row_home["status"] == 1){
 						$value = "1";
-					}else if($row_home["data_public_status"] == 2){
+					}else if($row_home["status"] == 2){
 						$value = "2";	
-					}else if($row_home["data_public_status"] == 3){
+					}else if($row_home["status"] == 3){
 						$value = "3";
 					}
 				?>
 
-                <!--input type="hidden" id="comment" name="comment">
-				<input type="hidden" id="comment1" name="comment1">
-				<input type="hidden" id="button" name="button"-->
                 <div id="modal_simple" class="modal fade" tabindex="-1" role="dialog">
-                    <form id="ow" name="ow" method="POST" action="../ENG/update.php?id=<?php echo $_GET["id"]?>">
+                    <form id="ow" name="ow" method="POST" action="../ENG/update_borrow.php?id=<?php echo $_GET["id"]?>">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header" style="background-color:green;">
@@ -229,7 +201,7 @@
                 <!-- modal.approve// -->
 
                 <div id="modal" class="modal fade" tabindex="-1" role="dialog">
-                    <form id="ow" name="ow" method="POST" action="../ENG/update.php?id=<?php echo $_GET["id"]?>">
+                    <form id="ow" name="ow" method="POST" action="../ENG/update_borrow.php?id=<?php echo $_GET["id"]?>">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header" style="background-color:red;">
@@ -254,14 +226,11 @@
                     <!-- modal-bialog .// -->
                 </div>
                 <!-- modal.reject// -->
-
-
             </div>
             <br>
             <br>
             <?php include "footer.php";?>
         </div>
-
     </div>
 
 
@@ -305,8 +274,9 @@
     <!-- TouchSpin -->
     <script src="js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
 
+
+
     <script>
-    
     </script>
 </body>
 
