@@ -14,7 +14,7 @@
         $data4=$_POST['data_re'];
         $data5=$_POST['data1'];
         $data6=$_POST['data'];
-        $status=1;
+        // $status=1;
         
         echo $emp_id;
         print_r($data2);
@@ -24,7 +24,7 @@
                 echo $data4[$i];
                 echo $data5[$i];
                 echo $data6[$i];
-                echo $datastatus[$i];
+                echo $status[$i];
                 echo "<br>";
         }
         $Data_item3=$_POST['data_item3'];

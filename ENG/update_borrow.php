@@ -36,6 +36,6 @@ include "dbconnect.php";
             echo "</script>";
             echo '<meta http-equiv=refresh content=0;URL=../INT/borrow.php>';
         }
-        mysqli_query($condbmc,"UPDATE borrow set 'status'='".$status."' WHERE emp_no='" .$_GET['id']. "'");
+        mysqli_query($condbmc,"UPDATE borrow set borrow.status='".$status."' WHERE borrow.borrow_id='" .$_POST['boroow_ID']. "'");
     $message = "Record Modified Successfully";
 ?>

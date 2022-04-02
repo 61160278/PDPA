@@ -173,7 +173,7 @@
 				?>
 
                 <div id="modal_simple" class="modal fade" tabindex="-1" role="dialog">
-                    <form id="ow" name="ow" method="POST" action="../ENG/update_borrow.php?id=<?php echo $_GET["id"]?>">
+                    <form id="ow" name="ow" method="POST" action="../ENG/update_borrow.php">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header" style="background-color:green;">
@@ -189,6 +189,7 @@
                                         cols="60 " style="resize:none;"></textarea>
                                 </div>
                                 <div class="modal-footer">
+                                    <input type="text" name="boroow_ID" value="<?php echo $row_emp ["borrow_id"] ?>" hidden>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     <button type="submit" name="button" value="<? echo $value;?>"
                                         class="btn btn-primary">Approve</button>
@@ -201,7 +202,7 @@
                 <!-- modal.approve// -->
 
                 <div id="modal" class="modal fade" tabindex="-1" role="dialog">
-                    <form id="ow" name="ow" method="POST" action="../ENG/update_borrow.php?id=<?php echo $_GET["id"]?>">
+                    <form id="ow" name="ow" method="POST" action="../ENG/update_borrow.php">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header" style="background-color:red;">
@@ -217,6 +218,7 @@
                                         cols="60" style="resize:none;" required></textarea>
                                 </div>
                                 <div class="modal-footer">
+                                <input type="text" name="boroow_ID" value="<?php echo $row_emp ["borrow_id"] ?>" hidden>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     <button type="submit" name="button" value="5" class="btn btn-danger">Reject</button>
                                 </div>
