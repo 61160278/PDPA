@@ -3,50 +3,75 @@
 <?php
         session_start();     
         $emp_id=$_SESSION["tms_id"];
-        $Type_com=$_POST['type_com'];
-        $Department=$_POST['department'];
-        $Name=$_POST['name'];
-        $Emp_id=$_POST['emp_id'];
-        $Reason=$_POST['reason'];
-        $Bor_date=$_POST['bor_date'];
-        $data2=$_POST['data_no'];
-        $data3=$_POST['data_name'];
-        $data4=$_POST['data_re'];
-        $data5=$_POST['data1'];
-        $data6=$_POST['data'];
-        $status=1;
-        
+
+        $data_no=$_POST['data_no'];
+        $emp_ID=$_POST['emp_ID'];
+        $reason=$_POST['reason'];
+        $delect=$_POST['delect'];
+        $type_data=$_POST['type_data'];
+        $department=$_POST['department'];
+        $checkbox_Genaral=$_POST['checkbox_Genaral'];
+        $checkbox_Personal=$_POST['checkbox_Personal'];
         echo $emp_id;
-        print_r($data2);
-        for($i=0; $i<sizeof($data2); $i++) {
-                echo $data2[$i];
-                echo $data3[$i];
-                echo $data4[$i];
-                echo $data5[$i];
-                echo $data6[$i];
-                echo $datastatus[$i];
+        print_r($data_no);
+        for($i=0; $i<sizeof($data_no); $i++) {
+                echo $data_no[$i];
+                echo $emp_ID[$i];
+                echo $reason[$i];
+                echo $delect[$i];
+                echo $checkbox_Personal[$i];
+                echo $checkbox_Genaral[$i];
                 echo "<br>";
         }
-        $Data_item3=$_POST['data_item3'];
-        $status=$_POST['status'];
+        
+        $status=$_POST['data_report_status'];
         $status=1;
-        $Check=$_POST['A_id'];
-        $Acknowledge=$_POST['Acknow_id'];
-        $Approve=$_POST['Approve_id'];
-        $Comment=$_POST['emp_trv_comment'];
+        date_default_timezone_set("asia/bangkok");
+        $date = date("d-m-Y");
+
+        
+        // for($i=0;$i<count($_POST["checkbox_Genaral"]);$i++)
+        // {
+        //         if(trim($_POST["checkbox_Genaral"][$i]) != "")
+        //         {
+        //                 $insert  = mysqli_query($condbmc,"INSERT INTO data_report (data_report_select) VALUES ('".$_POST["checkbox_Genaral"][$i]."')");
+        //         }
+        // }
+        
+        
+
+        
+        $type = 0;
+        if(sizeof($data_no) != 0){
+                $type = 1;
+        }else{
+                $type = 2;
+        }
+        $insert  = mysqli_query($condbmc,"INSERT INTO data_report (data_report_requester_emp_id,data_report_date,data_report_status,data_report_type) 
+        VALUES ('$emp_id','$date','$status','$type')");
 
 
-        $sql = "SELECT emp_trv_id
-		FROM employee_travel ";
+        
+
+        $sql = "SELECT data_report_id
+		FROM data_report
+                ORDER BY data_report_id ASC";
 	$query = $condbmc->query($sql);
         while($row = $query->fetch_assoc()) {
-                $emp_trv_emp_id = $row["emp_trv_id"];
+                $data_report_requester_emp_id = $row["data_report_id"];
         }
-        
-        for($i=0; $i<sizeof($data2); $i++) {
-                echo $i;
-                $insert  = mysqli_query($condbmc,"INSERT INTO borrow (emp_no,reason,date_borrow,date_return,status) 
-                VALUES ('$data2[$i]','$data4[$i]','$data5[$i]','$data6[$i]','$status')");
+
+
+        if(sizeof($data_no) != 0){
+                for($i=0; $i<sizeof($data_no); $i++) {
+                        echo $i;
+                        $insert  = mysqli_query($condbmc,"INSERT INTO data_employee_report (data_employee_emp_report_id, data_employee_report_reason, data_employee_report_date, data_employee_report_status, data_employee_data_report_id) 
+                        VALUES ('$data_no[$i]','$reason[$i]','$date','$status','$data_report_requester_emp_id')");
+                }
+        }else{
+                // สร้างอีกตาราง ที่ไม่มีเหตุผล
+                $insert  = mysqli_query($condbmc,"INSERT INTO data_department_report (data_company_report, data_department_report, data_department_date_report, data_department_status_report, data_department_data_report_id,data_select) 
+                VALUES ('$type_data','$department','$date','$status','$data_report_requester_emp_id','$checkbox[$i]')");
         }
         
         if (mysqli_affected_rows($condbmc)>0){

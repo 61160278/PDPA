@@ -122,8 +122,7 @@
                                         $result_public = mysqli_query($condbmc, $sql_public);
                                         $row_public = mysqli_fetch_array($result_public);
                                         ?>
-                                        
-
+    
                                             <tr align="center">
                                             <td><?php echo $row_public["Emp_ID"]?></td>
                                             <!-- <td><input type="text" class="form-control" id="Emp_id_modol"  name="data_no[]" -->

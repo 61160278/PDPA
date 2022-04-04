@@ -147,28 +147,25 @@
                         </div>
                             
                         <div class="col-sm-12">
-                            
+                        <div class="row">
                                
                                 <?php
                                         $sql_customize = "SELECT * FROM customize_data_type";
                                         $result_customize = mysqli_query($condbmc, $sql_customize);
                                         while($row_customize = mysqli_fetch_array($result_customize)){
                                 ?>
-                                 <form>
-                                     <div class = row>
-                                         <div class="col-md-3">
-                                
-                                    <label class="form-check-label ">
-                                        <input type = "checkbox" name = "checkbox[]" value = "checkbox1" >&nbsp;<?php echo $row_customize["customize_data_name"]?>
-                                    </label>
-                                </div>
+ 
+                                        <div class="col-md-3">
+                                        <label class="form-check-label ">
+                                            <input type = "checkbox" name = "checkbox_Personal[]" value = "Personal" >&nbsp;<?php echo $row_customize["customize_data_name"]?>
+                                        </label>
                                         
-                                    </div>
+                                        </div>            
+                                    
                                 <?php } ?>
-                                </form>
+                                        </div>
                         </div>
                      <!-- Table ประเภทข้อมูล Personal Data -->
-
                      <div class="col-sm-12">
                             <h3>  
                                 <left>ประเภทข้อมูล Genaral Data</left>
@@ -176,34 +173,32 @@
                         </div>
                             
                         <div class="col-sm-12">
-                            <div class="table-responsive">
+                        <div class="row">
                                
                                 <?php
-                                        $sql_general = "SELECT * FROM general_data_type";
-                                        $result_general = mysqli_query($condbmc, $sql_general);
-                                        while($row_general = mysqli_fetch_array($result_general)){
+                                       $sql_general = "SELECT * FROM general_data_type";
+                                       $result_general = mysqli_query($condbmc, $sql_general);
+                                       while($row_general = mysqli_fetch_array($result_general)){
                                 ?>
-                                <div class="form-check form-check-inline">
-                                    <label class="form-check-label">
-                                        <input type = "checkbox" name = "checkbox[]" value = "checkbox1" >&nbsp;<?php echo $row_general["General_data_name"]?>
-                                    </label>
-                                </div>
-
+ 
+                               
+                                    
+                                        <div class="col-md-3">
+                                        <label class="form-check-label ">
+                                        <input type = "checkbox" name = "checkbox_Genaral[]" value = "Genaral" >&nbsp;<?php echo $row_general["General_data_name"]?>
+                                        </label>
+                                        
+                                        </div>            
+                                    
                                 <?php } ?>
-                            </div>
+                              
+                                        </div>
                         </div>
+                     <!-- Table ประเภทข้อมูล Genaral Data -->
+                     
 
-
-                        
-                    <!-- Table ประเภทข้อมูล Genaral Data -->
-
-                    <br>
-                    <div class="col-lg-1">
-                        <input type="hidden" id="A_id" name="A_id">
-                        <input type="hidden" id="Acknow_id" name="Acknow_id">
-                        <input type="hidden" id="Approve_id" name="Approve_id">
-                    </div>
-                    <!-- Table Apover -->
+                    
+                    
                     <div class="text-center">
                         <input type="submit" name="submit" class="btn btn-primary btn-rounded" value="Submit">
                     </div>
@@ -211,7 +206,7 @@
             </form>
         </div>
         <br>
-        <?php include "footer.php";?>
+       
     </div>
     </div>
 
