@@ -43,7 +43,9 @@
         <?php 
 		
 			include "menu.php";
-			
+            $emp_temp = [];
+            $emp_check = [];
+
             $sql_home = "SELECT * From data_public_pdpa WHERE data_public_id = ".$_GET["id"]."";
             $result_home = mysqli_query($condbmc, $sql_home);
 			$row_home = mysqli_fetch_array($result_home);
@@ -58,12 +60,54 @@
                 $result_homeTable = mysqli_query($condbmc, $sql_homeTable);
                 
             }else if($row_home["data_public_type"] == 2){
+
+
                 $sql_publicTable = "SELECT * From data_department_pdpa AS depar
                                     INNER JOIN master_mapping AS map
                                     ON map.Department_id = depar.data_department
                                     WHERE depar.data_department_data_id = ".$_GET["id"]."";
                 $result_publicTable = mysqli_query($condbmc, $sql_publicTable);
                 $row_publicTable = mysqli_fetch_array($result_publicTable);
+
+                $sql_department = "SELECT * FROM master_mapping
+                                    WHERE Department_id = '".$row_publicTable["Department_id"]."'
+                                    ORDER BY Department_id";
+                $result_department = mysqli_query($condbmc, $sql_department);
+                // get department
+                $index = 0;
+                while($row_department = mysqli_fetch_array($result_department)){
+                    
+
+                    $dp = $row_department["Department_id"];
+                    $sc = $row_department["Section_id"];
+                    $sb = $row_department["SubSection_id"];
+                    $gr = $row_department["Group_id"];
+                    $ln = $row_department["Line_id"];
+
+                    $sql_emp = "SELECT * 
+                                FROM employee AS emp
+                                WHERE emp.Sectioncode_ID = '".$dp."' OR emp.Sectioncode_ID = '".$sc."' OR emp.Sectioncode_ID = '".$sb."' OR emp.Sectioncode_ID = '".$gr."' OR emp.Sectioncode_ID = '".$ln."'
+                                ORDER BY emp.Emp_ID";
+
+                    $result_emp = mysqli_query($condbmc, $sql_emp);
+                    $count = $index;
+
+                        while($row_emp = mysqli_fetch_assoc($result_emp)){
+                            if($count == 0){
+                                array_push($emp_temp,$row_emp); //เก็บข้อมูล
+                                array_push($emp_check,$row_emp["Emp_ID"]); //เก็บรหัสพนักงาน
+                            }
+                            // if
+                            else if(!in_array($row_emp["Emp_ID"],$emp_check)){ //in_array ข้อมูลข้างใน true
+                                array_push($emp_temp,$row_emp);
+                                array_push($emp_check,$row_emp["Emp_ID"]);
+                            }
+                            // else if 
+                        }
+                        // while emp วนลูปเก็บรหัสพนักงานที่ไม่ซ้ำ
+                        $index++;
+                }
+                // while department 
             }
         ?>
 
@@ -97,8 +141,9 @@
                     </div>
 
                     <div class="ibox-content"></div>
+
                     <?php if(sizeof($row_publicTable) != 0){ 
-                        echo '<table class="table table-striped table-bordered table-hover dataTables-example">';
+                        echo '<table class="table table-bordered">';
                         echo "<thead>";
                         echo "<tr>";
                         echo "<th><center>"."บริษัท"."</th>";
@@ -111,68 +156,53 @@
                         echo "</tr>";
                         echo "</table>";
                     ?>
-
+                    <br>
+                    <h1 align="center">รายชื่อพนักงาน</h1>
+                    <br>
+                    <table id="myTbl" class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead>
+                            <!-- <tr>
+                                <th colspan="3">
+                                    บริษัท
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="3">
+                                    แผนก
+                                </th>
+                            </tr>
+                            <tbody>
+                                <tr>
+                                <td><?php echo $row_publicTable["Company"]." (".$row_publicTable["Company_id"].")" ?></td>
+                                </tr>
+                            </tbody> -->
+                            <tr>
+                                <th style="width:40px">
+                                    <center>ลำดับ
+                                </th>
+                                <th>
+                                    <center>รหัสพนักงาน
+                                </th>
+                                <th>
+                                    <center>ชื่อ-นามสกุล
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                            foreach($emp_temp as $index => $row){ ?>
+                            <tr>
+                                <td><?php echo ($index+1) ?></td>
+                                <td><?php echo $row["Emp_ID"]; ?></td>
+                                <td><?php echo $row["Emp_nametitle"] . $row["Empname_th"] . " " . $row["Empsurname_th"]; ?>
+                                </td>
+                            </tr>
+                            <?php }
+                            // foreach  ?>
+                        </tbody>
+                    </table>
                     <? } ?>
-                    
                     <!-- company -->
-
-                    <?php if(sizeof($result_homeTable) != 0){ ?>
-
-
-                    <!-- Department -->
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="ibox-content">
-                                <div class="table-responsive">
-                                    <div class="table-responsive">
-                                        <table id="myTbl" class="table table-striped table-bordered table-hover dataTables-example">
-                                            <div class="panel-heading">
-                                                <div class="row">
-
-                                                </div>
-                                            </div>
-                                            <br>
-
-                                            <thead>
-                                                <tr>
-                                                    <th style="width:40px">
-                                                        <center>ลำดับ
-                                                    </th>
-                                                    <th>
-                                                        <center>รหัสพนักงาน
-                                                    </th>
-                                                    <th>
-                                                        <center>ชื่อ-นามสกุล
-                                                    </th>
-                                                    <th>
-                                                        <center>เหตุผล
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="tableBody">
-                                                <?php $index_emp = 1; 
-                                                while($row_homeTable = mysqli_fetch_array($result_homeTable)){?>
-                                                <tr>
-                                                    <td align="center"><?php echo $index_emp ?></td>
-                                                    <td align="center"><?php echo $row_homeTable["Emp_ID"] ?></td>
-                                                    <td><?php echo $row_homeTable["Empname_engTitle"]." ". $row_homeTable["Empname_eng"]." ".$row_homeTable["Empsurname_eng"]?>
-                                                    </td>
-                                                    <td><?php echo $row_homeTable["data_employee_reason"]?></td>
-                                                </tr>
-
-                                                <?php $index_emp++; 
-                                                } ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- table left -->
-                    </div>
-                    <!-- table right -->
-                    <? } ?>
 
                     <div class="row">
                         <div class="col-lg-12">
@@ -272,7 +302,7 @@
         </div>
         <br>
         <br>
-        <?php include "footer.php";?>
+        <!-- <?php include "footer.php";?> -->
     </div>
 
     </div>

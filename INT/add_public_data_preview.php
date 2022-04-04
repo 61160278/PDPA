@@ -112,7 +112,7 @@
                         <div class="col-md-12">
                             <div class="table-responsive">
                                 <div class="table-responsive">
-                                    <table id="myTbl" class="table table-bordered">
+                                    <table id="myTbl" class="table table-striped table-bordered table-hover dataTables-example">
                                         <div class="panel-heading">
                                             <div class="row">
 

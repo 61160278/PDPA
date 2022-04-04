@@ -85,13 +85,16 @@
                                     ?>
                                     <tr class="gradeX">
                                         <td><?php echo $row_approve["data_public_requester_emp_id"]?></td>
-                                        <td><?php echo $row_name["Empname_engTitle"].". ". $row_name["Empname_eng"]." ".$row_name["Empsurname_eng"]?></td>
+                                        <td><?php echo $row_name["Empname_engTitle"]." ". $row_name["Empname_eng"]." ".$row_name["Empsurname_eng"]?></td>
                                         <?php if($row_approve["data_public_type"] == 1){ ?>
                                         <td>Public Data (รายบุคคล)</td>
+                                        <td class="center"><a href ="head_approve.php?id=<?php echo $row_approve["data_public_id"] ?>"><button class="btn btn-outline btn-info " type="button"><i class="fa fa-search"></i></button></a></td>
+
                                         <?php }else{ ?>
                                         <td>Public Data (บริษัท)</td>
+                                        <td class="center"><a href ="head_approve_company.php?id=<?php echo $row_approve["data_public_id"] ?>"><button class="btn btn-outline btn-info " type="button"><i class="fa fa-search"></i></button></a></td>
+
                                         <?php } ?>
-                                        <td class="center"><a href ="head_approve.php?id=<?php echo $row_approve["data_public_id"] ?>"><button class="btn btn-outline btn-info " type="button"><i class="fa fa-search"></i></button></a></td>
                                     </tr>
                                     <?php } ?>
                                     <!-- Public Data -->
@@ -107,7 +110,7 @@
                                     ?>
                                     <tr class="gradeZ">
                                         <td><?php echo $row_approve2["emp_no"]?></td>
-                                        <td><?php echo $row_name2["Empname_engTitle"].". ". $row_name2["Empname_eng"]." ".$row_name2["Empsurname_eng"]?></td>
+                                        <td><?php echo $row_name2["Empname_engTitle"]." ". $row_name2["Empname_eng"]." ".$row_name2["Empsurname_eng"]?></td>
                                         <td>Borrow</td>
                                         <td class="center"><a href ="head_approve_borrow.php?id=<?php echo $row_approve2["emp_no"] ?>"><button class="btn btn-outline btn-info " type="button"><i class="fa fa-search"></i></button></a></td>
                                     </tr>

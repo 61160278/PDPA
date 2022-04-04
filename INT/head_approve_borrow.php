@@ -27,6 +27,11 @@
     <link href="css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
     <link href="css/plugins/select2/select2.min.css" rel="stylesheet">
     <link href="css/plugins/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
+    <link href="../ADS/assets/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <link href="js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+    <link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
@@ -42,7 +47,7 @@
 			$row_home = mysqli_fetch_array($result_home);
             ?>
 
-            <?php
+        <?php
             $row=0;
             $sql_Table = "SELECT * From borrow";
             $result_Table = mysqli_query($condbmc, $sql_Table);
@@ -59,7 +64,7 @@
                 <?php include "top-bar.php";?>
             </div>
             <div class="row wrapper border-bottom white-bg page-heading">
-                <form id="ow" name="ow" method="POST" >
+                <form id="ow" name="ow" method="POST">
                     <input type="hidden" id="button" name="button">
                     <div class="col-lg-12">
                         <br>
@@ -84,29 +89,31 @@
 
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="table-responsive">
-                                <table id="myTbl" class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                <center>ชื่อ-นามสกุล
-                                            </th>
-                                            <th>
-                                                <center>วันที่ยืม
-                                            </th>
-                                            <th>
-                                                <center>วันที่คืน
-                                            </th>
-                                            <th>
-                                                <center>เหตุผลการร้องขอ
-                                            </th>
+                            <div class="ibox-content">
+                                <div class="table-responsive">
+                                    <table id="myTbl"
+                                        class="table table-striped table-bordered table-hover dataTables-example">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <center>ชื่อ-นามสกุล
+                                                </th>
+                                                <th>
+                                                    <center>วันที่ยืม
+                                                </th>
+                                                <th>
+                                                    <center>วันที่คืน
+                                                </th>
+                                                <th>
+                                                    <center>เหตุผลการร้องขอ
+                                                </th>
 
-                                        </tr>
-                                    </thead>
+                                            </tr>
+                                        </thead>
 
-                                    <tbody>
+                                        <tbody>
 
-                                        <?php
+                                            <?php
                                             $sql_emp = "SELECT * FROM borrow
                                             INNER JOIN employee ON borrow.emp_no = employee.Emp_ID
                                             where borrow.emp_no = '".$_GET["id"]."'";
@@ -114,13 +121,13 @@
                                             $row_emp = mysqli_fetch_array($result_emp)
                                             ?>
 
-                                        <?php
+                                            <?php
                                             $sql_reason = "SELECT reason FROM borrow
                                             where borrow.emp_no = '".$_GET["id"]."'";
                                             $result_reason = mysqli_query($condbmc, $sql_reason);
                                             $row_reason = mysqli_fetch_array($result_reason)
                                             ?>
-                                        <?php
+                                            <?php
                                             $sql_date_borrow = "SELECT date_borrow ,date_return FROM borrow
                                             where borrow.emp_no = '".$_GET["id"]."'";
                                             $result_date_borrow = mysqli_query($condbmc, $sql_date_borrow);
@@ -128,18 +135,20 @@
                                             ?>
 
 
-                                        <tr id="firstTr">
-                                            <td align="left">
-                                                <?php echo $row_emp["Empname_eng"]." ".$row_emp["Empsurname_eng"]?></td>
-                                            <td><?php echo date("d-M-y", strtotime($row_date_borrow["date_borrow"]));?>
-                                            </td>
-                                            <td><?php echo date("d-M-y", strtotime($row_date_borrow["date_return"]));?>
-                                            </td>
-                                            <td><?php echo $row_reason ["reason"]?></td>
-                                        </tr>
+                                            <tr id="firstTr">
+                                                <td align="left">
+                                                    <?php echo $row_emp["Empname_eng"]." ".$row_emp["Empsurname_eng"]?>
+                                                </td>
+                                                <td><?php echo date("d-M-y", strtotime($row_date_borrow["date_borrow"]));?>
+                                                </td>
+                                                <td><?php echo date("d-M-y", strtotime($row_date_borrow["date_return"]));?>
+                                                </td>
+                                                <td><?php echo $row_reason ["reason"]?></td>
+                                            </tr>
 
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -189,7 +198,8 @@
                                         cols="60 " style="resize:none;"></textarea>
                                 </div>
                                 <div class="modal-footer">
-                                    <input type="text" name="boroow_ID" value="<?php echo $row_emp ["borrow_id"] ?>" hidden>
+                                    <input type="text" name="boroow_ID" value="<?php echo $row_emp ["borrow_id"] ?>"
+                                        hidden>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     <button type="submit" name="button" value="<? echo $value;?>"
                                         class="btn btn-primary">Approve</button>
@@ -218,7 +228,8 @@
                                         cols="60" style="resize:none;" required></textarea>
                                 </div>
                                 <div class="modal-footer">
-                                <input type="text" name="boroow_ID" value="<?php echo $row_emp ["borrow_id"] ?>" hidden>
+                                    <input type="text" name="boroow_ID" value="<?php echo $row_emp ["borrow_id"] ?>"
+                                        hidden>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     <button type="submit" name="button" value="5" class="btn btn-danger">Reject</button>
                                 </div>
@@ -275,10 +286,78 @@
     <script src="js/plugins/select2/select2.full.min.js"></script>
     <!-- TouchSpin -->
     <script src="js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
-
-
+    <script src="js/plugins/jeditable/jquery.jeditable.js"></script>
+    <script src="../ADS/assets/js/plugins/dataTables/datatables.min.js"></script>
+    <script src="../ADS/assets/js/inspinia.js"></script>
+    <script src="j../ADS/assets/s/plugins/pace/pace.min.js"></script>
 
     <script>
+    $(document).ready(function() {
+        $('.dataTables-example').DataTable({
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [{
+                    extend: 'copy'
+                },
+                {
+                    extend: 'csv'
+                },
+                {
+                    extend: 'excel',
+                    title: 'ExampleFile'
+                },
+                {
+                    extend: 'pdf',
+                    title: 'ExampleFile'
+                },
+
+                {
+                    extend: 'print',
+                    customize: function(win) {
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+            ]
+
+        });
+
+        /* Init DataTables */
+        var oTable = $('#editable').DataTable();
+
+        /* Apply the jEditable handlers to the table */
+        oTable.$('td').editable('../example_ajax.php', {
+            "callback": function(sValue, y) {
+                var aPos = oTable.fnGetPosition(this);
+                oTable.fnUpdate(sValue, aPos[0], aPos[1]);
+            },
+            "submitdata": function(value, settings) {
+                return {
+                    "row_id": this.parentNode.getAttribute('id'),
+                    "column": oTable.fnGetPosition(this)[2]
+                };
+            },
+
+            "width": "90%",
+            "height": "100%"
+        });
+
+
+    });
+
+    function fnClickAddRow() {
+        $('#editable').dataTable().fnAddData([
+            "Custom row",
+            "New row",
+            "New row",
+            "New row",
+            "New row"
+        ]);
+
+    }
     </script>
 </body>
 
