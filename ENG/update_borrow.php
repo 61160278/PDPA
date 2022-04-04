@@ -15,20 +15,20 @@ include "dbconnect.php";
             echo "alert('Approved successfully.');";
             echo "</script>";
             echo '<meta http-equiv=refresh content=0;URL=../INT/approve.php>';
-            echo '<meta http-equiv=refresh content=0;URL=../INT/borrow.php>';
+            // echo '<meta http-equiv=refresh content=0;URL=../INT/borrow.php>';
         } else if($_POST['button']== 3){ 
             $status = 4;
             echo "<script language=\"JavaScript\">";
             echo "alert('Approved successfully.');";
             echo "</script>";
             echo '<meta http-equiv=refresh content=0;URL=../INT/approve.php>';
-            echo '<meta http-equiv=refresh content=0;URL=../INT/borrow.php>';
+            // echo '<meta http-equiv=refresh content=0;URL=../INT/borrow.php>';
         } else if($_POST['button']== 5){ 
             $status = 5;
             echo "<script language=\"JavaScript\">";
             echo "alert('Rejected successfully.');";
             echo "</script>";
-            echo '<meta http-equiv=refresh content=0;URL=../INT/borrow.php>';
+            echo '<meta http-equiv=refresh content=0;URL=../INT/approve.php>';
         } else if($_POST['button']== 6){ 
             $status = 6;
             echo "<script language=\"JavaScript\">";
@@ -36,6 +36,6 @@ include "dbconnect.php";
             echo "</script>";
             echo '<meta http-equiv=refresh content=0;URL=../INT/borrow.php>';
         }
-        mysqli_query($condbmc,"UPDATE borrow set status='".$status."' WHERE borrow_id='" .$_GET['id']. "'");
+        mysqli_query($condbmc,"UPDATE borrow set borrow.status='".$status."' WHERE borrow.borrow_id='" .$_POST['boroow_ID']. "'");
     $message = "Record Modified Successfully";
 ?>

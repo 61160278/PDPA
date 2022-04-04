@@ -15,20 +15,20 @@ include "dbconnect.php";
             echo "alert('Approved successfully.');";
             echo "</script>";
             echo '<meta http-equiv=refresh content=0;URL=../INT/approve.php>';
-            echo '<meta http-equiv=refresh content=0;URL=../INT/public_data.php>';
+            // echo '<meta http-equiv=refresh content=0;URL=../INT/public_data.php>';
         } else if($_POST['button']== 3){ 
             $status = 4;
             echo "<script language=\"JavaScript\">";
             echo "alert('Approved successfully.');";
             echo "</script>";
             echo '<meta http-equiv=refresh content=0;URL=../INT/approve.php>';
-            echo '<meta http-equiv=refresh content=0;URL=../INT/public_data.php>';
+            // echo '<meta http-equiv=refresh content=0;URL=../INT/public_data.php>';
         } else if($_POST['button']== 5){ 
             $status = 5;
             echo "<script language=\"JavaScript\">";
             echo "alert('Rejected successfully.');";
             echo "</script>";
-            echo '<meta http-equiv=refresh content=0;URL=../INT/public_data.php>';
+            echo '<meta http-equiv=refresh content=0;URL=../INT/approve.php>';
         } else if($_POST['button']== 6){ 
             $status = 6;
             echo "<script language=\"JavaScript\">";

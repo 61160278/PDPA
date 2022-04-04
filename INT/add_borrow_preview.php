@@ -139,22 +139,10 @@
                         </div>
                     </div>
                     <!-- Table Schedule of International Travel  -->
-
-
-
-
-
-
-                    </table>
+                </form>
             </div>
+            <?php include "footer.php";?>
         </div>
-    </div>
-    <br>
-    </div>
-    </form>
-    </div>
-    <?php include "footer.php";?>
-    </div>
     </div>
 
 

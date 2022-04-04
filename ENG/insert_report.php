@@ -4,6 +4,7 @@
         session_start();     
         $emp_id=$_SESSION["tms_id"];
 
+
         $data_no=$_POST['data_no'];
         $emp_ID=$_POST['emp_ID'];
         $reason=$_POST['reason'];
