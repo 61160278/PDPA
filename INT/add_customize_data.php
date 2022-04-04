@@ -70,14 +70,13 @@
                         </div>
                         
                         
-                        <div class="col-sm-12">
+                        <div class="col-lg-12">
                             <h3>  
                                 <left>ประเภทข้อมูล Personal Data</left>
                             </h3>
                         </div>
                             
-                        <div class="col-sm-12">
-                            
+                        <div class="row">
                                
                                 <?php
                                         $sql_customize = "SELECT * FROM customize_data_type";
@@ -85,18 +84,18 @@
                                         while($row_customize = mysqli_fetch_array($result_customize)){
                                 ?>
                                  <form>
-                                     <div class = row>
-                                         <div class="col-md-3">
+                                     
+                                         <div class="col-lg-3">
                                 
                                     <label class="form-check-label ">
                                         <input type = "checkbox" name = "checkbox[]" value = "checkbox1" >&nbsp;<?php echo $row_customize["customize_data_name"]?>
                                     </label>
                                 </div>
                                         
-                                    </div>
+                                   
                                 <?php } ?>
                                 </form>
-                        </div>
+                            </div>
                      <!-- Table ประเภทข้อมูล Personal Data -->
 
                         <div class="col-sm-12">
@@ -122,7 +121,7 @@
                                 <?php } ?>
                             </div>
                         </div>
- <!-- Table ประเภทข้อมูล Genaral Data -->
+                        <!-- Table ประเภทข้อมูล Genaral Data -->
 
 
                             <br>

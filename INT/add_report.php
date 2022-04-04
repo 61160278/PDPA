@@ -92,30 +92,30 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                        </div>
-                                        <br>
+                                            </div>
+                                            <br>
 
-                                        <thead>
-                                            <tr>
-                                                <th style="width:40px">
-                                                    <center>ลำดับ
-                                                </th>
-                                                <th>
-                                                    <center>รหัสพนักงาน
-                                                </th>
-                                                <th>
-                                                    <center>ชื่อ-นามสกุล
-                                                </th>
-                                                <th>
-                                                    <center>เหตุผล
-                                                </th>
-                                                <th>
-                                                    <center>ลบ
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="tableBody">
-                                            <!-- <?php
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:40px">
+                                                        <center>ลำดับ
+                                                    </th>
+                                                    <th>
+                                                        <center>รหัสพนักงาน
+                                                    </th>
+                                                    <th>
+                                                        <center>ชื่อ-นามสกุล
+                                                    </th>
+                                                    <th>
+                                                        <center>เหตุผล
+                                                    </th>
+                                                    <th>
+                                                        <center>ลบ
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tableBody">
+                                                <!-- <?php
                                             // $sql_borrow = "SELECT * From borrow_detail WHERE borrow_detail_emp_id = ".$_SESSION["tms_id"]."";
                                             // $result_borrow = mysqli_query($condbmc, $sql_borrow);
                                             // $row_borrow = mysqli_fetch_array($result_borrow);
@@ -124,8 +124,8 @@
                                             // $result_name = mysqli_query($condbmc, $sql_name);
                                             // $row_name = mysqli_fetch_array($result_name);
                                         ?> -->
-                                        </tbody>
-                                        <input type="text" id="count_check" value="" hidden>
+                                            </tbody>
+                                            <input type="text" id="count_check" value="" hidden>
                                     </table>
                                 </div>
 
@@ -141,69 +141,66 @@
                     <!-- Table  -->
 
                     <div class="col-sm-12">
-                            <h3>  
-                                <left>ประเภทข้อมูล Personal Data</left>
-                            </h3>
-                        </div>
-                            
-                        <div class="col-sm-12">
-                            
-                               
-                                <?php
+                        <h3>
+                            <left>ประเภทข้อมูล Personal Data</left>
+                        </h3>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div class="row">
+
+                            <?php
                                         $sql_customize = "SELECT * FROM customize_data_type";
                                         $result_customize = mysqli_query($condbmc, $sql_customize);
                                         while($row_customize = mysqli_fetch_array($result_customize)){
                                 ?>
-                                 <form>
-                                     <div class = row>
-                                         <div class="col-md-3">
-                                
-                                    <label class="form-check-label ">
-                                        <input type = "checkbox" name = "checkbox[]" value = "checkbox1" >&nbsp;<?php echo $row_customize["customize_data_name"]?>
-                                    </label>
-                                </div>
-                                        
-                                    </div>
-                                <?php } ?>
-                                </form>
-                        </div>
-                     <!-- Table ประเภทข้อมูล Personal Data -->
 
-                     <div class="col-sm-12">
-                            <h3>  
-                                <left>ประเภทข้อมูล Genaral Data</left>
-                            </h3>
-                        </div>
-                            
-                        <div class="col-sm-12">
-                            <div class="table-responsive">
-                               
-                                <?php
-                                        $sql_general = "SELECT * FROM general_data_type";
-                                        $result_general = mysqli_query($condbmc, $sql_general);
-                                        while($row_general = mysqli_fetch_array($result_general)){
-                                ?>
-                                <div class="form-check form-check-inline">
-                                    <label class="form-check-label">
-                                        <input type = "checkbox" name = "checkbox[]" value = "checkbox1" >&nbsp;<?php echo $row_general["General_data_name"]?>
-                                    </label>
-                                </div>
+                            <div class="col-md-3">
+                                <label class="form-check-label ">
+                                    <input type="checkbox" name="checkbox_Personal[]"
+                                        value="<?php echo $row_customize["customize_data_id"]?>">&nbsp;<?php echo $row_customize["customize_data_name"]?>
+                                </label>
 
-                                <?php } ?>
                             </div>
+
+                            <?php } ?>
                         </div>
+                    </div>
+                    <!-- Table ประเภทข้อมูล Personal Data -->
+                    <div class="col-sm-12">
+                        <h3>
+                            <left>ประเภทข้อมูล Genaral Data</left>
+                        </h3>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div class="row">
+
+                            <?php
+                                       $sql_general = "SELECT * FROM general_data_type";
+                                       $result_general = mysqli_query($condbmc, $sql_general);
+                                       while($row_general = mysqli_fetch_array($result_general)){
+                                ?>
 
 
-                        
+
+                            <div class="col-md-3">
+                                <label class="form-check-label ">
+                                    <input type="checkbox" name="checkbox_Genaral[]"
+                                        value="<?php echo $row_general["General_data_id"]?>">&nbsp;<?php echo $row_general["General_data_name"]?>
+                                </label>
+
+                            </div>
+
+                            <?php } ?>
+
+                        </div>
+                    </div>
                     <!-- Table ประเภทข้อมูล Genaral Data -->
 
-                    <br>
-                    <div class="col-lg-1">
-                        <input type="hidden" id="A_id" name="A_id">
-                        <input type="hidden" id="Acknow_id" name="Acknow_id">
-                        <input type="hidden" id="Approve_id" name="Approve_id">
-                    </div>
-                    <!-- Table Apover -->
+
+
+
                     <div class="text-center">
                         <input type="submit" name="submit" class="btn btn-primary btn-rounded" value="Submit">
                     </div>
@@ -211,7 +208,7 @@
             </form>
         </div>
         <br>
-        <?php include "footer.php";?>
+
     </div>
     </div>
 
@@ -293,13 +290,15 @@
             tr += '<td>'
             tr += '<div class="input-group">'
             tr +=
-                '<input type="text" class="form-control" style="width:160px" id="Emp_id_modol' + (row +1) + '" name="data_no[]" placeholder="JS000xxx" onkeyup="get_Emp(' + (row +1) + ')" required>'
+                '<input type="text" class="form-control" style="width:160px" id="Emp_id_modol' + (row + 1) +
+                '" name="data_no[]" placeholder="JS000xxx" onkeyup="get_Emp(' + (row + 1) + ')" required>'
             tr += '</div>'
             tr += '</td>'
             tr += '<td>'
             tr += '<div class="input-group">'
             tr +=
-                '<input type="text" class="form-control" style="width:160px" id="Showname_modol' + (row +1) + '" name="emp_ID[]" disabled>'
+                '<input type="text" class="form-control" style="width:160px" id="Showname_modol' + (row + 1) +
+                '" name="emp_ID[]" disabled>'
             tr += '</div>'
             tr += '</td>'
             tr +=
@@ -394,7 +393,7 @@
 
     <script>
     function get_Emp(index) {
-        Emp_id = document.getElementById("Emp_id_modol"+index).value;
+        Emp_id = document.getElementById("Emp_id_modol" + index).value;
         var empname = "";
         //console.log (Emp_id)
 
@@ -411,12 +410,12 @@
 
                 if (data == "null") {
 
-                    document.getElementById("Showname_modol"+index).value = "ไม่มีข้อมูล";
+                    document.getElementById("Showname_modol" + index).value = "ไม่มีข้อมูล";
 
                 } else {
 
                     empname = data.substring(1, data.length - 1);
-                    document.getElementById("Showname_modol"+index).value = empname;
+                    document.getElementById("Showname_modol" + index).value = empname;
 
                     //console.log(999)
                     //console.log(empname)
@@ -439,13 +438,16 @@
             tr += '<td>'
             tr += '<div class="input-group">'
             tr +=
-                '<input type="text" class="form-control" style="width:160px" id="Emp_id_modol' + (row +1) + '" name="data_no[]" placeholder="JS000xxx" onkeyup="get_Emp(' + (row +1) + ')" required>'
+                '<input type="text" class="form-control" style="width:160px" id="Emp_id_modol' + (row +
+                    1) + '" name="data_no[]" placeholder="JS000xxx" onkeyup="get_Emp(' + (row + 1) +
+                ')" required>'
             tr += '</div>'
             tr += '</td>'
             tr += '<td>'
             tr += '<div class="input-group">'
             tr +=
-                '<input type="text" class="form-control" style="width:160px" id="Showname_modol' + (row +1) + '" name="emp_ID[]" disabled>'
+                '<input type="text" class="form-control" style="width:160px" id="Showname_modol' + (
+                    row + 1) + '" name="emp_ID[]" disabled>'
             tr += '</div>'
             tr += '</td>'
             tr +=

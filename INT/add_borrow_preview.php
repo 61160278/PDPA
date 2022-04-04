@@ -124,8 +124,7 @@
                                             $result_date_borrow = mysqli_query($condbmc, $sql_date_borrow);
                                             $row_date_borrow = mysqli_fetch_array($result_date_borrow)
                                             ?>
-
-
+                                            
                                         <tr id="firstTr">
                                             <td align="left"><?php echo $row_emp["Empname_eng"]." ".$row_emp["Empsurname_eng"]?></td>
                                             <td><?php echo date("d-M-y", strtotime($row_date_borrow["date_borrow"]));?></td>
