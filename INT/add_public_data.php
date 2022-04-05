@@ -265,8 +265,15 @@
 
             row = ++row;
         } else {
-            $("#col_department_sdm").show();
-            $("#col_department_skd").show();
+            var check = document.getElementById("type_data").value;
+            console.log(check);
+            if(check == 1){
+                $("#col_department_sdm").show();
+                $("#col_department_skd").hide();
+            }else if(check == 2){
+                $("#col_department_skd").show();
+                $("#col_department_sdm").hide();
+            }
             $('#myTbl').hide();
             $("#addRow").hide();
         }
