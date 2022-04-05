@@ -46,8 +46,11 @@
                         <br>
                         <br>
                         <table class="table table-striped table-bordered table-hover dataTables-example">
-                            <label class="DTTT btn-group pull-right mt-sm"><a href="add_public_data.php">
-                                    <button class="btn btn-success btn-rounded" type="button"><i class="fa fa-plus"></i>  ขอข้อมูลพนักงาน</button></a>
+                            <label class="form-group pull-right"><a href="add_public_data.php">
+                                    <br>
+                                    <br>
+                                    <button class="btn btn-success btn-rounded" type="button"><i class="fa fa-plus"></i>
+                                        ขอข้อมูลพนักงาน</button></a>
                             </label>
                             <thead>
                                 <tr>
@@ -60,6 +63,10 @@
                                     <th>
                                         <center>สถานะ
                                     </th>
+                                    <th>
+                                        <center>ประเภท
+                                    </th>
+
                                     <th>
                                         <center>เครื่องมือ
                                     </th>
@@ -91,24 +98,116 @@
                                 ?>
 
                                 <tr align="center">
-                                    <td align="left"><?php echo $row_public["Empname_eng"]." ".$row_public["Empsurname_eng"]?></td>
-                                    <td><?php echo date("d-M-y", strtotime($row_name["data_public_date"]));?></td>
+                                    <td align="left">
+                                        <?php echo $row_public["Empname_engTitle"]." ".$row_public["Empname_eng"]." ".$row_public["Empsurname_eng"]?>
                                     </td>
+                                    <td><?php echo date("d-M-y", strtotime($row_name["data_public_date"]));?></td>
                                     <td><?php echo $status?></td>
-                                    <td>
-                                        <a href="add_public_data_preview.php?id=<?php echo $row_name["data_public_id"] ?>">
+                                    <?php if($row_name["data_public_type"] == 1){ ?>
+                                    <td>Public Data (รายบุคคล)</td>
+                                    <td class="center"><a
+                                            href="public_data_preview.php?id=<?php echo $row_name["data_public_id"] ?>"><button
+                                                class="btn btn-primary btn-rounded" type="button"><i
+                                                    class="fa fa-search"></i></button></a>
+                                        <?php if($row_name["data_public_status"] == 1){ ?>
+                                        <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal"
+                                            data-target="#modal_simple<?php echo $row_name["data_public_id"]?>"><i
+                                                class="fa fa-times"></i></button>
+
+                                        <form id="ow" name="ow" method="POST"
+                                            action="../ENG/update.php?id=<?php echo $row_name["data_public_id"]?>">
+                                            <input type="hidden" id="button" name="button">
+                                            <div id="modal_simple<?php echo $row_name["data_public_id"]?>"
+                                                class="modal fade" tabindex="-1" role="dialog">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" style="background-color:red;">
+                                                            <h2 class="modal-title">
+                                                                <font color="white"><b>Cancel</b></font>
+                                                            </h2>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <center><label class="font-noraml"><b>Confirm Cancel ?
+                                                                    </b></label>
+                                                            </center><input type="hidden" name="cancel" id="cancel">
+                                                            <br>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Close</button>
+                                                            <button type="button" onclick="cancelform()" name="submit"
+                                                                class="btn btn-primary">Confirm</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <? } ?>
+                                    </td>
+
+                                    <?php }else{ ?>
+                                    <td>Public Data (บริษัท)</td>
+                                    <td class="center"><a
+                                            href="public_data_preview_company.php?id=<?php echo $row_name["data_public_id"] ?>"><button
+                                                class="btn btn-primary btn-rounded" type="button"><i
+                                                    class="fa fa-search"></i></button></a>
+                                        <?php if($row_name["data_public_status"] == 1){ ?>
+                                        <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal"
+                                            data-target="#modal_simple<?php echo $row_name["data_public_id"]?>"><i
+                                                class="fa fa-times"></i></button>
+
+                                        <form id="ow" name="ow" method="POST"
+                                            action="../ENG/update.php?id=<?php echo $row_name["data_public_id"]?>">
+                                            <input type="hidden" id="button" name="button">
+                                            <div id="modal_simple<?php echo $row_name["data_public_id"]?>"
+                                                class="modal fade" tabindex="-1" role="dialog">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" style="background-color:red;">
+                                                            <h2 class="modal-title">
+                                                                <font color="white"><b>Cancel</b></font>
+                                                            </h2>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <center><label class="font-noraml"><b>Confirm Cancel ?
+                                                                    </b></label>
+                                                            </center><input type="hidden" name="cancel" id="cancel">
+                                                            <br>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Close</button>
+                                                            <button type="button" onclick="cancelform()" name="submit"
+                                                                class="btn btn-primary">Confirm</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <? } ?>
+                                    </td>
+
+                                    <?php } ?>
+
+                                    <?php if($row_name["data_public_status"] == 2){ ?>
+                                    <?php } else if($row_name["data_public_status"] == 3){ ?>
+                                    <?php } else if($row_name["data_public_status"] == 5){ ?>
+                                    <?php } ?>
+
+                                    <!-- <td>
+                                        <a href="public_data_preview.php?id=<?php echo $row_name["data_public_id"] ?>">
                                             <button class="btn btn-primary btn-rounded" type="button"><i class="fa fa-search"></i></button></a>
                                             
 
                                         <?php if($row_name["data_public_status"] == 2){ ?>
-                                            <!-- <a href="add_public_data_preview.php?id=<?php //echo $row_name["data_public_id"] ?>"></a>
-                                            <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal" data-target="#modal_simple<?php echo $row_name["data_public_id"]?>" ><i class="fa fa-times"></i></button> -->
+                                             <a href="public_data_preview.php?id=<?php echo $row_name["data_public_id"] ?>"></a>
+                                            <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal" data-target="#modal_simple<?php echo $row_name["data_public_id"]?>" ><i class="fa fa-times"></i></button> 
                                         <?php } else if($row_name["data_public_status"] == 3){ ?>
-                                            <a href="add_public_data_preview.php?id=<?php echo $row_name["data_public_id"] ?>"></a>
-                                            <!-- <button class="btn btn-primary btn-rounded" type="button"><i class="fa fa-search"></i></button></a>
-                                            <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal" data-target="#modal_simple<?php echo $row_name["data_public_id"]?>"><i class="fa fa-times"></i></button> -->
+                                            <a href="public_data_preview.php?id=<?php echo $row_name["data_public_id"] ?>"></a>
+                                            <button class="btn btn-primary btn-rounded" type="button"><i class="fa fa-search"></i></button></a>
+                                            <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal" data-target="#modal_simple<?php echo $row_name["data_public_id"]?>"><i class="fa fa-times"></i></button>
                                         <?php } else if($row_name["data_public_status"] == 5){ ?>
-                                            <a href="add_public_data_preview.php?id=<?php echo $row_name["data_public_id"] ?>"></a>
+                                            <a href="public_data_preview.php?id=<?php echo $row_name["data_public_id"] ?>"></a>
                                         <?php } ?>
 
                                         <?php if($row_name["data_public_status"] == 1){ ?>
@@ -143,7 +242,7 @@
                                             </div>
                                         </form>
                                         <? } ?>
-                                    </td>
+                                    </td> -->
                                 </tr>
                                 <?php } ?>
                             </tbody>

@@ -40,17 +40,15 @@
 <body>
 
     <div id="wrapper">
-        <?php 
-		
-			include "menu.php";
-            $emp_temp = [];
-            $emp_check = [];
+        <?php include "menu.php";
 
+        $emp_temp = [];
+        $emp_check = [];
+        
             $sql_home = "SELECT * From data_public_pdpa WHERE data_public_id = ".$_GET["id"]."";
             $result_home = mysqli_query($condbmc, $sql_home);
 			$row_home = mysqli_fetch_array($result_home);
-            ?>
-
+        ?>
         <?php
             if($row_home["data_public_type"] == 1){
                 $sql_homeTable = "SELECT * From data_employee_pdpa AS demp
@@ -60,8 +58,6 @@
                 $result_homeTable = mysqli_query($condbmc, $sql_homeTable);
                 
             }else if($row_home["data_public_type"] == 2){
-
-
                 $sql_publicTable = "SELECT * From data_department_pdpa AS depar
                                     INNER JOIN master_mapping AS map
                                     ON map.Department_id = depar.data_department
@@ -116,69 +112,66 @@
                 <?php include "top-bar.php";?>
             </div>
             <div class="row wrapper border-bottom white-bg page-heading">
-                <form id="ow" name="ow" method="POST">
-                    <input type="hidden" id="button" name="button">
-                    <div class="col-lg-12">
-                        <br>
-                        <ol class="breadcrumb">
-                            <li>
-                                <a href="home.php">Home</a>
-                            </li>
-                            <li class="active">
-                                <strong>PDPA</strong>
-                            </li>
-                        </ol>
-                        <h2>
-                            <b><u>
-                                    <center>อนุมัติ</center>
-                                </u></b><br>
-                            <center>APPROVE<center>
-                        </h2>
-                    </div>
+
+                <div class="col-lg-12">
+                    <br>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="home.php">Home</a>
+                        </li>
+                        <li class="active">
+                            <strong>PDPA</strong>
+                        </li>
+                    </ol>
+                    <h2>
+                        <b><u>
+                                <center>ข้อมูลของพนักงานที่สามารถเปิดเผยได้</center>
+                            </u></b><br>
+                        <center>Public Data<center>
+                    </h2>
+
 
                     <div class="col-lg-12">
                         <h2>&nbsp;&nbsp;&nbsp;</h2>
                     </div>
 
-                    <div class="ibox-content"></div>
 
+                    <div class="ibox-content"></div>
                     <?php if(sizeof($row_publicTable) != 0){ 
-                        echo '<table class="table table-bordered">';
-                        echo "<thead>";
-                        echo "<tr>";
-                        echo "<th><center>"."บริษัท"."</th>";
-                        echo "<th><center>"."แผนก"."</th>";
-                        echo "</tr>";
-                        echo "</thead>";
-                        echo "<tr>";
-                        echo "<td>".$row_publicTable["Company"]." (".$row_publicTable["Company_id"].")"."</td>";
-                        echo "<td>".$row_publicTable["Department"]." (".$row_publicTable["Department_id"].")"."</td>";
-                        echo "</tr>";
-                        echo "</table>";
-                    ?>
+                       echo '<table class="table table-bordered">';
+                       echo "<thead>";
+                       echo "<tr>";
+                       echo "<th><center>"."บริษัท"."</th>";
+                       echo "<th><center>"."แผนก"."</th>";
+                       echo "</tr>";
+                       echo "</thead>";
+                       echo "<tr>";
+                       echo "<td>".$row_publicTable["Company"]." (".$row_publicTable["Company_id"].")"."</td>";
+                       echo "<td>".$row_publicTable["Department"]." (".$row_publicTable["Department_id"].")"."</td>";
+                       echo "</tr>";
+                       echo "</table>";
+                   ?>
+                    <!-- company -->
+
+                    <!-- <?php //if(sizeof($result_homeTable) != 0){ ?> -->
+
+
+                    <!-- Department -->
+
                     <br>
-                    <h1 align="center">รายชื่อพนักงาน</h1>
+                    <h2 align="center"><u>รายชื่อพนักงาน</u></h2>
                     <br>
                     <table id="myTbl" class="table table-striped table-bordered table-hover dataTables-example">
                         <thead>
-                            <!-- <tr>
-                                <th colspan="3">
-                                    บริษัท
-                                </th>
-                            </tr>
-                            <tr>
-                                <th colspan="3">
-                                    แผนก
-                                </th>
-                            </tr>
-                            <tbody>
-                                <tr>
-                                <td><?php echo $row_publicTable["Company"]." (".$row_publicTable["Company_id"].")" ?></td>
-                                </tr>
-                            </tbody> -->
                             <tr>
                                 <th style="width:40px">
                                     <center>ลำดับ
+                                </th>
+                                <th>
+                                    <center>บริษัท
+                                </th>
+                                <th>
+                                    <center>แผนก
                                 </th>
                                 <th>
                                     <center>รหัสพนักงาน
@@ -188,124 +181,38 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tableBody">
                             <?php 
                             foreach($emp_temp as $index => $row){ ?>
                             <tr>
                                 <td align="center"><?php echo ($index+1) ?></td>
+                                <td><?php echo $row_publicTable["Company_id"]; ?></td>
+                                <td><?php echo $row_publicTable["Department_id"]; ?></td>
                                 <td><?php echo $row["Emp_ID"]; ?></td>
                                 <td><?php echo $row["Emp_nametitle"] . $row["Empname_th"] . " " . $row["Empsurname_th"]; ?>
                                 </td>
                             </tr>
-                            <?php }
-                            // foreach  ?>
+                            <?php } ?>
+                            <!-- foreach -->
                         </tbody>
                     </table>
                     <? } ?>
                     <!-- company -->
-
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="col-lg-5"></div>
-                            <div class="col-lg-5">
-                                <button type="button" data-toggle="modal" data-target="#modal_simple"
-                                    class="btn btn-outline btn-primary">
-                                    <i class="fa fa-check"></i>&nbsp;APPROVE
-                                </button>
-                                <button type="button" data-toggle="modal" data-target="#modal"
-                                    class="btn btn-outline btn-danger">
-                                    <i class="fa fa-check"></i>&nbsp;REJECT
-                                </button>
-                            </div>
-                        </div>
+                    <div class="text-center">
+                        <a href="public_data.php">
+                            <button class="btn btn-secondary">Back</button>
+                        </a>
                     </div>
-
-                    <!-- <div class="DTTT btn-group pull-right mt-sm">
-							<input type="submit" name="submit" class="btn btn-primary" value="Save">
-						</div>
-						<div class="DTTT btn-group pull-left mt-sm">
-							<button type="button" class="btn btn-danger" data-dismiss="modal">Back</button>
-						</div> -->
-
-
-                </form>
+                </div>
             </div>
 
-            <?php
-					if($row_home["data_public_status"] == 1){
-						$value = "1";
-					}else if($row_home["data_public_status"] == 2){
-						$value = "2";	
-					}else if($row_home["data_public_status"] == 3){
-						$value = "3";
-					}
-				?>
-
-            <!--input type="hidden" id="comment" name="comment">
-				<input type="hidden" id="comment1" name="comment1">
-				<input type="hidden" id="button" name="button"-->
-            <div id="modal_simple" class="modal fade" tabindex="-1" role="dialog">
-                <form id="ow" name="ow" method="POST" action="../ENG/update.php?id=<?php echo $_GET["id"]?>">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header" style="background-color:green;">
-                                <h2 class="modal-title">
-                                    <font color="white"><b>APPROVE</b></font>
-                                </h2>
-                            </div>
-                            <div class="modal-body">
-                                <label class="font-noraml">Confirm Approve ?</label>
-                                <br>
-                                <label class="font-noraml">Please specify the approval</label>
-                                <textarea type="text" class="form-control" rows="8" name="comment" id="comm" cols="60 "
-                                    style="resize:none;"></textarea>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" name="button" value="<? echo $value;?>"
-                                    class="btn btn-primary">Approve</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <!-- modal-bialog .// -->
-            </div>
-            <!-- modal.approve// -->
-
-            <div id="modal" class="modal fade" tabindex="-1" role="dialog">
-                <form id="ow" name="ow" method="POST" action="../ENG/update.php?id=<?php echo $_GET["id"]?>">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header" style="background-color:red;">
-                                <h2 class="modal-title">
-                                    <font color="white"><b>REJECT</b></font>
-                                </h2>
-                            </div>
-                            <div class="modal-body">
-                                <label class="font-noraml">Confirm Approve ?</label>
-                                <br>
-                                <label class="font-noraml">Please specify the approval</label>
-                                <textarea type="text" class="form-control" rows="8" name="comment1" id="com" cols="60"
-                                    style="resize:none;" required></textarea>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" name="button" value="5" class="btn btn-danger">Reject</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <!-- modal-bialog .// -->
-            </div>
-            <!-- modal.reject// -->
-
-
+            <br>
         </div>
-        <br>
-        <br>
-        <!-- <?php include "footer.php";?> -->
     </div>
-
+    </div>
+    <br>
+    <?php include "footer.php";?>
+    </div>
     </div>
 
 

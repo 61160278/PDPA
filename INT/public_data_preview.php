@@ -27,6 +27,11 @@
     <link href="css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
     <link href="css/plugins/select2/select2.min.css" rel="stylesheet">
     <link href="css/plugins/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
+    <link href="../ADS/assets/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <link href="js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+    <link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
@@ -64,24 +69,24 @@
                 <?php include "top-bar.php";?>
             </div>
             <div class="row wrapper border-bottom white-bg page-heading">
-                
-                    <div class="col-lg-12">
-                        <br>
-                        <ol class="breadcrumb">
-                            <li>
-                                <a href="home.php">Home</a>
-                            </li>
-                            <li class="active">
-                                <strong>PDPA</strong>
-                            </li>
-                        </ol>
-                        <h2>
-                            <b><u>
-                                    <center>ข้อมูลของพนักงานที่สามารถเปิดเผยได้</center>
-                                </u></b><br>
-                            <center>Public Data<center>
-                        </h2>
-                    </div>
+
+                <div class="col-lg-12">
+                    <br>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="home.php">Home</a>
+                        </li>
+                        <li class="active">
+                            <strong>PDPA</strong>
+                        </li>
+                    </ol>
+                    <h2>
+                        <b><u>
+                                <center>ข้อมูลของพนักงานที่สามารถเปิดเผยได้</center>
+                            </u></b><br>
+                        <center>Public Data<center>
+                    </h2>
+
 
                     <div class="col-lg-12">
                         <h2>&nbsp;&nbsp;&nbsp;</h2>
@@ -90,11 +95,15 @@
 
                     <div class="ibox-content"></div>
                     <?php if(sizeof($row_publicTable) != 0){ 
-                        echo '<table class="table table-bordered">';
+                        echo '<table class="table table-striped table-bordered table-hover dataTables-example">';
+                        echo "<thead>";
                         echo "<tr>";
-                        echo "<td>"."บริษัท"."</td>";
+                        echo "<th><center>"."บริษัท"."</th>";
+                        echo "<th><center>"."แผนก"."</th>";
+                        echo "</tr>";
+                        echo "</thead>";
+                        echo "<tr>";
                         echo "<td>".$row_publicTable["Company"]." (".$row_publicTable["Company_id"].")"."</td>";
-                        echo "<td>"."แผนก"."</td>";
                         echo "<td>".$row_publicTable["Department"]." (".$row_publicTable["Department_id"].")"."</td>";
                         echo "</tr>";
                         echo "</table>";
@@ -105,14 +114,15 @@
 
                     <?php if(sizeof($result_homeTable) != 0){ ?>
 
-                    
+
                     <!-- Department -->
 
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
                                 <div class="table-responsive">
-                                    <table id="myTbl" class="table table-striped table-bordered table-hover dataTables-example">
+                                    <table id="myTbl"
+                                        class="table table-striped table-bordered table-hover dataTables-example">
                                         <div class="panel-heading">
                                             <div class="row">
 
@@ -139,14 +149,15 @@
                                         <tbody id="tableBody">
                                             <?php $index_emp = 1; 
                                                 while($row_homeTable = mysqli_fetch_array($result_homeTable)){?>
-                                                <tr>
-                                                    <td align="center"><?php echo $index_emp ?></td>
-                                                    <td align="center"><?php echo $row_homeTable["Emp_ID"] ?></td>
-                                                    <td><?php echo $row_homeTable["Empname_engTitle"].". ". $row_homeTable["Empname_eng"]." ".$row_homeTable["Empsurname_eng"]?></td>
-                                                    <td><?php echo $row_homeTable["data_employee_reason"]?></td>
-                                                </tr>
-                                                
-                                                <?php $index_emp++; 
+                                            <tr>
+                                                <td align="center"><?php echo $index_emp ?></td>
+                                                <td align="center"><?php echo $row_homeTable["Emp_ID"] ?></td>
+                                                <td><?php echo $row_homeTable["Empname_engTitle"]." ". $row_homeTable["Empname_eng"]." ".$row_homeTable["Empsurname_eng"]?>
+                                                </td>
+                                                <td><?php echo $row_homeTable["data_employee_reason"]?></td>
+                                            </tr>
+
+                                            <?php $index_emp++; 
                                                 } ?>
                                         </tbody>
                                     </table>
@@ -164,10 +175,11 @@
                             <button class="btn btn-secondary">Back</button>
                         </a>
                     </div>
+                </div>
             </div>
+            <br>
+            <?php include "footer.php";?>
         </div>
-        <br>
-        <!-- <?php include "footer.php";?> -->
     </div>
     </div>
 
@@ -211,7 +223,79 @@
     <script src="js/plugins/select2/select2.full.min.js"></script>
     <!-- TouchSpin -->
     <script src="js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
+    <script src="js/plugins/jeditable/jquery.jeditable.js"></script>
+    <script src="../ADS/assets/js/plugins/dataTables/datatables.min.js"></script>
+    <script src="../ADS/assets/js/inspinia.js"></script>
+    <script src="j../ADS/assets/s/plugins/pace/pace.min.js"></script>
 
+    <script>
+    $(document).ready(function() {
+        $('.dataTables-example').DataTable({
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [{
+                    extend: 'copy'
+                },
+                {
+                    extend: 'csv'
+                },
+                {
+                    extend: 'excel',
+                    title: 'ExampleFile'
+                },
+                {
+                    extend: 'pdf',
+                    title: 'ExampleFile'
+                },
+
+                {
+                    extend: 'print',
+                    customize: function(win) {
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+            ]
+
+        });
+
+        /* Init DataTables */
+        var oTable = $('#editable').DataTable();
+
+        /* Apply the jEditable handlers to the table */
+        oTable.$('td').editable('../example_ajax.php', {
+            "callback": function(sValue, y) {
+                var aPos = oTable.fnGetPosition(this);
+                oTable.fnUpdate(sValue, aPos[0], aPos[1]);
+            },
+            "submitdata": function(value, settings) {
+                return {
+                    "row_id": this.parentNode.getAttribute('id'),
+                    "column": oTable.fnGetPosition(this)[2]
+                };
+            },
+
+            "width": "90%",
+            "height": "100%"
+        });
+
+
+    });
+
+    function fnClickAddRow() {
+        $('#editable').dataTable().fnAddData([
+            "Custom row",
+            "New row",
+            "New row",
+            "New row",
+            "New row"
+        ]);
+
+    }
+    </script>
 </body>
 
 </html>

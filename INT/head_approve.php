@@ -96,7 +96,6 @@
                         <h2>&nbsp;&nbsp;&nbsp;</h2>
                     </div>
 
-                    <div class="ibox-content"></div>
                     <?php if(sizeof($row_publicTable) != 0){ 
                         echo '<table class="table table-striped table-bordered table-hover dataTables-example">';
                         echo "<thead>";
