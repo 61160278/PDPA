@@ -87,7 +87,15 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6" id="col_department">
+                                                <div class="col-md-6" id="col_department_sdm">
+                                                    <div class="col-sm-1">แผนก</div>
+                                                    <div class="col-sm-8">
+                                                        <select class="form-control" name="department">
+                                                            <? echo Select_Get_Department($condbmc, "SDM");?> <!-- ติดตรงแผนก -->
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6" id="col_department_skd">
                                                     <div class="col-sm-1">แผนก</div>
                                                     <div class="col-sm-8">
                                                         <select class="form-control" name="department">
@@ -225,7 +233,8 @@
     function select_all() {
         var check = $("#type_data").val();
         if (check == 'person') {
-            $("#col_department").hide();
+            $("#col_department_sdm").hide();
+            $("#col_department_skd").hide();
             $("#addRow").show();
             $('#myTbl').show();
 
@@ -256,7 +265,8 @@
 
             row = ++row;
         } else {
-            $("#col_department").show();
+            $("#col_department_sdm").show();
+            $("#col_department_skd").show();
             $('#myTbl').hide();
             $("#addRow").hide();
         }
@@ -264,7 +274,8 @@
     //function select_all() ตารางการโชว์ ซ่อน เมื่อเลือก รายบุคคล
 
     $(document).ready(function() {
-        $("#col_department").hide();
+        $("#col_department_sdm").hide();
+        $("#col_department_skd").hide();
         $('#myTbl').hide();
         $("#addRow").hide();
     });
@@ -412,37 +423,6 @@
         // reset_number();
     })
 
-    // function reset_number() {
-    //     var index = $(this).closest('tr').index();
-    //         if (index > 0) {
-    //         $(this).closest('tr').remove();
-    //         } else {
-    //             var $tr = $(this).closest('tr').clone(true);
-    //             var $input = $tr.find('input.delete-row');
-    //             $('#addRow').val('.delete-row');
-    //             index++;
-    //             $input.attr('id', id).data('index', index);
-    //             console.log(index);
-    //             $tr.prependTo($(this).closest('table'));
-    //         }
-    // }
-
-    // function reset_number(){
-    //     var child = $('#tableBody').children();
-    //     console.log(child[0]);
-
-    // var child = $('#tableBody').closest('tr').nextAll();
-    // child.each(function () {
-    //     var id = $(this).attr('id');
-    //     var idx = $(this).children('.row-index').children('p');
-    //     var dig = parseInt(id.substring(1));
-    //     idx.html('Row ${dig - 1}');
-    //     $(this).attr('id', 'R${dig - 1}');
-    //     console.log();
-    // });
-    // $(this).closest('tr').remove();
-    // rowIdx--;
-    // }
     </script>
 </body>
 
