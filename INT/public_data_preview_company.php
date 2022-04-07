@@ -187,7 +187,7 @@
                             <tr>
                                 <td align="center"><?php echo ($index+1) ?></td>
                                 <td><?php echo $row_publicTable["Company_id"]; ?></td>
-                                <td><?php echo $row_publicTable["Department_id"]; ?></td>
+                                <td><?php echo $row_publicTable["Department"]; ?></td>
                                 <td><?php echo $row["Emp_ID"]; ?></td>
                                 <td><?php echo $row["Emp_nametitle"] . $row["Empname_th"] . " " . $row["Empsurname_th"]; ?>
                                 </td>
