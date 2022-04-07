@@ -24,7 +24,7 @@
                 }
         }
         // if 
-
+      
         $status=$_POST['data_report_status'];
         $status=1;
         

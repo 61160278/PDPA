@@ -39,6 +39,10 @@
                 $sql_homeTable = "SELECT * From data_employee_report AS demp
                                     INNER JOIN employee AS emp
                                     ON emp.Emp_ID = demp.data_employee_emp_report_id
+                                    INNER JOIN data_report_customize AS customize
+                                    ON customize.data_report_id = demp.data_employee_data_report_id	
+                                    INNER JOIN data_report_general AS general
+                                    ON general.data_report_id = demp.data_employee_data_report_id
                                     WHERE demp.data_employee_data_report_id = ".$_GET["id"]."";
                 $result_homeTable = mysqli_query($condbmc, $sql_homeTable);
             }
@@ -82,10 +86,10 @@
                                         <center>ชื่อ-นามสกุล
                                     </th>
                                     <th>
-                                        <center>แผนก
+                                        <center>เหตุผล
                                     </th>
                                     <th>
-                                        <center>เหตุผล
+                                        <center>แผนก
                                     </th>
                                     <th>
                                         <center>ข้อมูล
@@ -104,18 +108,22 @@
                                                 <td><?php echo $row_homeTable["Empname_engTitle"]." ". $row_homeTable["Empname_eng"]." ".$row_homeTable["Empsurname_eng"]?>
                                                 </td>
                                                 <td><?php echo $row_homeTable["data_employee_report_reason"]?></td>
-                                                <td><?php echo $row_homeTable["data_employee_report_reason"]?></td>
-                                                <td><?php echo $row_homeTable["data_employee_report_reason"]?></td>
+                                                <td><?php echo $row_homeTable["Sectioncode_ID"]?></td>
+                                                <td><?php echo $row_homeTable["customize_data_id"]?></td>
+                                                <td><?php echo $row_homeTable["General_data_id"]?></td>
+                                                
                                             </tr>
 
                                             <?php $index_emp++; 
                                                 } ?>
                                         </tbody>
+                            
+                            
                         </table>
-                    </div> <!-- class="ibox-content" -->
+                    </div>
                     <? } ?>
-                </div> <!-- class="col-sm-12" -->
-            </div><!-- class="row border-bottom white-bg dashboard-header" -->
+                </div>
+            </div>
             <?php include "footer.php";?>
         </div>
     </div>
