@@ -14,6 +14,7 @@
         $data4=$_POST['data_re'];
         $data5=$_POST['data1'];
         $data6=$_POST['data'];
+        $data_item3=$_POST['data_item3'];
         $status=1;
         
         echo $emp_id;
@@ -43,8 +44,8 @@
         
         for($i=0; $i<sizeof($data4); $i++) {
                 echo $i;
-                $insert  = mysqli_query($condbmc,"INSERT INTO borrow (emp_no,reason,date_borrow,date_return,status) 
-                VALUES ('$emp_id','$data4[$i]','$data5[$i]','$data6[$i]','$status')");
+                $insert  = mysqli_query($condbmc,"INSERT INTO borrow (emp_no,reason,date_borrow,date_return,status,borrow_type) 
+                VALUES ('$emp_id','$data4[$i]','$data5[$i]','$data6[$i]','$status','$data_item3')");
         }
 
         $sql = "SELECT borrow_id

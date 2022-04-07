@@ -29,6 +29,30 @@
     <div id="wrapper">
         <?php include "menu.php";?>
 
+        <?php 
+            $sql_home = "SELECT * From data_report WHERE data_report_id = ".$_GET["id"]."";
+            $result_home = mysqli_query($condbmc, $sql_home);
+			$row_home = mysqli_fetch_array($result_home);
+        ?>
+        <?php
+            if($row_home["data_report_type"] == 1){
+                $sql_homeTable = "SELECT * From data_employee_report AS demp
+                                    INNER JOIN employee AS emp
+                                    ON emp.Emp_ID = demp.data_employee_emp_report_id
+                                    WHERE demp.data_employee_data_report_id = ".$_GET["id"]."";
+                $result_homeTable = mysqli_query($condbmc, $sql_homeTable);
+            }
+            // }else if($row_home["data_report_type"] == 2){
+            //     $sql_publicTable = "SELECT * From data_department_report AS depar
+            //                         INNER JOIN master_mapping AS map
+            //                         ON map.Department_id = depar.data_department
+            //                         WHERE depar.data_department_data_id = ".$_GET["id"]."";
+            //     $result_publicTable = mysqli_query($condbmc, $sql_publicTable);
+            //     $row_publicTable = mysqli_fetch_array($result_publicTable);
+            // }
+        ?>
+        <?php if(sizeof($result_homeTable) != 0){ ?>
+
         <div id="page-wrapper" class="gray-bg dashbard-1">
             <div class="row border-bottom">
                 <?php include "top-bar.php";?>
@@ -44,16 +68,24 @@
                     <br>
                     <div class="ibox-content">
                         <br>
-                        <br>
                         <table class="table table-striped table-bordered table-hover dataTables-example">
                            
                             <thead>
                                 <tr>
+                                <th>
+                                        <center>ลำดับ
+                                    </th>
+                                    <th>
+                                        <center>รหัสพนักงาน
+                                    </th>
                                     <th>
                                         <center>ชื่อ-นามสกุล
                                     </th>
                                     <th>
                                         <center>แผนก
+                                    </th>
+                                    <th>
+                                        <center>เหตุผล
                                     </th>
                                     <th>
                                         <center>ข้อมูล
@@ -63,20 +95,27 @@
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody>
-                            
-                                    <tr align="center">
-                                    <td align="left"></td>
-                                    <td></td>
-                                    <td><?php echo $status?></td>
-                                    <td></td>
-                                </tr>
-                            
-                            </tbody>
+                            <tbody id="tableBody">
+                                            <?php $index_emp = 1; 
+                                                while($row_homeTable = mysqli_fetch_array($result_homeTable)){?>
+                                            <tr>
+                                                <td align="center"><?php echo $index_emp ?></td>
+                                                <td align="center"><?php echo $row_homeTable["Emp_ID"] ?></td>
+                                                <td><?php echo $row_homeTable["Empname_engTitle"]." ". $row_homeTable["Empname_eng"]." ".$row_homeTable["Empsurname_eng"]?>
+                                                </td>
+                                                <td><?php echo $row_homeTable["data_employee_report_reason"]?></td>
+                                                <td><?php echo $row_homeTable["data_employee_report_reason"]?></td>
+                                                <td><?php echo $row_homeTable["data_employee_report_reason"]?></td>
+                                            </tr>
+
+                                            <?php $index_emp++; 
+                                                } ?>
+                                        </tbody>
                         </table>
-                    </div>
-                </div>
-            </div>
+                    </div> <!-- class="ibox-content" -->
+                    <? } ?>
+                </div> <!-- class="col-sm-12" -->
+            </div><!-- class="row border-bottom white-bg dashboard-header" -->
             <?php include "footer.php";?>
         </div>
     </div>
