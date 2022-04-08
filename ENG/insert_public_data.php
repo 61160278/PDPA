@@ -27,23 +27,14 @@
         $type = 0;
         if(sizeof($data_no) != 0){
                 $type = 1;
-        }else{
+        }else if($department != "SDM:SKD"){
                 $type = 2;
+        }else if($department == "SDM:SKD"){
+                $type = 3;
         }
+
         $insert  = mysqli_query($condbmc,"INSERT INTO data_public_pdpa (data_public_requester_emp_id, data_public_date, data_public_status, data_public_type) 
         VALUES ('$emp_id','$date','$status','$type')");
-
-
-        // $sql = "SELECT *
-	// 	FROM data_public_pdpa 
-        //         ORDER BY data_public_id
-        //         LIMIT ";
-	// $query = $condbmc->query($sql);
-
-        // while($row = $query->fetch_assoc()) {
-        //         $data_public_requester_emp_id = $row["data_public_id"];
-        // }
-        
 
         $sql = "SELECT data_public_id
 		FROM data_public_pdpa 

@@ -87,22 +87,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6" id="col_department_sdm">
-                                                    <div class="col-sm-1">แผนก</div>
-                                                    <div class="col-sm-8">
-                                                        <select class="form-control" name="department">
-                                                            <? echo Select_Get_Department($condbmc, "SDM");?> <!-- ติดตรงแผนก -->
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6" id="col_department_skd">
-                                                    <div class="col-sm-1">แผนก</div>
-                                                    <div class="col-sm-8">
-                                                        <select class="form-control" name="department">
-                                                            <? echo Select_Get_Department($condbmc, "SKD");?> <!-- ติดตรงแผนก -->
-                                                        </select>
-                                                    </div>
-                                                </div>
+                                                <div id="show_department"></div>
                                         </div>
                                         <br>
 
@@ -266,23 +251,52 @@
             row = ++row;
         } else {
             var check = document.getElementById("type_data").value;
-            console.log(check);
+            var data_row = "";
             if(check == 1){
-                $("#col_department_sdm").show();
-                $("#col_department_skd").hide();
-            }else if(check == 2){
-                $("#col_department_skd").show();
-                $("#col_department_sdm").hide();
+                data_row += '<div class="col-md-6" id="col_department_sdm">'
+                data_row += '<div class="col-sm-1">แผนก</div>'
+                data_row += '<div class="col-sm-8">'
+                data_row += '<select class="form-control" name="department">'
+                data_row += '<? echo Select_Get_Department($condbmc, "SDM");?>'
+                data_row += '</select>'
+                data_row += '</div>'
+                data_row += '</div>'
+                $("#show_department").html(data_row);
+
             }
+            // if 
+            else if(check == 2){
+                data_row += '<div class="col-md-6" id="col_department_sdm">'
+                data_row += '<div class="col-sm-1">แผนก</div>'
+                data_row += '<div class="col-sm-8">'
+                data_row += '<select class="form-control" name="department">'
+                data_row += '<? echo Select_Get_Department($condbmc, "SKD");?>'
+                data_row += '</select>'
+                data_row += '</div>'
+                data_row += '</div>'
+                $("#show_department").html(data_row);
+            }
+            // else if 
+            else if(check == 3){
+                data_row += '<div class="col-md-6" id="col_department_sdm">'
+                data_row += '<div class="col-sm-1">แผนก</div>'
+                data_row += '<div class="col-sm-8">'
+                data_row += '<select class="form-control" name="department">'
+                data_row += '<option value="SDM:SKD">ALL Department</option>'
+                data_row += '</select>'
+                data_row += '</div>'
+                data_row += '</div>'
+                $("#show_department").html(data_row);
+            }
+            // else if 
             $('#myTbl').hide();
             $("#addRow").hide();
         }
+        // else 
     }
     //function select_all() ตารางการโชว์ ซ่อน เมื่อเลือก รายบุคคล
 
     $(document).ready(function() {
-        $("#col_department_sdm").hide();
-        $("#col_department_skd").hide();
         $('#myTbl').hide();
         $("#addRow").hide();
     });
