@@ -21,7 +21,7 @@
         }
         
         $status=$_POST['data_public_status'];
-        $status=1;
+        $status ="active";
         $date = date("Y-m-d");
 
         $type = 0;
