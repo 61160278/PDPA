@@ -99,9 +99,11 @@
                                             data-target="#modal_simple<?php echo $row_name["data_public_id"]?>"><i
                                                 class="fa fa-times"></i></button>
 
-                                        <form id="ow" name="ow" method="POST"
+                                        <form id="ow<?php echo $row_name["data_public_id"]?>" name="ow" method="POST"
                                             action="../ENG/update.php?id=<?php echo $row_name["data_public_id"]?>">
-                                            <input type="hidden" id="button" name="button">
+
+                                            <input type="text" id="button" name="button" value="inactive" hidden>
+
                                             <div id="modal_simple<?php echo $row_name["data_public_id"]?>"
                                                 class="modal fade" tabindex="-1" role="dialog">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -120,7 +122,7 @@
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-dismiss="modal">Close</button>
-                                                            <button type="button" onclick="cancelform()" name="submit"
+                                                            <button type="button" onclick="cancelform(<?php echo $row_name['data_public_id']; ?>)" name="submit"
                                                                 class="btn btn-primary">Confirm</button>
                                                         </div>
                                                     </div>
@@ -141,9 +143,11 @@
                                             data-target="#modal_simple<?php echo $row_name["data_public_id"]?>"><i
                                                 class="fa fa-times"></i></button>
 
-                                        <form id="ow" name="ow" method="POST"
+                                        <form id="ow<?php echo $row_name["data_public_id"]?>" name="ow" method="POST"
                                             action="../ENG/update.php?id=<?php echo $row_name["data_public_id"]?>">
-                                            <input type="hidden" id="button" name="button">
+
+                                            <input type="text" id="button" name="button" value="inactive" hidden>
+
                                             <div id="modal_simple<?php echo $row_name["data_public_id"]?>"
                                                 class="modal fade" tabindex="-1" role="dialog">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -162,7 +166,7 @@
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-dismiss="modal">Close</button>
-                                                            <button type="button" onclick="cancelform()" name="submit"
+                                                            <button type="button" onclick="cancelform(<?php echo $row_name['data_public_id']?>)" name="submit"
                                                                 class="btn btn-primary">Confirm</button>
                                                         </div>
                                                     </div>
@@ -201,9 +205,9 @@
     <!-- Page-Level Scripts -->
 
     <script>
-    function cancelform() {
-        document.getElementById("button").value = "inactive";
-        document.getElementById("ow").submit();
+    function cancelform(id) {
+        document.getElementById("button").value;
+        document.getElementById("ow"+id).submit();
     }
 
     // $(document).ready(function() {

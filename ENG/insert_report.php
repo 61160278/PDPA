@@ -27,18 +27,22 @@
       
         $status=$_POST['data_report_status'];
         $status=1;
-        
         $date = date("Y-m-d");
-
+        $Check=$_POST['A_id'];
+        $Acknowledge=$_POST['Acknow_id'];
+        $Approve=$_POST['Approve_id'];
         
+        // $insert  = mysqli_query($condbmc,"INSERT INTO data_report (data_report_requester_emp_id,data_report_date,data_report_status,data_report_type, data_report_check, data_report_acknowledge, data_report_approve) 
+        // VALUES ('$emp_id','$date','$status','$type','$Check','$Acknowledge','$Approve')");
+
         $type = 0;
         if(sizeof($data_no) != 0){
                 $type = 1;
         }else{
                 $type = 2;
         }
-        $insert  = mysqli_query($condbmc,"INSERT INTO data_report (data_report_requester_emp_id,data_report_date,data_report_status,data_report_type) 
-        VALUES ('$emp_id','$date','$status','$type')");
+        $insert  = mysqli_query($condbmc,"INSERT INTO data_report (data_report_requester_emp_id,data_report_date,data_report_status,data_report_type, data_report_check, data_report_acknowledge, data_report_approve) 
+        VALUES ('$emp_id','$date','$status','$type','$Check','$Acknowledge','$Approve')");
         $insert_id = mysqli_insert_id($condbmc); // get id from table data_report after insert new data *****
         // insert main table 
 
