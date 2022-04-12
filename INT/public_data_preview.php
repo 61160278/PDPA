@@ -144,6 +144,30 @@
                                                 <th>
                                                     <center>เหตุผล
                                                 </th>
+                                                <th>
+                                                    <center>รหัสประจำตัว
+                                                </th>
+                                                <th>
+                                                    <center>คำนำหน้า 
+                                                </th>
+                                                <th>
+                                                    <center>ชื่อ
+                                                </th>
+                                                <th>
+                                                    <center>นามสกุล
+                                                </th>
+                                                <th>
+                                                    <center>คำนำหน้า (ภาษาไทย)
+                                                </th>
+                                                <th>
+                                                    <center>ชื่อ (ภาษาไทย)
+                                                </th>
+                                                <th>
+                                                    <center>นามสกุล (ภาษาไทย)
+                                                </th>
+                                                <th>
+                                                    <center>ตำแหน่ง
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody id="tableBody">
@@ -155,6 +179,15 @@
                                                 <td><?php echo $row_homeTable["Empname_engTitle"]." ". $row_homeTable["Empname_eng"]." ".$row_homeTable["Empsurname_eng"]?>
                                                 </td>
                                                 <td><?php echo $row_homeTable["data_employee_reason"]?></td>
+                                                <td><?php echo $row_homeTable["Emp_ID"]?></td>
+                                                <td><?php echo $row_homeTable["Empname_engTitle"]?></td>
+                                                <td><?php echo $row_homeTable["Empname_eng"]?></td>
+                                                <td><?php echo $row_homeTable["Empsurname_eng"]?></td>
+                                                <td><?php echo $row_homeTable["Emp_nametitle"]?></td>
+                                                <td><?php echo $row_homeTable["Empname_th"]?></td>
+                                                <td><?php echo $row_homeTable["Empsurname_th"]?></td>
+                                                <td><?php echo $row_homeTable["Position_ID"]?></td>
+
                                             </tr>
 
                                             <?php $index_emp++; 
