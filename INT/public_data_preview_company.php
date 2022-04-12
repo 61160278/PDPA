@@ -190,7 +190,7 @@
                     <div class="col-lg-12">
                         <h2>&nbsp;&nbsp;&nbsp;</h2>
                     </div>
-
+                    
 
                     <div class="ibox-content"></div>
                     <?php
@@ -209,6 +209,7 @@
                        if($row_home["data_public_type"] != 3){
                          echo "<td>".$row_publicTable["Company"]." (".$row_publicTable["Company_id"].")"."</td>";
                          echo "<td>".$row_publicTable["Department"]." (".$row_publicTable["Department_id"].")"."</td>";
+                         
                        }
                        // if 
                        if($row_home["data_public_type"] == 3){
@@ -228,6 +229,8 @@
                     <br>
                     <h2 align="center"><u>รายชื่อพนักงาน</u></h2>
                     <br>
+                    <div class="table-responsive">
+                    <div class="table-responsive">
                     <table id="myTbl" class="table table-striped table-bordered table-hover dataTables-example">
                         <thead>
                             <tr>
@@ -244,13 +247,80 @@
                                     <center>รหัสพนักงาน
                                 </th>
                                 <th>
-                                    <center>ชื่อ-นามสกุล
+                                    <center>ชื่อ-นามสกุล (ภาษาไทย)
+                                </th>
+                                <th>
+                                    <center>ชื่อ-นามสกุล (ภาษาอังกฤษ)
+                                </th>
+                                <th>
+                                    <center>ตำแหน่ง
+                                </th>
+                                <th>
+                                    <center>ระดับพนักงาน
+                                </th>
+                                <th>
+                                    <center>Department
+                                </th>
+                                <th>
+                                    <center>Section
+                                </th>
+                                <th>
+                                    <center>Sub Section
+                                </th>
+                                <th>
+                                    <center>Group
+                                </th>
+                                <th>
+                                    <center>Line
+                                </th>
+                                <th>
+                                    <center>ชื่อหน่วยงานตนเอง
+                                </th>
+                                <th>
+                                    <center>รหัสหน่วยงาน
+                                </th>
+                                <th>
+                                    <center>รหัสศูนย์ต้นทุน
+                                </th>
+                                <th>
+                                    <center>Shift
+                                </th>
+                                <th>
+                                    <center>ประเภทงาน
+                                </th>
+                                <th>
+                                    <center>ชื่อย่อหน่วยงาน
+                                </th>
+                                <th>
+                                    <center>วันที่เข้างาน
+                                </th>
+                                <th>
+                                    <center>วันที่บรรจุ
+                                </th>
+                                <th>
+                                    <center>เพศ
+                                </th>
+                                <th>
+                                    <center>สถานะการทำงาน
+                                </th>
+                                <th>
+                                    <center>อายุงาน (ปี)
+                                </th>
+                                <th>
+                                    <center>อายุงาน (เดือน)
+                                </th>
+                                <th>
+                                    <center>อายุงาน (วัน)
                                 </th>
                             </tr>
                         </thead>
                         <tbody id="tableBody">
                             <?php 
-                            foreach($emp_temp as $index => $row){ ?>
+                            foreach($emp_temp as $index => $row){ 
+                                $sql_map = "SELECT * FROM master_mapping
+                                WHERE Department_id = '".$row["Sectioncode_ID"]."' OR Section_id = '".$row["Sectioncode_ID"]."' OR SubSection_id = '".$row["Sectioncode_ID"]."' OR Group_id = '".$row["Sectioncode_ID"]."' OR Line_id = '".$row["Sectioncode_ID"]."' ";
+                                    $result_map = mysqli_query($condbmc, $sql_map);
+                                    $row_map = mysqli_fetch_array($result_map);?>
                             <tr>
                                 <td align="center"><?php echo ($index+1) ?></td>
                                 <td><?php echo $row_publicTable["Company_id"]; ?></td>
@@ -258,13 +328,76 @@
                                 <td><?php echo $row["Emp_ID"]; ?></td>
                                 <td><?php echo $row["Emp_nametitle"] . $row["Empname_th"] . " " . $row["Empsurname_th"]; ?>
                                 </td>
+                                <td><?php echo $row["Empname_engTitle"] ." ". $row["Empname_eng"] . " " . $row["Empsurname_eng"]; ?>
+                                </td>
+                                <td><?php echo $row["Position_ID"]?></td>
+                                <td><?php echo $row["Section_type"]?></td>
+                                <td><?php echo $row_map["Department_id"]?></td>
+                                <td><?php echo $row_map["Section_id"]?></td>
+                                <td><?php 
+                                if($row_map["SubSection"] == null){
+                                    echo " - ";
+                                }
+                                // if
+                                else { 
+                                    echo $row_map["SubSection"];
+                                }?></td>
+                                <td><?php 
+                                if($row_map["Group"] == null){
+                                    echo " - ";
+                                }
+                                // if
+                                else { 
+                                    echo $row_map["Group"];
+                                }?></td>
+                                <td><?php 
+                                if($row_map["Line"] == null){
+                                    echo " - ";
+                                }
+                                // if
+                                else { 
+                                    echo $row_map["Line"];
+                                }?></td>
+                                <td><?php echo $row_map["Company"]?></td>
+                                <td><?php echo $row["Sectioncode_ID"]?></td>
+                                <td><?php echo $row["CostCenter_ID"]?></td>
+                                <td><?php echo $row["Shift_ID"]?></td>
+                                <td><?php echo $row["Section_type"]?></td>
+                                <td><?php echo $row_map["Short_name"]?></td>
+                                <td><?php echo $row["Emp_startingdate"]?></td>
+                                <td><?php echo $row["Emp_probationduedate"]?></td>
+                                <td><?php 
+                                if($row["Emp_nametitle"] == นางสาว){
+                                    echo "หญิง";
+                                }
+                                // if
+                                else if($row["Emp_nametitle"] == นาย){ 
+                                    echo "ชาย";
+                                }
+                                else if($row["Emp_nametitle"] == นาง){ 
+                                    echo "หญิง";
+                                }?></td>
+                                <td><?php 
+                                if($row["Statuswork_ID"] == 1){
+                                    echo "กำลังทำงาน";
+                                }
+                                // if
+                                else if($row["Statuswork_ID"] == 2){ 
+                                    echo "ลาออก";
+                                }?></td>
+                                <td><?php echo $row["End_date"]?></td>
+                                <td><?php echo $row["End_date"]?></td>
+                                <td><?php echo $row["End_date"]?></td>
                             </tr>
                             <?php } ?>
                             <!-- foreach -->
                         </tbody>
                     </table>
+                    </div>
+                    </div>
                     <? } ?>
                     <!-- company -->
+                    <br>
                     <div class="text-center">
                         <a href="public_data.php">
                             <button class="btn btn-secondary">Back</button>
@@ -272,15 +405,10 @@
                     </div>
                 </div>
             </div>
-
-            <br>
-        </div>
-    </div>
-    </div>
     <br>
     <?php include "footer.php";?>
     </div>
-    </div>
+    
 
 
     <!-- Mainly scripts -->

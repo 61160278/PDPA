@@ -38,7 +38,8 @@
         
          <?php 
             $row=0;
-            $sql_Table = "SELECT * From borrow";
+            $sql_Table = "SELECT * From borrow
+            where borrow.borrow_id = ".$_GET["id"]."";
             $result_Table = mysqli_query($condbmc, $sql_Table);
 			while($row_Table = mysqli_fetch_array($result_Table)){
                 $array7[$row]=$row_Table['date_borrow'];
@@ -107,20 +108,20 @@
                                             <?php
                                             $sql_emp = "SELECT * FROM borrow
                                             INNER JOIN employee ON borrow.emp_no = employee.Emp_ID
-                                            where borrow.emp_no = '".$_GET["id"]."'";
+                                            where borrow.borrow_id = ".$_GET["id"]."";
                                             $result_emp = mysqli_query($condbmc, $sql_emp);
                                             $row_emp = mysqli_fetch_array($result_emp)
                                             ?>
 
                                             <?php
                                             $sql_reason = "SELECT reason FROM borrow
-                                            where borrow.emp_no = '".$_GET["id"]."'";
+                                            where borrow.borrow_id = ".$_GET["id"]."";
                                             $result_reason = mysqli_query($condbmc, $sql_reason);
                                             $row_reason = mysqli_fetch_array($result_reason)
                                             ?>
                                             <?php
                                             $sql_date_borrow = "SELECT date_borrow ,date_return FROM borrow
-                                            where borrow.emp_no = '".$_GET["id"]."'";
+                                            where borrow.borrow_id = ".$_GET["id"]."";
                                             $result_date_borrow = mysqli_query($condbmc, $sql_date_borrow);
                                             $row_date_borrow = mysqli_fetch_array($result_date_borrow)
                                             ?>

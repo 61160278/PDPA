@@ -142,7 +142,7 @@
                                                     <center>ชื่อ-นามสกุล (ภาษาอังกฤษ)
                                                 </th>
                                                 <th>
-                                                    <center>เหตุผล 
+                                                    <center>เหตุผล
                                                 </th>
                                                 <th>
                                                     <center>ชื่อ-นามสกุล (ภาษาไทย)
@@ -150,7 +150,7 @@
                                                 <th>
                                                     <center>ตำแหน่ง
                                                 </th>
-                                                <!-- <th>
+                                                <th>
                                                     <center>ระดับพนักงาน
                                                 </th>
                                                 <th>
@@ -167,25 +167,57 @@
                                                 </th>
                                                 <th>
                                                     <center>Line
-                                                </th> -->
-                                                <th><center>ชื่อหน่วยงานตนเอง</th>
-                                                <th><center>รหัสหน่วยงาน</th>
-                                                <th><center>รหัสศูนย์ต้นทุน</th>
-                                                <th><center>Shift</th>
-                                                <th><center>ประเภทงาน</th>
-                                                <th><center>ชื่อย่อหน่วยงาน	</th>
-                                                <th><center>วันที่เข้างาน	</th>
-                                                <th><center>วันที่บรรจุ	</th>
-                                                <th><center>เพศ	</th>
-                                                <th><center>สถานะการทำงาน</th>	
-                                                <th><center>อายุงาน (ปี)	</th>
-                                                <th><center>อายุงาน (เดือน)	</th>
-                                                <th><center>อายุงาน (วัน)</th>
+                                                </th>
+                                                <th>
+                                                    <center>ชื่อหน่วยงานตนเอง
+                                                </th>
+                                                <th>
+                                                    <center>รหัสหน่วยงาน
+                                                </th>
+                                                <th>
+                                                    <center>รหัสศูนย์ต้นทุน
+                                                </th>
+                                                <th>
+                                                    <center>Shift
+                                                </th>
+                                                <th>
+                                                    <center>ประเภทงาน
+                                                </th>
+                                                <th>
+                                                    <center>ชื่อย่อหน่วยงาน
+                                                </th>
+                                                <th>
+                                                    <center>วันที่เข้างาน
+                                                </th>
+                                                <th>
+                                                    <center>วันที่บรรจุ
+                                                </th>
+                                                <th>
+                                                    <center>เพศ
+                                                </th>
+                                                <th>
+                                                    <center>สถานะการทำงาน
+                                                </th>
+                                                <th>
+                                                    <center>อายุงาน (ปี)
+                                                </th>
+                                                <th>
+                                                    <center>อายุงาน (เดือน)
+                                                </th>
+                                                <th>
+                                                    <center>อายุงาน (วัน)
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody id="tableBody">
                                             <?php $index_emp = 1; 
-                                                while($row_homeTable = mysqli_fetch_array($result_homeTable)){?>
+                                                while($row_homeTable = mysqli_fetch_array($result_homeTable)){
+                                                    $sql_mapping = "SELECT * FROM master_mapping
+                                                    WHERE Department_id = '".$row_homeTable["Sectioncode_ID"]."' OR Section_id = '".$row_homeTable["Sectioncode_ID"]."' OR SubSection_id = '".$row_homeTable["Sectioncode_ID"]."' OR Group_id = '".$row_homeTable["Sectioncode_ID"]."' OR Line_id = '".$row_homeTable["Sectioncode_ID"]."' ";
+                                                        $result_mapping = mysqli_query($condbmc, $sql_mapping);
+                                                        $row_mapping = mysqli_fetch_array($result_mapping);?>
+
+
                                             <tr>
                                                 <td align="center"><?php echo $index_emp ?></td>
                                                 <td align="center"><?php echo $row_homeTable["Emp_ID"] ?></td>
@@ -195,22 +227,67 @@
                                                 <td><?php echo $row_homeTable["Emp_nametitle"]." ". $row_homeTable["Empname_th"]." ".$row_homeTable["Empsurname_th"]?>
                                                 </td>
                                                 <td><?php echo $row_homeTable["Position_ID"]?></td>
-                                                <!-- <td><?php echo $row_homeTable["Section_type"]?></td>
-                                                <td><?php echo $row_homeTable["Department"]?></td>
-                                                <td><?php echo $row_homeTable["Section"]?></td>
-                                                <td><?php echo $row_homeTable["SubSection"]?></td>
-                                                <td><?php echo $row_homeTable["Group"]?></td>
-                                                <td><?php echo $row_homeTable["Line"]?></td> -->
-                                                <td><?php echo $row_homeTable["Company_ID"]?></td>
+                                                <td><?php echo $row_homeTable["Section_type"]?></td>
+                                                <td><?php echo $row_mapping["Department"]?></td>
+                                                <td><?php 
+                                                if($row_mapping["Section_id"] == null){
+                                                    echo " - ";
+                                                }
+                                                // if
+                                                else { 
+                                                    echo $row_mapping["Section_id"];
+                                                }?></td>
+                                                <td><?php 
+                                                if($row_mapping["SubSection"] == null){
+                                                    echo " - ";
+                                                }
+                                                // if
+                                                else { 
+                                                    echo $row_mapping["SubSection"];
+                                                }?></td>
+                                                <td><?php 
+                                                if($row_mapping["Group"] == null){
+                                                    echo " - ";
+                                                }
+                                                // if
+                                                else { 
+                                                    echo $row_mapping["Group"];
+                                                }?></td>
+                                                <td><?php 
+                                                if($row_mapping["Line"] == null){
+                                                    echo " - ";
+                                                }
+                                                // if
+                                                else { 
+                                                    echo $row_mapping["Line"];
+                                                }?></td>
+                                                <td><?php echo $row_mapping["Company"]?></td>
                                                 <td><?php echo $row_homeTable["Sectioncode_ID"]?></td>
                                                 <td><?php echo $row_homeTable["CostCenter_ID"]?></td>
                                                 <td><?php echo $row_homeTable["Shift_ID"]?></td>
                                                 <td><?php echo $row_homeTable["Section_type"]?></td>
-                                                <td><?php echo $row_homeTable["Subsection_ID"]?></td>
+                                                <td><?php echo $row_mapping["Short_name"]?></td>
                                                 <td><?php echo $row_homeTable["Emp_startingdate"]?></td>
                                                 <td><?php echo $row_homeTable["Emp_probationduedate"]?></td>
-                                                <td><?php echo $row_homeTable["Emp_nametitle"]?></td>
-                                                <td><?php echo $row_homeTable["Statuswork_ID"]?></td>
+                                                <td><?php 
+                                                 if($row_homeTable["Emp_nametitle"] == นางสาว){
+                                                    echo "หญิง";
+                                                }
+                                                // if
+                                                else if($row_homeTable["Emp_nametitle"] == นาย){ 
+                                                    echo "ชาย";
+                                                }
+                                                else if($row_homeTable["Emp_nametitle"] == นาง){ 
+                                                    echo "หญิง";
+                                                }?></td>
+                                                <td><?php
+                                                if($row_homeTable["Statuswork_ID"] == 1){
+                                                    echo "กำลังทำงาน";
+                                                }
+                                                // if
+                                                else if($row_homeTable["Statuswork_ID"] == 2){ 
+                                                    echo "ลาออก";
+                                                }?></td>
                                                 <td><?php echo $row_homeTable["End_date"]?></td>
                                                 <td><?php echo $row_homeTable["End_date"]?></td>
                                                 <td><?php echo $row_homeTable["End_date"]?></td>
