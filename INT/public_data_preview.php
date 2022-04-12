@@ -51,6 +51,10 @@
                 $sql_homeTable = "SELECT * From data_employee_pdpa AS demp
                                     INNER JOIN employee AS emp
                                     ON emp.Emp_ID = demp.data_employee_emp_id
+                                    INNER JOIN data_department_pdpa AS depar
+                                    ON demp.data_employee_id = depar.data_department_data_id
+                                    INNER JOIN master_mapping AS map
+                                    ON map.Department_id = depar.data_department
                                     WHERE demp.data_employee_data_id = ".$_GET["id"]."";
                 $result_homeTable = mysqli_query($condbmc, $sql_homeTable);
                 
@@ -139,34 +143,34 @@
                                                     <center>รหัสพนักงาน
                                                 </th>
                                                 <th>
-                                                    <center>ชื่อ-นามสกุล
+                                                    <center>ชื่อ-นามสกุล (ภาษาอังกฤษ)
                                                 </th>
                                                 <th>
-                                                    <center>เหตุผล
+                                                    <center>เหตุผล 
                                                 </th>
                                                 <th>
-                                                    <center>รหัสประจำตัว
-                                                </th>
-                                                <th>
-                                                    <center>คำนำหน้า 
-                                                </th>
-                                                <th>
-                                                    <center>ชื่อ
-                                                </th>
-                                                <th>
-                                                    <center>นามสกุล
-                                                </th>
-                                                <th>
-                                                    <center>คำนำหน้า (ภาษาไทย)
-                                                </th>
-                                                <th>
-                                                    <center>ชื่อ (ภาษาไทย)
-                                                </th>
-                                                <th>
-                                                    <center>นามสกุล (ภาษาไทย)
+                                                    <center>ชื่อ-นามสกุล (ภาษาไทย)
                                                 </th>
                                                 <th>
                                                     <center>ตำแหน่ง
+                                                </th>
+                                                <th>
+                                                    <center>ระดับพนักงาน
+                                                </th>
+                                                <th>
+                                                    <center>Department
+                                                </th>
+                                                <th>
+                                                    <center>Section
+                                                </th>
+                                                <th>
+                                                    <center>Sub Section
+                                                </th>
+                                                <th>
+                                                    <center>Group
+                                                </th>
+                                                <th>
+                                                    <center>Line
                                                 </th>
                                             </tr>
                                         </thead>
@@ -179,15 +183,14 @@
                                                 <td><?php echo $row_homeTable["Empname_engTitle"]." ". $row_homeTable["Empname_eng"]." ".$row_homeTable["Empsurname_eng"]?>
                                                 </td>
                                                 <td><?php echo $row_homeTable["data_employee_reason"]?></td>
-                                                <td><?php echo $row_homeTable["Emp_ID"]?></td>
-                                                <td><?php echo $row_homeTable["Empname_engTitle"]?></td>
-                                                <td><?php echo $row_homeTable["Empname_eng"]?></td>
-                                                <td><?php echo $row_homeTable["Empsurname_eng"]?></td>
-                                                <td><?php echo $row_homeTable["Emp_nametitle"]?></td>
-                                                <td><?php echo $row_homeTable["Empname_th"]?></td>
-                                                <td><?php echo $row_homeTable["Empsurname_th"]?></td>
-                                                <td><?php echo $row_homeTable["Position_ID"]?></td>
-
+                                                <td><?php echo $row_homeTable["Emp_nametitle"]." ". $row_homeTable["Empname_th"]." ".$row_homeTable["Empsurname_th"]?>
+                                                </td>
+                                                <td><?php echo $row_homeTable["	Section_type"]?></td>
+                                                <td><?php echo $row_homeTable["Department"]?></td>
+                                                <td><?php echo $row_homeTable["Section"]?></td>
+                                                <td><?php echo $row_homeTable["SubSection"]?></td>
+                                                <td><?php echo $row_homeTable["Group"]?></td>
+                                                <td><?php echo $row_homeTable["Line"]?></td>
                                             </tr>
 
                                             <?php $index_emp++; 
