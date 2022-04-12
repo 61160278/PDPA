@@ -51,10 +51,8 @@
                 $sql_homeTable = "SELECT * From data_employee_pdpa AS demp
                                     INNER JOIN employee AS emp
                                     ON emp.Emp_ID = demp.data_employee_emp_id
-                                    INNER JOIN data_department_pdpa AS depar
-                                    ON demp.data_employee_id = depar.data_department_data_id
-                                    INNER JOIN master_mapping AS map
-                                    ON map.Department_id = depar.data_department
+                                    -- INNER JOIN master_mapping AS map
+                                    -- ON map.Section_id = emp.Sectioncode_ID
                                     WHERE demp.data_employee_data_id = ".$_GET["id"]."";
                 $result_homeTable = mysqli_query($condbmc, $sql_homeTable);
                 
@@ -95,8 +93,6 @@
                     <div class="col-lg-12">
                         <h2>&nbsp;&nbsp;&nbsp;</h2>
                     </div>
-
-
                     <div class="ibox-content"></div>
                     <?php if(sizeof($row_publicTable) != 0){ 
                         echo '<table class="table table-striped table-bordered table-hover dataTables-example">';
@@ -154,7 +150,7 @@
                                                 <th>
                                                     <center>ตำแหน่ง
                                                 </th>
-                                                <th>
+                                                <!-- <th>
                                                     <center>ระดับพนักงาน
                                                 </th>
                                                 <th>
@@ -171,7 +167,20 @@
                                                 </th>
                                                 <th>
                                                     <center>Line
-                                                </th>
+                                                </th> -->
+                                                <th><center>ชื่อหน่วยงานตนเอง</th>
+                                                <th><center>รหัสหน่วยงาน</th>
+                                                <th><center>รหัสศูนย์ต้นทุน</th>
+                                                <th><center>Shift</th>
+                                                <th><center>ประเภทงาน</th>
+                                                <th><center>ชื่อย่อหน่วยงาน	</th>
+                                                <th><center>วันที่เข้างาน	</th>
+                                                <th><center>วันที่บรรจุ	</th>
+                                                <th><center>เพศ	</th>
+                                                <th><center>สถานะการทำงาน</th>	
+                                                <th><center>อายุงาน (ปี)	</th>
+                                                <th><center>อายุงาน (เดือน)	</th>
+                                                <th><center>อายุงาน (วัน)</th>
                                             </tr>
                                         </thead>
                                         <tbody id="tableBody">
@@ -185,12 +194,26 @@
                                                 <td><?php echo $row_homeTable["data_employee_reason"]?></td>
                                                 <td><?php echo $row_homeTable["Emp_nametitle"]." ". $row_homeTable["Empname_th"]." ".$row_homeTable["Empsurname_th"]?>
                                                 </td>
-                                                <td><?php echo $row_homeTable["	Section_type"]?></td>
+                                                <td><?php echo $row_homeTable["Position_ID"]?></td>
+                                                <!-- <td><?php echo $row_homeTable["Section_type"]?></td>
                                                 <td><?php echo $row_homeTable["Department"]?></td>
                                                 <td><?php echo $row_homeTable["Section"]?></td>
                                                 <td><?php echo $row_homeTable["SubSection"]?></td>
                                                 <td><?php echo $row_homeTable["Group"]?></td>
-                                                <td><?php echo $row_homeTable["Line"]?></td>
+                                                <td><?php echo $row_homeTable["Line"]?></td> -->
+                                                <td><?php echo $row_homeTable["Company_ID"]?></td>
+                                                <td><?php echo $row_homeTable["Sectioncode_ID"]?></td>
+                                                <td><?php echo $row_homeTable["CostCenter_ID"]?></td>
+                                                <td><?php echo $row_homeTable["Shift_ID"]?></td>
+                                                <td><?php echo $row_homeTable["Section_type"]?></td>
+                                                <td><?php echo $row_homeTable["Subsection_ID"]?></td>
+                                                <td><?php echo $row_homeTable["Emp_startingdate"]?></td>
+                                                <td><?php echo $row_homeTable["Emp_probationduedate"]?></td>
+                                                <td><?php echo $row_homeTable["Emp_nametitle"]?></td>
+                                                <td><?php echo $row_homeTable["Statuswork_ID"]?></td>
+                                                <td><?php echo $row_homeTable["End_date"]?></td>
+                                                <td><?php echo $row_homeTable["End_date"]?></td>
+                                                <td><?php echo $row_homeTable["End_date"]?></td>
                                             </tr>
 
                                             <?php $index_emp++; 
