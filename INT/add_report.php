@@ -198,8 +198,86 @@
                     </div>
                     <!-- Table ประเภทข้อมูล Genaral Data -->
 
+                    <br>
+                    <br>
+                    <h3><span class="badge"><font size="4px" color="black">
+                                <b>Approve | การอนุมัติ</b>
+                            </span></font>
+                        </h3>
+                        <br>
 
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <center> Detail
+                                                </th>
+                                                <th>
+                                                    <center> Check (MGR.up)
+                                                </th>
+                                                <th>
+                                                    <center> Acknowledge (ED)
+                                                </th>
+                                                <th>
+                                                    <center> Approve (President)
+                                                </th>
+                                            </tr>
+                                        </thead>
 
+                                        <tbody>
+                                            <tr align="center">
+                                                <td>Advance Payment</td>
+                                                <td>
+                                                <select class="select2_demo_1 form-control" name="mgr" id="mgr" style="width:100%;"
+                                                    tabindex="2" checked required>  
+                                                    <?
+                                                        $sql_Approve = "SELECT * From employee";
+                                                        $result_Approve = mysqli_query($condbmc, $sql_Approve);
+                                                        while($row_Approve = mysqli_fetch_array($result_Approve)){
+                                                            echo '<option value="'.$row_Approve["Emp_ID"].'">'.$row_Approve["Emp_ID"]." ".$row_Approve["Empname_eng"]." ".$row_Approve["Empsurname_eng"].'</option>';
+                                                        }
+                                                    ?>
+                                                </select></td>
+
+                                                <td>
+                                                <select class="select2_demo_1 form-control" name="acknow" id="acknow" style="width:100%;"
+                                                    tabindex="2" checked required>    
+                                                    <?
+                                                        $sql_Approve = "SELECT * From employee";
+                                                        $result_Approve = mysqli_query($condbmc, $sql_Approve);
+                                                        while($row_Approve = mysqli_fetch_array($result_Approve)){
+                                                            echo '<option value="'.$row_Approve["Emp_ID"].'">'.$row_Approve["Emp_ID"]." ".$row_Approve["Empname_eng"]." ".$row_Approve["Empsurname_eng"].'</option>';
+                                                        }
+                                                    ?>
+                                                </select></td>
+
+                                                <td>
+                                                <select class="select2_demo_1 form-control" name="approve" id="approve" style="width:100%;"
+                                                    tabindex="2" checked required>    
+                                                    <?
+                                                        $sql_Approve = "SELECT * From employee";
+                                                        $result_Approve = mysqli_query($condbmc, $sql_Approve);
+                                                        while($row_Approve = mysqli_fetch_array($result_Approve)){
+                                                            echo '<option value="'.$row_Approve["Emp_ID"].'">'.$row_Approve["Emp_ID"]." ".$row_Approve["Empname_eng"]." ".$row_Approve["Empsurname_eng"].'</option>';
+                                                        }
+                                                    ?>
+                                                </select></td>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Table Expense Approve -->
+
+                        <br>
+                        <div class="col-lg-1">
+                            <input type="hidden" id="A_id" name="A_id">
+                            <input type="hidden" id="Acknow_id" name="Acknow_id">
+                            <input type="hidden" id="Approve_id" name="Approve_id">
+                        </div>
 
                     <div class="text-center">
                         <input type="submit" name="submit" class="btn btn-primary btn-rounded" value="Submit">
@@ -253,6 +331,29 @@
     <!-- TouchSpin -->
     <script src="js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
 
+    <script>
+    $(document).ready(function() {
+        $("#approve").change(function() {
+            var ID = $(this).val();
+            document.getElementById("Approve_id").value = ID;
+        });
+    });
+
+    $(document).ready(function() {
+        $("#acknow").change(function() {
+            var ID = $(this).val();
+            document.getElementById("Acknow_id").value = ID;
+        });
+    });
+
+    $(document).ready(function() {
+        $("#mgr").change(function() {
+            var ID = $(this).val();
+            document.getElementById("A_id").value = ID;
+        });
+    });
+    </script>
+    
     <script>
     var company = 0;
 

@@ -61,9 +61,6 @@
                                         <center>วันที่ยืม
                                     </th>
                                     <th>
-                                        <center>สถานะ
-                                    </th>
-                                    <th>
                                         <center>ประเภท
                                     </th>
 
@@ -77,46 +74,36 @@
                                     $sql_name = "SELECT * From data_public_pdpa WHERE data_public_requester_emp_id = ".$_SESSION["tms_id"]." ORDER BY data_public_id DESC";
                                     $result_name = mysqli_query($condbmc, $sql_name);
                                     while($row_name = mysqli_fetch_array($result_name)){
-                                        if($row_name["data_public_status"] == 1){
-                                            $status = "Waiting Approver 1";
-                                        }else if($row_name["data_public_status"] == 2){
-                                            $status = "Waiting Approver 2";
-                                        }else if($row_name["data_public_status"] == 3){
-                                            $status = "Waiting Final Approver";
-                                        }else if($row_name["data_public_status"] == 4){
-                                            $status = "Approved";
-                                        }else if($row_name["data_public_status"] == 5){
-                                            $status = "Reject";
-                                        }else if($row_name["data_public_status"] == 6){
-                                            $status = "Cancel";
-                                        }
+                                        
                                 ?>
                                 <?php
                                         $sql_public = "SELECT * From employee WHERE Emp_ID = ".$row_name["data_public_requester_emp_id"]."";
                                         $result_public = mysqli_query($condbmc, $sql_public);
                                         $row_public = mysqli_fetch_array($result_public);
                                 ?>
-
+                                <?php if($row_name["data_public_status"] != "inactive"){ ?>
                                 <tr align="center">
                                     <td align="left">
                                         <?php echo $row_public["Empname_engTitle"]." ".$row_public["Empname_eng"]." ".$row_public["Empsurname_eng"]?>
                                     </td>
                                     <td><?php echo date("d-M-y", strtotime($row_name["data_public_date"]));?></td>
-                                    <td><?php echo $status?></td>
+
                                     <?php if($row_name["data_public_type"] == 1){ ?>
                                     <td>Public Data (รายบุคคล)</td>
                                     <td class="center"><a
                                             href="public_data_preview.php?id=<?php echo $row_name["data_public_id"] ?>"><button
                                                 class="btn btn-primary btn-rounded" type="button"><i
                                                     class="fa fa-search"></i></button></a>
-                                        <?php if($row_name["data_public_status"] == 1){ ?>
+
                                         <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal"
                                             data-target="#modal_simple<?php echo $row_name["data_public_id"]?>"><i
                                                 class="fa fa-times"></i></button>
 
-                                        <form id="ow" name="ow" method="POST"
+                                        <form id="ow<?php echo $row_name["data_public_id"]?>" name="ow" method="POST"
                                             action="../ENG/update.php?id=<?php echo $row_name["data_public_id"]?>">
-                                            <input type="hidden" id="button" name="button">
+
+                                            <input type="text" id="button" name="button" value="inactive" hidden>
+
                                             <div id="modal_simple<?php echo $row_name["data_public_id"]?>"
                                                 class="modal fade" tabindex="-1" role="dialog">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -129,20 +116,20 @@
                                                         <div class="modal-body">
                                                             <center><label class="font-noraml"><b>Confirm Cancel ?
                                                                     </b></label>
-                                                            </center><input type="hidden" name="cancel" id="cancel">
+                                                            </center><input type="hidden" name="cancel" id="Cancel">
                                                             <br>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-dismiss="modal">Close</button>
-                                                            <button type="button" onclick="cancelform()" name="submit"
+                                                            <button type="button" onclick="cancelform(<?php echo $row_name['data_public_id']; ?>)" name="submit"
                                                                 class="btn btn-primary">Confirm</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </form>
-                                        <? } ?>
+
                                     </td>
 
                                     <?php }else{ ?>
@@ -151,14 +138,16 @@
                                             href="public_data_preview_company.php?id=<?php echo $row_name["data_public_id"] ?>"><button
                                                 class="btn btn-primary btn-rounded" type="button"><i
                                                     class="fa fa-search"></i></button></a>
-                                        <?php if($row_name["data_public_status"] == 1){ ?>
+
                                         <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal"
                                             data-target="#modal_simple<?php echo $row_name["data_public_id"]?>"><i
                                                 class="fa fa-times"></i></button>
 
-                                        <form id="ow" name="ow" method="POST"
+                                        <form id="ow<?php echo $row_name["data_public_id"]?>" name="ow" method="POST"
                                             action="../ENG/update.php?id=<?php echo $row_name["data_public_id"]?>">
-                                            <input type="hidden" id="button" name="button">
+
+                                            <input type="text" id="button" name="button" value="inactive" hidden>
+
                                             <div id="modal_simple<?php echo $row_name["data_public_id"]?>"
                                                 class="modal fade" tabindex="-1" role="dialog">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -171,78 +160,24 @@
                                                         <div class="modal-body">
                                                             <center><label class="font-noraml"><b>Confirm Cancel ?
                                                                     </b></label>
-                                                            </center><input type="hidden" name="cancel" id="cancel">
+                                                            </center><input type="hidden" name="cancel" id="Cancel">
                                                             <br>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-dismiss="modal">Close</button>
-                                                            <button type="button" onclick="cancelform()" name="submit"
+                                                            <button type="button" onclick="cancelform(<?php echo $row_name['data_public_id']?>)" name="submit"
                                                                 class="btn btn-primary">Confirm</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </form>
-                                        <? } ?>
+
                                     </td>
-
                                     <?php } ?>
-
-                                    <?php if($row_name["data_public_status"] == 2){ ?>
-                                    <?php } else if($row_name["data_public_status"] == 3){ ?>
-                                    <?php } else if($row_name["data_public_status"] == 5){ ?>
                                     <?php } ?>
-
-                                    <!-- <td>
-                                        <a href="public_data_preview.php?id=<?php echo $row_name["data_public_id"] ?>">
-                                            <button class="btn btn-primary btn-rounded" type="button"><i class="fa fa-search"></i></button></a>
-                                            
-
-                                        <?php if($row_name["data_public_status"] == 2){ ?>
-                                             <a href="public_data_preview.php?id=<?php echo $row_name["data_public_id"] ?>"></a>
-                                            <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal" data-target="#modal_simple<?php echo $row_name["data_public_id"]?>" ><i class="fa fa-times"></i></button> 
-                                        <?php } else if($row_name["data_public_status"] == 3){ ?>
-                                            <a href="public_data_preview.php?id=<?php echo $row_name["data_public_id"] ?>"></a>
-                                            <button class="btn btn-primary btn-rounded" type="button"><i class="fa fa-search"></i></button></a>
-                                            <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal" data-target="#modal_simple<?php echo $row_name["data_public_id"]?>"><i class="fa fa-times"></i></button>
-                                        <?php } else if($row_name["data_public_status"] == 5){ ?>
-                                            <a href="public_data_preview.php?id=<?php echo $row_name["data_public_id"] ?>"></a>
-                                        <?php } ?>
-
-                                        <?php if($row_name["data_public_status"] == 1){ ?>
-                                        <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal" data-target="#modal_simple<?php echo $row_name["data_public_id"]?>" ><i class="fa fa-times"></i></button>
-
-                                        <form id="ow" name="ow" method="POST"
-                                            action="../ENG/update.php?id=<?php echo $row_name["data_public_id"]?>">
-                                            <input type="hidden" id="button" name="button">
-                                            <div id="modal_simple<?php echo $row_name["data_public_id"]?>"
-                                                class="modal fade" tabindex="-1" role="dialog">
-                                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header" style="background-color:red;">
-                                                            <h2 class="modal-title">
-                                                                <font color="white"><b>Cancel</b></font>
-                                                            </h2>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <center><label class="font-noraml"><b>Confirm Cancel ?
-                                                                    </b></label>
-                                                            </center><input type="hidden" name="cancel" id="cancel">
-                                                            <br>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">Close</button>
-                                                            <button type="button" onclick="cancelform()" name="submit"
-                                                                class="btn btn-primary">Confirm</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        <? } ?>
-                                    </td> -->
+                                    </td>
                                 </tr>
                                 <?php } ?>
                             </tbody>
@@ -270,18 +205,18 @@
     <!-- Page-Level Scripts -->
 
     <script>
-    function cancelform() {
-        document.getElementById("button").value = 6;
-        document.getElementById("ow").submit();
+    function cancelform(id) {
+        document.getElementById("button").value;
+        document.getElementById("ow"+id).submit();
     }
 
-
-    $(document).ready(function() {
-        $("#cancel").change(function() {
-            var ID = $(this).val();
-            document.getElementById("cancel").value = ID;
-        });
-    });
+    // $(document).ready(function() {
+    //     $("#cancel").change(function() {
+    //         var ID = $(this).val();
+    //         document.getElementById("Cancel").value = ID;
+    //         console.log("id = ", ID);
+    //     });
+    // });
     </script>
 
     <script>

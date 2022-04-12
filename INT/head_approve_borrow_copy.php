@@ -114,7 +114,7 @@
                                         <tbody>
 
                                             <?php
-                                            $sql_emp = "SELECT * FROM borrow AS bor INNER JOIN employee AS emp ON bor.emp_no = emp.Emp_ID where bor.borrow_type = 1";
+                                            $sql_emp = "SELECT * FROM borrow AS bor INNER JOIN employee AS emp ON bor.emp_no = emp.Emp_ID where bor.borrow_type = 2";
                                             $result_emp = mysqli_query($condbmc, $sql_emp);
                                             $row_emp = mysqli_fetch_array($result_emp)
                                             ?>
@@ -146,11 +146,11 @@
                                                 <td align="left">
                                                     <?php echo $row_emp["Empname_eng"]." ".$row_emp["Empsurname_eng"]?>
                                                 </td>
-                                                <td><?php echo date("d-M-y", strtotime($row_date_borrow["date_borrow"]));?>
+                                                <td><?php echo date("d-M-y", strtotime($row_emp["date_borrow"]));?>
                                                 </td>
-                                                <td><?php echo date("d-M-y", strtotime($row_date_borrow["date_return"]));?>
+                                                <td><?php echo date("d-M-y", strtotime($row_emp["date_return"]));?>
                                                 </td>
-                                                <td><?php echo $row_reason ["reason"]?></td>
+                                                <td><?php echo $row_emp ["reason"]?></td>
                                                 <?php } ?>
                                             </tr>
 

@@ -57,7 +57,9 @@
                                     WHERE demp.data_employee_data_id = ".$_GET["id"]."";
                 $result_homeTable = mysqli_query($condbmc, $sql_homeTable);
                 
-            }else if($row_home["data_public_type"] == 2){
+            }
+            // if 
+            else if($row_home["data_public_type"] == 2){
                 $sql_publicTable = "SELECT * From data_department_pdpa AS depar
                                     INNER JOIN master_mapping AS map
                                     ON map.Department_id = depar.data_department
@@ -105,6 +107,60 @@
                 }
                 // while department 
             }
+            // else if 
+            else if($row_home["data_public_type"] == 3){
+                $sql_publicTable = "SELECT * From master_mapping AS map
+                                    WHERE Company_id = 'SDM' OR Company_id = 'SKD'
+                                    GROUP BY Company_id";
+                $result_publicTable = mysqli_query($condbmc, $sql_publicTable);
+                $company = '';
+                $row_publicTable = [];
+                $count = 0;
+                while($rowpublicTable = mysqli_fetch_array($result_publicTable)){
+                    $company .= $rowpublicTable["Company"] . " (" .$rowpublicTable["Company_id"] .") ". "<br>";
+                    array_push($row_publicTable,$rowpublicTable["Company"]);
+                }
+                // while
+
+                $sql_department = "SELECT * FROM master_mapping
+                                   ORDER BY Department_id";
+                $result_department = mysqli_query($condbmc, $sql_department);
+                // get department
+                $index = 0;
+                while($row_department = mysqli_fetch_array($result_department)){
+
+                    $dp = $row_department["Department_id"];
+                    $sc = $row_department["Section_id"];
+                    $sb = $row_department["SubSection_id"];
+                    $gr = $row_department["Group_id"];
+                    $ln = $row_department["Line_id"];
+
+                    $sql_emp = "SELECT * 
+                                FROM employee AS emp
+                                WHERE emp.Sectioncode_ID = '".$dp."' OR emp.Sectioncode_ID = '".$sc."' OR emp.Sectioncode_ID = '".$sb."' OR emp.Sectioncode_ID = '".$gr."' OR emp.Sectioncode_ID = '".$ln."'
+                                ORDER BY emp.Emp_ID";
+
+                    $result_emp = mysqli_query($condbmc, $sql_emp);
+                    $count = $index;
+
+                        while($row_emp = mysqli_fetch_assoc($result_emp)){
+                            if($count == 0){
+                                array_push($emp_temp,$row_emp); //เก็บข้อมูล
+                                array_push($emp_check,$row_emp["Emp_ID"]); //เก็บรหัสพนักงาน
+                            }
+                            // if
+                            else if(!in_array($row_emp["Emp_ID"],$emp_check)){ //in_array ข้อมูลข้างใน true
+                                array_push($emp_temp,$row_emp);
+                                array_push($emp_check,$row_emp["Emp_ID"]);
+                            }
+                            // else if 
+                        }
+                        // while emp วนลูปเก็บรหัสพนักงานที่ไม่ซ้ำ
+                        $index++;
+                }
+                // while department 
+            }
+            // else if 
         ?>
 
         <div id="page-wrapper" class="gray-bg">
@@ -137,17 +193,28 @@
 
 
                     <div class="ibox-content"></div>
-                    <?php if(sizeof($row_publicTable) != 0){ 
+                    <?php
+                    if(sizeof($row_publicTable) != 0){ 
                        echo '<table class="table table-bordered">';
                        echo "<thead>";
                        echo "<tr>";
                        echo "<th><center>"."บริษัท"."</th>";
-                       echo "<th><center>"."แผนก"."</th>";
+                       if($row_home["data_public_type"] != 3){
+                        echo "<th><center>"."แผนก"."</th>";
+                       }
+                       // if
                        echo "</tr>";
                        echo "</thead>";
                        echo "<tr>";
-                       echo "<td>".$row_publicTable["Company"]." (".$row_publicTable["Company_id"].")"."</td>";
-                       echo "<td>".$row_publicTable["Department"]." (".$row_publicTable["Department_id"].")"."</td>";
+                       if($row_home["data_public_type"] != 3){
+                         echo "<td>".$row_publicTable["Company"]." (".$row_publicTable["Company_id"].")"."</td>";
+                         echo "<td>".$row_publicTable["Department"]." (".$row_publicTable["Department_id"].")"."</td>";
+                       }
+                       // if 
+                       if($row_home["data_public_type"] == 3){
+                        echo "<td>".$company."</td>";
+                       }
+                       // else if
                        echo "</tr>";
                        echo "</table>";
                    ?>
@@ -187,7 +254,7 @@
                             <tr>
                                 <td align="center"><?php echo ($index+1) ?></td>
                                 <td><?php echo $row_publicTable["Company_id"]; ?></td>
-                                <td><?php echo $row_publicTable["Department_id"]; ?></td>
+                                <td><?php echo $row_publicTable["Department"]; ?></td>
                                 <td><?php echo $row["Emp_ID"]; ?></td>
                                 <td><?php echo $row["Emp_nametitle"] . $row["Empname_th"] . " " . $row["Empsurname_th"]; ?>
                                 </td>
