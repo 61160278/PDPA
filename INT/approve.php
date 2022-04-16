@@ -42,7 +42,8 @@
                 $sql_command2 = "SELECT * From borrow WHERE `status` = 3";
             }
             //Borrow
-            $sql_command3 = "SELECT * From data_report WHERE data_report_check = ".$_SESSION["tms_id"]." OR  data_report_acknowledge = ".$_SESSION["tms_id"]." OR data_report_approve = ".$_SESSION["tms_id"]." ";			
+            
+            $sql_command3 = "SELECT * FROM data_report WHERE data_report_check = ".$_SESSION["tms_id"]." AND data_report_status == 1 OR  data_report_acknowledge = ".$_SESSION["tms_id"]." OR data_report_approve = ".$_SESSION["tms_id"]." ";
             //Report
         ?>
 
@@ -151,13 +152,13 @@
                                     <?php if($row_approve3["data_report_type"] == 1){ ?>
                                     <td>Report (รายบุคคล)</td>
                                     <td class="center"><a
-                                            href="head_approve_borrow.php?id=<?php echo $row_approve3["data_report_id"] ?>"><button
+                                            href="head_report_preview.php?id=<?php echo $row_approve3["data_report_id"] ?>"><button
                                                 class="btn btn-outline btn-info " type="button"><i
                                                     class="fa fa-search"></i></button></a></td>
                                     <?php }else{ ?>
                                     <td>Report (บริษัท)</td>
                                     <td class="center"><a
-                                            href="head_approve_borrow_copy.php?id=<?php echo $row_approve3["data_report_id"] ?>"><button
+                                            href="head_report_preview_company.php?id=<?php echo $row_approve3["data_report_id"] ?>"><button
                                                 class="btn btn-outline btn-info " type="button"><i
                                                     class="fa fa-search"></i></button></a></td>
                                     <?php } ?>
