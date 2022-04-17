@@ -43,7 +43,10 @@
             }
             //Borrow
             
-            $sql_command3 = "SELECT * FROM data_report WHERE data_report_check = ".$_SESSION["tms_id"]." AND data_report_status == 1 OR  data_report_acknowledge = ".$_SESSION["tms_id"]." OR data_report_approve = ".$_SESSION["tms_id"]." ";
+            $sql_command3 = "SELECT * FROM data_report 
+                            WHERE data_report_status = 1 AND data_report_check = '".$_SESSION["tms_id"]."' 
+                            OR data_report_status = 2 AND data_report_acknowledge = '".$_SESSION["tms_id"]."'
+                            OR data_report_status = 3 AND data_report_approve = '".$_SESSION["tms_id"]."'";
             //Report
         ?>
 
@@ -139,6 +142,7 @@
                                 <?php
                                         $sql_approve3 = $sql_command3;
                                         $result_approve3 = mysqli_query($condbmc, $sql_approve3);
+                                        if(sizeof($result_approve3) != 0){
                                         while($row_approve3 = mysqli_fetch_array($result_approve3)){
                                             
                                         $sql_name3 = "SELECT * FROM employee WHERE Emp_ID = ".$row_approve3["data_report_requester_emp_id"]."";
@@ -163,7 +167,10 @@
                                                     class="fa fa-search"></i></button></a></td>
                                     <?php } ?>
                                 </tr>
-                                <?php } ?>
+                                    <?php }
+                                    // while
+                                    }
+                                    // if  ?>
                                 <!-- Report -->
                             </tbody>
                         </table>
