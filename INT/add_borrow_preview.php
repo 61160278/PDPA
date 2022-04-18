@@ -34,9 +34,9 @@
 <body>
     <div id="wrapper">
         <?php include "menu.php";?>
-       
-        
-         <?php 
+
+
+        <?php 
             $row=0;
             $sql_Table = "SELECT * From borrow
             where borrow.borrow_id = ".$_GET["id"]."";
@@ -91,6 +91,9 @@
                                                 <center>ชื่อ-นามสกุล
                                             </th>
                                             <th>
+                                                <center>ประเภทการร้องขอ
+                                            </th>
+                                            <th>
                                                 <center>วันที่ยืม
                                             </th>
                                             <th>
@@ -104,8 +107,8 @@
                                     </thead>
 
                                     <tbody>
-                                    
-                                            <?php
+
+                                        <?php
                                             $sql_emp = "SELECT * FROM borrow
                                             INNER JOIN employee ON borrow.emp_no = employee.Emp_ID
                                             where borrow.borrow_id = ".$_GET["id"]."";
@@ -113,23 +116,35 @@
                                             $row_emp = mysqli_fetch_array($result_emp)
                                             ?>
 
-                                            <?php
+                                        <?php
                                             $sql_reason = "SELECT reason FROM borrow
                                             where borrow.borrow_id = ".$_GET["id"]."";
                                             $result_reason = mysqli_query($condbmc, $sql_reason);
                                             $row_reason = mysqli_fetch_array($result_reason)
                                             ?>
-                                            <?php
+                                        <?php
                                             $sql_date_borrow = "SELECT date_borrow ,date_return FROM borrow
                                             where borrow.borrow_id = ".$_GET["id"]."";
                                             $result_date_borrow = mysqli_query($condbmc, $sql_date_borrow);
                                             $row_date_borrow = mysqli_fetch_array($result_date_borrow)
                                             ?>
-                                            
+
                                         <tr id="firstTr">
-                                            <td align="left"><?php echo $row_emp["Empname_eng"]." ".$row_emp["Empsurname_eng"]?></td>
-                                            <td><?php echo date("d-M-y", strtotime($row_date_borrow["date_borrow"]));?></td>
-                                            <td><?php echo date("d-M-y", strtotime($row_date_borrow["date_return"]));?></td>
+                                            <td align="left">
+                                                <?php echo $row_emp["Empname_eng"]." ".$row_emp["Empsurname_eng"]?></td>
+                                            
+                                            <td><?php 
+                                                if($row_emp["borrow_type"] == 1){
+                                                    echo "ยืมแฟ้มประวัติพนักงาน";
+                                                }
+                                                // if
+                                                else if($row_emp["borrow_type"] == 2){ 
+                                                    echo "คัดสำเนาเอกสาร";
+                                            }?></td>
+                                            <td><?php echo date("d-M-y", strtotime($row_date_borrow["date_borrow"]));?>
+                                            </td>
+                                            <td><?php echo date("d-M-y", strtotime($row_date_borrow["date_return"]));?>
+                                            </td>
                                             <td><?php echo $row_reason ["reason"]?></td>
                                         </tr>
 

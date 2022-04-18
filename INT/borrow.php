@@ -54,6 +54,7 @@
                                     <th>
                                         <center>ชื่อ-นามสกุล
                                     </th>
+                                    
                                     <th>
                                         <center>วันที่ยืม
                                     </th>
@@ -99,12 +100,14 @@
 
                                 <tr align="center">
                                     <td align="left"><?php echo $row_emp["Empname_eng"]." ".$row_emp["Empsurname_eng"]?></td>
+                                    
+                                    
                                     <td><?php echo date("d-M-y", strtotime($row_name["date_borrow"]));?></td>
                                     <td><?php echo date("d-M-y", strtotime($row_name["date_return"]));?>
                                     </td>
                                     <td><?php echo $status?></td>
                                     <td>
-                                        <a href="add_borrow_preview.php?id=<?php echo $row_name["emp_no"] ?>">
+                                        <a href="add_borrow_preview.php?id=<?php echo $row_name["borrow_id"] ?>">
                                             <button class="btn btn-primary btn-rounded" type="button">
                                                 <i class="fa fa-search"></i></button></a>
                                        

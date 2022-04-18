@@ -136,7 +136,7 @@
                                             <td><textarea type="text" placeholder="" class="form-control"
                                                     name="data_re[]" rows="2" required></textarea>
                                             </td>
-                                            <td><input type="date" class="form-control" style="width:160px"
+                                            <td><input type="date" min="<?php echo date("m-d-Y")?>" class="form-control" style="width:160px"
                                                     name="data1[]" required></td>
                                             <td><input type="date" class="form-control" style="width:160px"
                                                     name="data[]" required></td>
