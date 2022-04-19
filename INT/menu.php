@@ -39,7 +39,7 @@ include "../Function/function_select.php";
             </li>
 
             <li>
-                <a href="borrow.php"><i class="fa fa-btc"></i>
+                <a href="borrow.php"><i class="fa fa-edit"></i>
                     <span class="nav-label">ยืมแฟ้มประวัติพนักงาน
                         <!-- <span class="fa arrow"></span> -->
                         <h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Borrow Employee Profiles</h6>
@@ -80,29 +80,29 @@ include "../Function/function_select.php";
 				</a>
             </li>
 
-            <li>
+            <!-- <li>
                 <a href="checker.php"><i class="fa fa-edit"></i> 
 					<span class="nav-label">ตรวจสอบ
 					    <h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checker</h6>
 					</span>
 				</a>
-            </li>
+            </li> -->
 
             <li>
-                <a href="approve.php"><i class="fa fa-edit"></i> 
+                <a href="approve.php"><i class="fa fa-check"></i> 
 					<span class="nav-label">อนุมัติคำร้อง
 					    <h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Approve</h6>
 					</span>
 				</a>
             </li>
             
-            <li>
+            <!-- <li>
                 <a href="admin.php"><i class="fa fa-edit"></i> 
 					<span class="nav-label">Admin
 					    <h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Approve</h6>
 					</span>
 				</a>
-            </li>
+            </li> -->
             <?php
 				if($_SESSION['role_tms'] == 9){
 					echo '<li>';

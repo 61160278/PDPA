@@ -58,7 +58,7 @@
             <div class="container-fluid">
 			<a class="" href="../index.php">
                 <h1><font color="#393939"><b>PDPA | DENSO</b></font></h1>
-                <p><font color="#393939">ระบบรายงานการเดินทางออนไลน์ที่ใช้งานผ่านเว็บไซด์ในระบบเครือข่ายอินทราเน็ต </font></p>
+                <p><font color="#393939">ระบบแบบฟอร์มร้องขอข้อมูลส่วนบุคคลของพนักงานออนไลน์ที่ใช้งานผ่านเว็บไซด์ในระบบเครือข่ายอินทราเน็ต </font></p>
 			</a>
                 <a href="#menu-toggle" class="btn btn-theme02" id="menu-toggle">เข้าสู่ระบบ | Login</a>
             </div>

@@ -58,12 +58,11 @@
                                         <center>ชื่อ-นามสกุล
                                     </th>
                                     <th>
-                                        <center>วันที่ยืม
-                                    </th>
-                                    <th>
                                         <center>ประเภท
                                     </th>
-
+                                    <th>
+                                        <center>วันที่ยืม
+                                    </th>
                                     <th>
                                         <center>เครื่องมือ
                                     </th>
@@ -86,10 +85,9 @@
                                     <td align="left">
                                         <?php echo $row_public["Empname_engTitle"]." ".$row_public["Empname_eng"]." ".$row_public["Empsurname_eng"]?>
                                     </td>
-                                    <td><?php echo date("d-M-y", strtotime($row_name["data_public_date"]));?></td>
-
                                     <?php if($row_name["data_public_type"] == 1){ ?>
-                                    <td>Public Data (รายบุคคล)</td>
+                                    <td>รายบุคคล</td>
+                                    <td><?php echo date("d-M-y", strtotime($row_name["data_public_date"]));?></td>
                                     <td class="center"><a
                                             href="public_data_preview.php?id=<?php echo $row_name["data_public_id"] ?>"><button
                                                 class="btn btn-primary btn-rounded" type="button"><i
@@ -133,7 +131,8 @@
                                     </td>
 
                                     <?php }else{ ?>
-                                    <td>Public Data (บริษัท)</td>
+                                    <td>บริษัท</td>
+                                    <td><?php echo date("d-M-y", strtotime($row_name["data_public_date"]));?></td>
                                     <td class="center"><a
                                             href="public_data_preview_company.php?id=<?php echo $row_name["data_public_id"] ?>"><button
                                                 class="btn btn-primary btn-rounded" type="button"><i
@@ -176,6 +175,10 @@
 
                                     </td>
                                     <?php } ?>
+
+                                    
+
+                                    
                                     <?php } ?>
                                     </td>
                                 </tr>

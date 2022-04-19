@@ -56,14 +56,15 @@
                                         <center>ชื่อ-นามสกุล
                                     </th>
                                     <th>
+                                        <center>ประเภท
+                                    </th>
+                                    <th>
                                         <center>วันที่ยืม
                                     </th>
                                     <th>
                                         <center>สถานะ
                                     </th>
-                                    <th>
-                                        <center>ประเภท
-                                    </th>
+                                    
                                     <th>
                                         <center>เครื่องมือ
                                     </th>
@@ -97,93 +98,15 @@
                                 <tr align="center">
                                     <td align="left"><?php echo $report["Empname_eng"]." ".$report["Empsurname_eng"]?>
                                     </td>
+                                    <?php if($row_name["data_report_type"] == 1){ ?>
+                                    <td>รายบุคคล</td>
+                                    <?php }else{ ?>
+                                    <td>บริษัท</td>
+                                    <?php } ?>
                                     <td><?php echo date("d-M-y", strtotime($row_name["data_report_date"]));?></td>
                                     </td>
                                     <td><?php echo $status?></td>
-                                    <?php if($row_name["data_report_type"] == 1){ ?>
-                                    <td>Report (รายบุคคล)</td>
-                                    <!-- <td class="center"><a
-                                            href="add_report_preview.php?id=<?php echo $row_name["data_report_id"] ?>"><button
-                                                class="btn btn-primary btn-rounded" type="button"><i
-                                                    class="fa fa-search"></i></button></a>
-                                        <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal"
-                                            data-target="#modal_simple<?php echo $row_name["data_report_id"]?>"><i
-                                                class="fa fa-times"></i></button>
-                                        <?php if($row_name["data_public_status"] == 1){ ?>
-                                        <form id="ow" name="ow" method="POST"
-                                            action="../ENG/update_report.php?id=<?php echo $row_name["data_report_id"]?>">
-                                            <input type="hidden" id="button" name="button">
-                                            <div id="modal_simple<?php echo $row_name["data_report_id"]?>"
-                                                class="modal fade" tabindex="-1" role="dialog">
-                                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header" style="background-color:red;">
-                                                            <h2 class="modal-title">
-                                                                <font color="white"><b>Cancel</b></font>
-                                                            </h2>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <center><label class="font-noraml"><b>Confirm Cancel ?
-                                                                    </b></label>
-                                                            </center><input type="hidden" name="cancel" id="cancel">
-                                                            <br>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">Close</button>
-                                                            <button type="button" onclick="cancelform()" name="submit"
-                                                                class="btn btn-primary">Confirm</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        <?php } ?>
-                                    </td> -->
-
-                                    <?php }else{ ?>
-                                    <td>Report (บริษัท)</td>
-                                    <!-- <td class="center"><a
-                                            href="public_data_preview_company.php?id=<?php echo $row_name["data_report_id"] ?>"><button
-                                                class="btn btn-primary btn-rounded" type="button"><i
-                                                    class="fa fa-search"></i></button></a>
-                                        <?php if($row_name["data_public_status"] == 1){ ?>
-                                        <button class="btn btn-danger btn-rounded" type="button" data-toggle="modal"
-                                            data-target="#modal_simple<?php echo $row_name["data_report_id"]?>"><i
-                                                class="fa fa-times"></i></button>
-
-                                        <form id="ow" name="ow" method="POST"
-                                            action="../ENG/update.php?id=<?php echo $row_name["data_report_id"]?>">
-                                            <input type="hidden" id="button" name="button">
-                                            <div id="modal_simple<?php echo $row_name["data_report_id"]?>"
-                                                class="modal fade" tabindex="-1" role="dialog">
-                                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header" style="background-color:red;">
-                                                            <h2 class="modal-title">
-                                                                <font color="white"><b>Cancel</b></font>
-                                                            </h2>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <center><label class="font-noraml"><b>Confirm Cancel ?
-                                                                    </b></label>
-                                                            </center><input type="hidden" name="cancel" id="cancel">
-                                                            <br>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">Close</button>
-                                                            <button type="button" onclick="cancelform()" name="submit"
-                                                                class="btn btn-primary">Confirm</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        <?php } ?>
-                                    </td> -->
-                                    <?php } ?>
-                                    </td>
+                                    
                                     <?php if($row_name["data_report_status"] == 1){ ?>
                                         <td>-</td>
                                     <?php } else if($row_name["data_report_status"] == 2){ ?>

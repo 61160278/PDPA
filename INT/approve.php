@@ -81,31 +81,6 @@
                             </thead>
 
                             <tbody>
-                                <!-- <?php
-                                        // $sql_approve = $sql_command;
-                                        // $result_approve = mysqli_query($condbmc, $sql_approve);
-                                        // while($row_approve = mysqli_fetch_array($result_approve)){
-
-                                        // $sql_name = "SELECT * From employee WHERE Emp_ID = ".$row_approve["data_public_requester_emp_id"]."";
-                                        // $result_name = mysqli_query($condbmc, $sql_name);
-                                        // $row_name = mysqli_fetch_array($result_name);
-                                    ?>
-                                    <tr class="gradeX">
-                                        <td><?php echo $row_approve["data_public_requester_emp_id"]?></td>
-                                        <td><?php echo $row_name["Empname_engTitle"]." ". $row_name["Empname_eng"]." ".$row_name["Empsurname_eng"]?></td>
-                                        <?php //if($row_approve["data_public_type"] == 1){ ?>
-                                        <td>Public Data (รายบุคคล)</td>
-                                        <td class="center"><a href ="head_approve.php?id=<?php echo $row_approve["data_public_id"] ?>"><button class="btn btn-outline btn-info " type="button"><i class="fa fa-search"></i></button></a></td>
-
-                                        <?php //}else{ ?>
-                                        <td>Public Data (บริษัท)</td>
-                                        <td class="center"><a href ="head_approve_company.php?id=<?php echo $row_approve["data_public_id"] ?>"><button class="btn btn-outline btn-info " type="button"><i class="fa fa-search"></i></button></a></td>
-
-                                        <?php //} ?>
-                                    </tr>
-                                    <?php //} ?> -->
-                                <!-- Public Data -->
-
                                 <?php
                                     if($sql_command2 != ""){
                                         $sql_approve2 = $sql_command2;
@@ -155,22 +130,20 @@
                                     </td>
                                     <?php if($row_approve3["data_report_type"] == 1){ ?>
                                     <td>Report (รายบุคคล)</td>
-                                    <td class="center"><a
-                                            href="head_report_preview.php?id=<?php echo $row_approve3["data_report_id"] ?>"><button
-                                                class="btn btn-outline btn-info " type="button"><i
-                                                    class="fa fa-search"></i></button></a></td>
-                                    <?php }else{ ?>
-                                    <td>Report (บริษัท)</td>
-                                    <td class="center"><a
-                                            href="head_report_preview_company.php?id=<?php echo $row_approve3["data_report_id"] ?>"><button
-                                                class="btn btn-outline btn-info " type="button"><i
-                                                    class="fa fa-search"></i></button></a></td>
-                                    <?php } ?>
+                                        <td class="center"><a
+                                                href="head_report_preview.php?id=<?php echo $row_approve3["data_report_id"] ?>"><button
+                                                    class="btn btn-outline btn-info " type="button"><i
+                                                        class="fa fa-search"></i></button></a></td>
+                                        <?php }else{ ?>
+                                        <td>Report (บริษัท)</td>
+                                        <td class="center"><a
+                                                href="head_report_preview_company.php?id=<?php echo $row_approve3["data_report_id"] ?>"><button
+                                                    class="btn btn-outline btn-info " type="button"><i
+                                                        class="fa fa-search"></i></button></a></td>
+                                        <?php } ?>
                                 </tr>
-                                    <?php }
-                                    // while
-                                    }
-                                    // if  ?>
+                                        <?php } ?> <!-- while -->
+                                        <?php } ?> <!-- if -->
                                 <!-- Report -->
                             </tbody>
                         </table>

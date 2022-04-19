@@ -84,14 +84,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6" id="col_department">
-                                                    <div class="col-sm-1">แผนก</div>
-                                                    <div class="col-sm-8">
-                                                        <select class="form-control" name="department">
-                                                            <? echo Select_Get_Department($condbmc, "SDM");?>
-                                                        </select>
-                                                    </div>
-                                                </div>
+                                                <div id="show_department"></div>
                                             </div>
                                             <br>
 
@@ -216,13 +209,13 @@
                                                     <center> Detail
                                                 </th>
                                                 <th>
-                                                    <center> Check (MGR.up)
+                                                    <center> Database admin
                                                 </th>
                                                 <th>
-                                                    <center> Acknowledge (ED)
+                                                    <center> Checker
                                                 </th>
                                                 <th>
-                                                    <center> Approve (President)
+                                                    <center> Head of Section
                                                 </th>
                                             </tr>
                                         </thead>
@@ -413,8 +406,44 @@
             $('#myTbl > tbody:last').append(tr);
 
             row = ++row;
-        } else {
-            $("#col_department").show();
+        } else {var check = document.getElementById("type_data").value;
+            var data_row = "";
+            if(check == 1){
+                data_row += '<div class="col-md-6" id="col_department_sdm">'
+                data_row += '<div class="col-sm-1">แผนก</div>'
+                data_row += '<div class="col-sm-8">'
+                data_row += '<select class="form-control" name="department">'
+                data_row += '<? echo Select_Get_Department($condbmc, "SDM");?>'
+                data_row += '</select>'
+                data_row += '</div>'
+                data_row += '</div>'
+                $("#show_department").html(data_row);
+
+            }
+            // if 
+            else if(check == 2){
+                data_row += '<div class="col-md-6" id="col_department_sdm">'
+                data_row += '<div class="col-sm-1">แผนก</div>'
+                data_row += '<div class="col-sm-8">'
+                data_row += '<select class="form-control" name="department">'
+                data_row += '<? echo Select_Get_Department($condbmc, "SKD");?>'
+                data_row += '</select>'
+                data_row += '</div>'
+                data_row += '</div>'
+                $("#show_department").html(data_row);
+            }
+            // else if 
+            else if(check == 3){
+                data_row += '<div class="col-md-6" id="col_department_sdm">'
+                data_row += '<div class="col-sm-1">แผนก</div>'
+                data_row += '<div class="col-sm-8">'
+                data_row += '<select class="form-control" name="department">'
+                data_row += '<option value="SDM:SKD">ALL Department</option>'
+                data_row += '</select>'
+                data_row += '</div>'
+                data_row += '</div>'
+                $("#show_department").html(data_row);
+            }
             $('#myTbl').hide();
             $("#addRow").hide();
         }
@@ -422,7 +451,6 @@
     //function select_all() ตารางการโชว์ ซ่อน เมื่อเลือก รายบุคคล
 
     $(document).ready(function() {
-        $("#col_department").hide();
         $('#myTbl').hide();
         $("#addRow").hide();
     });
