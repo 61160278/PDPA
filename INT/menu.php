@@ -10,8 +10,7 @@ include "../Function/function_select.php";
             <li class="nav-header">
                 <div class="dropdown profile-element">
                     <span>
-                        <img alt="image" class="img-circle" src="http://10.73.148.5/DBMC/IMG/emp120/<?echo $_SESSION["
-                            empid_tms"]?>.jpg" />
+                        <img alt="image" class="img-circle" src="../IMG/photo.jpg" />
                     </span>
                     <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">
                                 <?echo $_SESSION["empname_tms"]."&nbsp;&nbsp;".substr($_SESSION["emplast_tms"], 0 ,1)."." ?>

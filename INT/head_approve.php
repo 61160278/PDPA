@@ -250,9 +250,9 @@
                                 </h2>
                             </div>
                             <div class="modal-body">
-                                <label class="font-noraml">Confirm Approve ?</label>
+                                <label class="font-noraml">Confirm Reject ?</label>
                                 <br>
-                                <label class="font-noraml">Please specify the approval</label>
+                                <label class="font-noraml">Please specify the Reject</label>
                                 <textarea type="text" class="form-control" rows="8" name="comment1" id="com" cols="60"
                                     style="resize:none;" required></textarea>
                             </div>
